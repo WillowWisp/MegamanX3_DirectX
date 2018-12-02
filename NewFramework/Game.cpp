@@ -1,0 +1,105 @@
+﻿#include "Game.h"
+
+Game::Game()
+{
+}
+
+
+Game::~Game()
+{
+}
+
+#pragma region Các khai báo cần thiết
+//macros to read the keyboard asynchronously
+#define KEY_DOWN(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
+#define KEY_UP(vk_code)((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
+
+HRESULT result;
+
+//timing variable
+long start = GetTickCount();
+
+//auto device = GameGlobal::d3ddev;
+LPD3DXSPRITE spriteHandler;
+#pragma endregion
+
+LPDIRECT3DSURFACE9 background;
+CSound *backgroundSound;
+
+//Xử lý Init
+void Start() {
+	background = Graphics::LoadSurface((char*)"myBackground.bmp");
+	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
+	//Sound::PlaySound(backgroundSound);
+}
+
+//Hàm này để xử lý logic mỗi frame
+void Update() {
+	Sound::LoopSound(backgroundSound);
+}
+
+//Hàm này để render lên màn hình
+void Render() {
+	//start sprite handler
+	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+
+	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
+
+	//stop drawing
+	spriteHandler->End();
+}
+
+
+int Game::Game_Init(HWND hWnd) {
+	//create sprite handler object
+	result = D3DXCreateSprite(GameGlobal::d3ddev, &GameGlobal::mSpriteHandler);
+	if (result != D3D_OK) {
+		return 0;
+	}
+	spriteHandler = GameGlobal::mSpriteHandler;
+
+	Start();
+
+	//return okay
+	return 1;
+}
+
+void Game::Game_Run(HWND hWnd) {
+	//make sure the Direct3D device is valid
+	if (GameGlobal::d3ddev == NULL) {
+		return;
+	}
+
+	//---UPDATE PER FRAME---
+	if (GetTickCount() - start >= 10) {
+		//reset timing
+		start = GetTickCount();
+
+		Update();
+
+		GameGlobal::d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, RGB(255, 0, 255), 0.0f, 0);
+		//start rendering
+		if (GameGlobal::d3ddev->BeginScene()) {
+
+			Render();
+
+			//stop rendering
+			GameGlobal::d3ddev->EndScene();
+		}
+	}
+	//----------------
+
+
+	//display the back buffer on the screen
+	GameGlobal::d3ddev->Present(NULL, NULL, NULL, NULL);
+
+	//check for escape key (to exit program)
+	if (KEY_DOWN(VK_ESCAPE)) {
+		PostMessage(hWnd, WM_DESTROY, 0, 0);
+	}
+}
+
+void Game::Game_End(HWND hWnd) {
+	//free all
+	GameGlobal::mSpriteHandler->Release();
+}
