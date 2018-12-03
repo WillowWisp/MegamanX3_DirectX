@@ -35,6 +35,9 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Framework\GameComponents\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameGlobal.h">
@@ -54,6 +57,9 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Framework\GameComponents\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Framework\GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

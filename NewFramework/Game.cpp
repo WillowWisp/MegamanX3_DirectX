@@ -25,12 +25,15 @@ LPD3DXSPRITE spriteHandler;
 
 LPDIRECT3DSURFACE9 background;
 CSound *backgroundSound;
+Sprite *sprite;
 
 //Xử lý Init
 void Start() {
 	background = Graphics::LoadSurface((char*)"myBackground.bmp");
 	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
 	//Sound::PlaySound(backgroundSound);
+	sprite = new Sprite((char*)"BomberMan.bmp");
+	sprite->position = D3DXVECTOR3(1, 1, 0);
 }
 
 //Hàm này để xử lý logic mỗi frame
@@ -44,6 +47,10 @@ void Render() {
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
+
+	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+	sprite->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(5, 5), D3DXVECTOR2(150, 150));
+	GameGlobal::mSpriteHandler->End();
 
 	//stop drawing
 	spriteHandler->End();

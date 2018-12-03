@@ -25,6 +25,7 @@
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="Sprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dsutil.cpp" />
@@ -33,6 +34,7 @@
     <ClCompile Include="GameGlobal.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
