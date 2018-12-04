@@ -19,29 +19,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxutil.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Megaman.h" />
+    <ClInclude Include="MObject.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Sun.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="dsutil.cpp" />
     <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameGlobal.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Megaman.cpp" />
+    <ClCompile Include="MObject.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Sun.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B427AB71-CBFF-4856-AA4D-2BC72FB2DE47}</ProjectGuid>
     <RootNamespace>NewFramework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -89,8 +99,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;D:\TaiLieu\Projects\NhapMonGame\Sandbox\NewFramework\Sound library;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;D:\TaiLieu\Projects\NhapMonGame\Sandbox\NewFramework\Sound library;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;D:\Projects\Megaman X3\MegamanX3_DirectX\NewFramework\Sound library;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;D:\Projects\Megaman X3\MegamanX3_DirectX\NewFramework\Sound library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;D:\TaiLieu\Projects\Github\NhapMonGame\MegamanX3_DirectX\NewFramework\Sound library;$(IncludePath)</IncludePath>
