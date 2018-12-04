@@ -6,6 +6,9 @@
 #include "Graphics.h"
 #include "Sound.h"
 #include "Sprite.h"
+#include"SceneManager.h"
+#include"Scene.h"
+#include"DemoScene.h"
 
 class Game
 {

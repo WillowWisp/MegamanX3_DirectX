@@ -14,6 +14,12 @@
     <Filter Include="Framework\GameComponents\Sound">
       <UniqueIdentifier>{8892acc9-ef95-470d-b971-464ffd6b70a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\GameController">
+      <UniqueIdentifier>{808640a2-7494-4794-b22e-5bc20de7c0b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scenes">
+      <UniqueIdentifier>{72993790-d844-43b0-8d43-7829e52aa78e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameGlobal.cpp">
@@ -38,6 +44,13 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Framework\GameController</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameGlobal.h">
@@ -61,5 +74,12 @@
     <ClInclude Include="Sprite.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Framework\GameController</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoScene.h" />
   </ItemGroup>
 </Project>
