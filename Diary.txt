@@ -1,0 +1,13 @@
+4/12/2018
+update scene và scene manager
+trong đó
+* lớp scene manager dùng để quản lý các scene
+vì là lớp quản lý nên lớp scene manager sẽ gồm các hàm cơ bản
++replace scene() // dùng để thay thế scene
++get scene() // get scene hiện tại -> thông qua hàm này để gọi các hàm update,render,start (initialize scene)
+
+*lớp scene // lớp cha cho tất cả các scene
++start() // khởi tạo
++update() // xử lý update theo thời gian thực
++draw() // vẽ các obj trong scene
+lớp demoscene kế thừa từ scene
