@@ -19,6 +19,12 @@ void DemoScene::Start()
 void DemoScene::Update()
 {
 	Sound::LoopSound(backgroundSound);
+	//test for update game
+	sprite->position= D3DXVECTOR3(sprite->position.x+5, 1, 0);
+
+	if(sprite->position.x>=GameGlobal::wndWidth-sprite->width)
+		sprite->position= D3DXVECTOR3(1, 1, 0);
+
 }
 
 void DemoScene::Render()
