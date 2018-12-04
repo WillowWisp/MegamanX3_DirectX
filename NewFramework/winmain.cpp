@@ -2,6 +2,7 @@
 #include "GameGlobal.h"
 #include "Graphics.h"
 #include "Game.h"
+#include "Input.h"
 
 
 LRESULT WINAPI WinProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -80,10 +81,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	UpdateWindow(hWnd);
 
 	if (!Graphics::Init_Direct3D(hWnd, GameGlobal::wndWidth, GameGlobal::wndHeight)) {
+		MessageBox(hWnd, "Error initializing Direct3D", "Error", MB_OK);
 		return 0;
 	}
 
 	if (!Sound::Init_DirectSound(hWnd)) {
+		MessageBox(hWnd, "Error initializing DirectSound", "Error", MB_OK);
+		return 0;
+	}
+
+	if (!Input::Init_DirectInput(hWnd)) {
+		MessageBox(hWnd, "Error initializing DirectInput", "Error", MB_OK);
 		return 0;
 	}
 

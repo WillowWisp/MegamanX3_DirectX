@@ -33,24 +33,31 @@ void Start() {
 	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
 	//Sound::PlaySound(backgroundSound);
 	sprite = new Sprite((char*)"BomberMan.bmp");
-	sprite->position = D3DXVECTOR3(1, 1, 0);
+	sprite->position = D3DXVECTOR3(150, 150, 0);
+	sprite->scale = D3DXVECTOR2(3, 3);
 }
 
 //Hàm này để xử lý logic mỗi frame
 void Update() {
 	Sound::LoopSound(backgroundSound);
+
+	D3DXVECTOR2 moveVector, combinedVector;
+	if (Input::KeyDown(DIK_A)) {
+		sprite->position.x -= 3;
+	}
+	if (Input::KeyDown(DIK_D)) {
+		sprite->position.x += 3;
+	}
 }
 
 //Hàm này để render lên màn hình
 void Render() {
+	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
+
 	//start sprite handler
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
-
-	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	sprite->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(5, 5), D3DXVECTOR2(150, 150));
-	GameGlobal::mSpriteHandler->End();
+	sprite->Draw();
 
 	//stop drawing
 	spriteHandler->End();
@@ -58,6 +65,18 @@ void Render() {
 
 
 int Game::Game_Init(HWND hWnd) {
+	//init keyboard
+	if (!Input::InitKeyboard(hWnd)) {
+		MessageBox(hWnd, "Error initializing the keyboard", "Error", MB_OK);
+		return 0;
+	}
+
+	//init mouse
+	if (!Input::InitMouse(hWnd)) {
+		MessageBox(hWnd, "Error initializing the mouse", "Error", MB_OK);
+		return 0;
+	}
+
 	//create sprite handler object
 	result = D3DXCreateSprite(GameGlobal::d3ddev, &GameGlobal::mSpriteHandler);
 	if (result != D3D_OK) {
@@ -76,6 +95,10 @@ void Game::Game_Run(HWND hWnd) {
 	if (GameGlobal::d3ddev == NULL) {
 		return;
 	}
+
+	//update mouse & keyboard
+	Input::PollMouse();
+	Input::PollKeyboard();
 
 	//---UPDATE PER FRAME---
 	if (GetTickCount() - start >= 10) {
