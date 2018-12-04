@@ -26,6 +26,7 @@ LPD3DXSPRITE spriteHandler;
 LPDIRECT3DSURFACE9 background;
 CSound *backgroundSound;
 Sprite *sprite;
+GameMap *map;
 
 //Xử lý Init
 void Start() {
@@ -35,6 +36,8 @@ void Start() {
 	sprite = new Sprite((char*)"BomberMan.bmp");
 	sprite->position = D3DXVECTOR3(150, 150, 0);
 	sprite->scale = D3DXVECTOR2(3, 3);
+
+	map = new GameMap((char*)"Resources/untitled.tmx");
 }
 
 //Hàm này để xử lý logic mỗi frame
@@ -58,6 +61,7 @@ void Render() {
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 	sprite->Draw();
+	map->Draw();
 
 	//stop drawing
 	spriteHandler->End();

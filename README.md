@@ -8,6 +8,10 @@ dinput8.lib
 dxguid.lib
 winmm.lib
 dxerr.lib
+zlib.lib
 
 # Preprocessor Definitions
 _CRT_SECURE_NO_WARNINGS
+
+# Calling Convention
+C/C++ => Advanced => Calling Convention => _stdcall

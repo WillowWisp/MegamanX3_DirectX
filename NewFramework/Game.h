@@ -7,6 +7,7 @@
 #include "Sound.h"
 #include "Sprite.h"
 #include "Input.h"
+#include "GameMap.h"
 
 class Game
 {
