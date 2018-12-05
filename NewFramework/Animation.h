@@ -10,8 +10,8 @@ public:
 	~Animation();
 
 	//function prototypes
-	void nextFrame(int); // set curfrfame bằng frame kế tiếp trong animation
-	void animate(D3DXMATRIX); // chọn frame và draw
+	void NextFrame(int); // set curfrfame bằng frame kế tiếp trong animation
+	void Animate(D3DXMATRIX); // chọn frame và draw
 
 	//
 	int totalFrameCount;

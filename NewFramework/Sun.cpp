@@ -12,19 +12,19 @@ Sun::Sun(int X, int Y)
 
 	char s[50];
 	for (int i = 0; i < 6; i++) {
-		sprintf_s(s, "sprites/sun/%d.png", i);
+		sprintf_s(s, "sprites/sun/%d.bmp", i);
 		anim->sprite[i] = new Sprite(s);
 	}
 
 }
 
-void Sun::update()
+void Sun::Update()
 {
 	if (dirUp == 1)
 	{
 		if (y >= 100)
 		{
-			changeDirVertical();
+			ChangeDirVertical();
 		}
 		else
 		{
@@ -35,7 +35,7 @@ void Sun::update()
 	{
 		if (y <= 0)
 		{
-			changeDirVertical();
+			ChangeDirVertical();
 		}
 		else
 		{
@@ -47,5 +47,5 @@ void Sun::update()
 	D3DXVECTOR2 scale = D3DXVECTOR2(2, 2 * -dirUp);
 	D3DXMatrixTransformation2D(&matrix, NULL, 0, &scale, NULL,
 		NULL, &translation);
-	MObject::update();
+	MObject::Update();
 }

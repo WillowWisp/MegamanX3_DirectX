@@ -59,8 +59,8 @@ void Render() {
 	sprite->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(5, 5), D3DXVECTOR2(150, 150));
 	//sprite->Draw(D3DXVECTOR3());
 
-	sun->update();
-	megaman->update();
+	sun->Update();
+	megaman->Update();
 
 	GameGlobal::mSpriteHandler->End();
 

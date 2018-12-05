@@ -13,7 +13,7 @@ Animation::Animation(int count, int begin, int end, int delay)
 	sprite = new Sprite*[count];
 }
 
-void Animation::nextFrame(int newframe)
+void Animation::NextFrame(int newframe)
 {
 	if (newframe > endframe || newframe < beginframe) {
 		//state changed or out of frame range
@@ -24,11 +24,11 @@ void Animation::nextFrame(int newframe)
 	}
 }
 
-void Animation::animate(D3DXMATRIX _matrix)
+void Animation::Animate(D3DXMATRIX _matrix)
 {
 	if (animcount > animdelay) {
 		animcount = 0;
-		nextFrame(curframe + 1);
+		NextFrame(curframe + 1);
 	}
 	else {
 		animcount++;

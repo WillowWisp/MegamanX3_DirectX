@@ -8,7 +8,7 @@ MObject::MObject()
 	//imageCount = 1;
 }
 
-void MObject::setAnimState(int begin, int end, int delay)
+void MObject::SetAnimState(int begin, int end, int delay)
 {
 	//spriteState = new Sprite(begin, end, delay);
 	anim->beginframe = begin;
@@ -18,32 +18,32 @@ void MObject::setAnimState(int begin, int end, int delay)
 	anim->curframe = begin;
 }
 
-void MObject::update()
+void MObject::Update()
 {
-	anim->animate(matrix);
+	anim->Animate(matrix);
 }
 
-bool MObject::stateChanged(int newState)
+bool MObject::StateChanged(int newState)
 {
 	return newState != state;
 }
 
-bool MObject::horizontalDirChanged(int newDir)
+bool MObject::HorizontalDirChanged(int newDir)
 {
 	return newDir != dirRight;
 }
 
-bool MObject::verticalDirChanged(int newDir)
+bool MObject::VerticalDirChanged(int newDir)
 {
 	return newDir != dirUp;
 }
 
-void MObject::changeDirHorizontal()
+void MObject::ChangeDirHorizontal()
 {
 	dirRight *= -1;
 }
 
-void MObject::changeDirVertical()
+void MObject::ChangeDirVertical()
 {
 	dirUp *= -1;
 }

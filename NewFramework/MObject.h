@@ -12,13 +12,13 @@ public:
 	~MObject();
 
 	//function prototypes
-	void setAnimState(int, int, int); //set chỉ số frame đầu và frame cuối của animation
-	void update();
-	bool stateChanged(int);
-	bool horizontalDirChanged(int);
-	bool verticalDirChanged(int);
-	void changeDirHorizontal(); //đổi hướng theo chiều ngang
-	void changeDirVertical(); //đổi huowgns theo chiều dọc
+	void SetAnimState(int, int, int); //set chỉ số frame đầu và frame cuối của animation
+	void Update();
+	bool StateChanged(int);
+	bool HorizontalDirChanged(int);
+	bool VerticalDirChanged(int);
+	void ChangeDirHorizontal(); //đổi hướng theo chiều ngang
+	void ChangeDirVertical(); //đổi huowgns theo chiều dọc
 
 	//
 

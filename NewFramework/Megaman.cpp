@@ -1,7 +1,5 @@
 #include "Megaman.h"
 
-#define _CRT_SECURE_NO_WARNINGS
-
 Megaman::Megaman()
 {
 	x = 100;
@@ -19,7 +17,7 @@ Megaman::Megaman()
 		sprintf_s(s, "sprites/megaman/%d.png", i);
 		anim->sprite[i] = new Sprite(s);
 	}
-	setState(STATE_IDLE);
+	SetState(STATE_IDLE);
 }
 
 
@@ -27,79 +25,79 @@ Megaman::~Megaman()
 {
 }
 
-void Megaman::setState(int newState)
+void Megaman::SetState(int newState)
 {
 	state = newState;
 	switch (newState)
 	{
 	case STATE_IDLE:
-		setAnimState(7, 9, ANIM_DELAY + 10);
+		SetAnimState(7, 9, ANIM_DELAY + 10);
 		break;
 	case STATE_RUNNING:
-		setAnimState(13, 23, ANIM_DELAY);
+		SetAnimState(13, 23, ANIM_DELAY);
 		break;
 	case STATE_SHOOTING:
-		setAnimState(11, 12, ANIM_DELAY);
+		SetAnimState(11, 12, ANIM_DELAY);
 		break;
 	case STATE_RUNNING_N_SHOOTING:
-		setAnimState(24, 33, ANIM_DELAY);
+		SetAnimState(24, 33, ANIM_DELAY);
 		break;
 	default:
-		setAnimState(7, 10, ANIM_DELAY);
+		SetAnimState(7, 10, ANIM_DELAY);
 		break;
 	}
 }
 
-void Megaman::update()
+void Megaman::Update()
 {
 	if (Key_Down(DIK_Z) && !(Key_Down(DIK_LEFT) || ((Key_Down(DIK_RIGHT))))) {
-		if (stateChanged(STATE_SHOOTING))
-			setState(STATE_SHOOTING);
+		if (StateChanged(STATE_SHOOTING))
+			SetState(STATE_SHOOTING);
 	}
 	else if (Key_Down(DIK_Z) && Key_Down(DIK_LEFT)) {
-		if (stateChanged(STATE_RUNNING_N_SHOOTING))
-			setState(STATE_RUNNING_N_SHOOTING);
+		if (StateChanged(STATE_RUNNING_N_SHOOTING))
+			SetState(STATE_RUNNING_N_SHOOTING);
 
 		x -= MEGAMAN_SPEED;
 
-		if (horizontalDirChanged(-1))
-			changeDirHorizontal();
+		if (HorizontalDirChanged(-1))
+			ChangeDirHorizontal();
 	}
 	else if (Key_Down(DIK_Z) && Key_Down(DIK_RIGHT)) {
-		if (stateChanged(STATE_RUNNING_N_SHOOTING))
-			setState(STATE_RUNNING_N_SHOOTING);
+		if (StateChanged(STATE_RUNNING_N_SHOOTING))
+			SetState(STATE_RUNNING_N_SHOOTING);
 
 		x += MEGAMAN_SPEED;
 
-		if (horizontalDirChanged(1))
-			changeDirHorizontal();
+		if (HorizontalDirChanged(1))
+			ChangeDirHorizontal();
 	}
 	else if (Key_Down(DIK_LEFT)) {
-		if (stateChanged(STATE_RUNNING))
-			setState(STATE_RUNNING);
+		if (StateChanged(STATE_RUNNING))
+			SetState(STATE_RUNNING);
 
 		x -= MEGAMAN_SPEED;
 
-		if (horizontalDirChanged(-1))
-			changeDirHorizontal();
+		if (HorizontalDirChanged(-1))
+			ChangeDirHorizontal();
 	}
 	else if (Key_Down(DIK_RIGHT)) {
-		if (stateChanged(STATE_RUNNING))
-			setState(STATE_RUNNING);
+		if (StateChanged(STATE_RUNNING))
+			SetState(STATE_RUNNING);
 
 		x += MEGAMAN_SPEED;
 
-		if (horizontalDirChanged(1))
-			changeDirHorizontal();
+		if (HorizontalDirChanged(1))
+			ChangeDirHorizontal();
 	}
 	else {
-		if (stateChanged(STATE_IDLE))
-			setState(STATE_IDLE);
+		if (StateChanged(STATE_IDLE))
+			SetState(STATE_IDLE);
 	}
 
 	D3DXVECTOR2 translation = D3DXVECTOR2(x, y);
 	D3DXVECTOR2 scale = D3DXVECTOR2(2 * dirRight, 2);
 	D3DXMatrixTransformation2D(&matrix, NULL, 0, &scale, NULL,
 		NULL, &translation);
-	MObject::update();
+	MObject::Update();
 }

@@ -18,7 +18,7 @@ public:
 	~Megaman();
 
 	//
-	void setState(int);
-	void update();
+	void SetState(int);
+	void Update();
 };
 

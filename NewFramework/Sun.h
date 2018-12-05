@@ -10,6 +10,6 @@ public:
 	~Sun();
 
 	//
-	void update();
+	void Update();
 };
 
