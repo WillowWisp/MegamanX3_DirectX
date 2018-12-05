@@ -122,6 +122,7 @@ void Sprite::Draw(D3DXVECTOR3 _position, RECT _sourceRect, D3DXVECTOR2 _scale, D
 	GameGlobal::mSpriteHandler->SetTransform(&matrix);
 
 	D3DXVECTOR3 center = D3DXVECTOR3(width / 2, height / 2, 0);
+	//D3DXVECTOR3 center = D3DXVECTOR3(width / 2, 17, 0);
 
 	GameGlobal::mSpriteHandler->Draw(texture,
 		&inSourceRect,

@@ -4,7 +4,7 @@
 class Animation
 {
 public:
-	Animation(int count = 1, int begin = 0, int end = 0, int delay = 5);
+	Animation(int count = 1, int begin = 0, int end = 0, int delay = 1);
 	//Animation(int, int);
 	//Animation(int, int, int);
 	~Animation();

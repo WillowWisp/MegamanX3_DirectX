@@ -47,7 +47,7 @@ void Start() {
 
 //Hàm này để xử lý logic mỗi frame
 void Update() {
-	Sound::LoopSound(backgroundSound);
+	//Sound::LoopSound(backgroundSound);
 }
 
 //Hàm này để render lên màn hình
@@ -110,7 +110,7 @@ void Game::Game_Run(HWND hWnd) {
 	Input::PollKeyboard();
 
 	//---UPDATE PER FRAME---
-	if (GetTickCount() - start >= 10) {
+	if (GetTickCount() - start >= UPDATE_RATE) {
 		//reset timing
 		start = GetTickCount();
 
