@@ -19,5 +19,7 @@ public:
 
 	GameGlobal();
 	~GameGlobal();
+
+	static bool IsIntersect(RECT rect1, RECT rect2);
 };
 
