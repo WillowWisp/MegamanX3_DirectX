@@ -28,6 +28,7 @@ LPD3DXSPRITE spriteHandler;
 LPDIRECT3DSURFACE9 background;
 CSound *backgroundSound;
 Sprite *sprite;
+GameMap *map;
 
 Sun* sun;
 Megaman* megaman;
@@ -46,11 +47,13 @@ void Start() {
 
 //Hàm này để xử lý logic mỗi frame
 void Update() {
-	//Sound::LoopSound(backgroundSound);
+	Sound::LoopSound(backgroundSound);
 }
 
 //Hàm này để render lên màn hình
 void Render() {
+	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
+
 	//start sprite handler
 	//spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
@@ -70,10 +73,17 @@ void Render() {
 
 
 int Game::Game_Init(HWND hWnd) {
-	//branch
-	Init_DirectInput(hWnd);
-	Init_Keyboard(hWnd);
-	Init_Mouse(hWnd);
+	//init keyboard
+	if (!Input::InitKeyboard(hWnd)) {
+		MessageBox(hWnd, "Error initializing the keyboard", "Error", MB_OK);
+		return 0;
+	}
+
+	//init mouse
+	if (!Input::InitMouse(hWnd)) {
+		MessageBox(hWnd, "Error initializing the mouse", "Error", MB_OK);
+		return 0;
+	}
 
 	//create sprite handler object
 	
@@ -95,9 +105,9 @@ void Game::Game_Run(HWND hWnd) {
 		return;
 	}
 
-	//poll DirectInput devices
-	Poll_Keyboard();
-	Poll_Mouse();
+	//update mouse & keyboard
+	Input::PollMouse();
+	Input::PollKeyboard();
 
 	//---UPDATE PER FRAME---
 	if (GetTickCount() - start >= 10) {

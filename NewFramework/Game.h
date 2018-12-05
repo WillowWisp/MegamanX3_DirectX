@@ -6,6 +6,8 @@
 #include "Graphics.h"
 #include "Sound.h"
 #include "Sprite.h"
+#include "Input.h"
+#include "GameMap.h"
 #include"SceneManager.h"
 #include"Scene.h"
 #include"DemoScene.h"
