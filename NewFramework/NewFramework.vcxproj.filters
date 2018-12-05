@@ -14,6 +14,11 @@
     <Filter Include="Framework\GameComponents\Sound">
       <UniqueIdentifier>{8892acc9-ef95-470d-b971-464ffd6b70a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\GameController">
+      <UniqueIdentifier>{808640a2-7494-4794-b22e-5bc20de7c0b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scenes">
+      <UniqueIdentifier>{72993790-d844-43b0-8d43-7829e52aa78e}</UniqueIdentifier>
     <Filter Include="Framework\GameObjects">
       <UniqueIdentifier>{4a3a8ab1-a320-4526-ab70-0b9a30c5aad6}</UniqueIdentifier>
     </Filter>
@@ -47,6 +52,14 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Framework\GameController</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoScene.cpp">
+      <Filter>Framework\Scenes</Filter>
     <ClCompile Include="Animation.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
@@ -55,9 +68,6 @@
     </ClCompile>
     <ClCompile Include="Sun.cpp">
       <Filter>Framework\GameObjects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Framework\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Megaman.cpp">
       <Filter>Framework\GameObjects\Megaman</Filter>
@@ -85,6 +95,14 @@
     <ClInclude Include="Sprite.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Framework\GameController</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoScene.h">
+      <Filter>Framework\Scenes</Filter>
     <ClInclude Include="Animation.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
@@ -93,9 +111,6 @@
     </ClInclude>
     <ClInclude Include="Sun.h">
       <Filter>Framework\GameObjects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Megaman.h">
       <Filter>Framework\GameObjects\Megaman</Filter>
