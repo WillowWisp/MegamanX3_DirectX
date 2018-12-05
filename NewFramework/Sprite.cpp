@@ -2,11 +2,13 @@
 
 Sprite::Sprite()
 {
+	//anim = new Animation();
 }
 
 
 Sprite::~Sprite()
 {
+	//delete anim;
 }
 
 Sprite::Sprite(const char* _filePath, RECT _sourceRect, int _width, int _height, D3DCOLOR _colorKey) {
@@ -79,7 +81,7 @@ void Sprite::InitWithSprite(const char* _filePath, RECT _sourceRect, int _width,
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		_colorKey,
+		D3DCOLOR_XRGB(255, 0, 255),
 		&imageInfo,
 		NULL,
 		&texture);
@@ -130,6 +132,22 @@ void Sprite::Draw(D3DXVECTOR3 _position, RECT _sourceRect, D3DXVECTOR2 _scale, D
 	GameGlobal::mSpriteHandler->SetTransform(&oldMatrix); // set lai matrix cu~ de Sprite chi ap dung transfrom voi class nay
 }
 
+void Sprite::Draw(D3DXMATRIX _matrix) {
+	D3DXMATRIX oldMatrix;
+	GameGlobal::mSpriteHandler->GetTransform(&oldMatrix);
+	GameGlobal::mSpriteHandler->SetTransform(&_matrix);
+
+	D3DXVECTOR3 center = D3DXVECTOR3(width / 2, height / 2, 0);
+
+	GameGlobal::mSpriteHandler->Draw(texture,
+		NULL,
+		&center,
+		NULL,
+		D3DCOLOR_ARGB(255, 255, 255, 255)); // nhung pixel nao co mau trang se duoc to mau nay len
+
+	GameGlobal::mSpriteHandler->SetTransform(&oldMatrix); // set lai matrix cu~ de Sprite chi ap dung transfrom voi class nay
+}
+
 void Sprite::FlipVertical() {
 	scale = D3DXVECTOR2(-scale.x, scale.y);
 	isFlipVertical = !isFlipVertical;
@@ -138,3 +156,15 @@ void Sprite::FlipHorizontal() {
 	scale = D3DXVECTOR2(scale.x, -scale.y);
 	isFlipHorizontal = !isFlipHorizontal;
 }
+//
+//void Sprite::drawCurFrame() {
+//	anim->animate();
+//}
+//
+//void Sprite::setAnimState(int begin, int end, int delay) {
+//	anim->beginframe = begin;
+//	anim->endframe = end;
+//	anim->animdelay = delay;
+//	anim->animcount = 0;
+//	anim->curframe = begin;
+//}

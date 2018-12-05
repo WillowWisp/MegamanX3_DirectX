@@ -8,6 +8,11 @@
 #include "Sprite.h"
 #include "Input.h"
 #include "GameMap.h"
+#include"SceneManager.h"
+#include"Scene.h"
+#include"DemoScene.h"
+#include "Sun.h"
+#include "Megaman.h"
 
 class Game
 {
