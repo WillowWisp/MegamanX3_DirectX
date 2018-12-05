@@ -10,6 +10,7 @@
 #define STATE_FALLING 5
 #define STATE_DASHING 6
 #define STATE_DASHING_N_SHOOTING 7
+#define STATE_JUMPING_N_SHOOTING 8
 #define ANIM_DELAY 1
 #define MEGAMAN_SPEED 5
 #define DASH_SPEED 10
@@ -26,6 +27,9 @@ public:
 	~Megaman();
 
 	//
+	bool jumpHold;
+	bool dashHold;
+	bool moving;
 
 	//
 	void SetState(int);
