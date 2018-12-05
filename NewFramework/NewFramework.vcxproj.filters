@@ -110,6 +110,9 @@
     <ClCompile Include="MapReader\TmxUtil.cpp">
       <Filter>Framework\MapReader</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -228,6 +231,9 @@
     </ClInclude>
     <ClInclude Include="MapReader\zconf.h">
       <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Framework\GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

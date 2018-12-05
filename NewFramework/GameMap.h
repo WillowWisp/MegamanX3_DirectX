@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "./MapReader/Tmx.h.in"
 #include "GameGlobal.h"
+#include "Camera.h"
 
 class GameMap
 {
@@ -17,6 +18,7 @@ class GameMap
 	mymap["a"] = 0;
 	mymap["b"] = 3;
 	*/
+	Camera *camera;
 
 	void LoadMap(char* filePath);
 public:
@@ -31,6 +33,8 @@ public:
 	int GetHeight();
 	int GetTileWidth();
 	int GetTileHeight();
+
+	void SetCamera(Camera *_camera);
 
 	void Draw();
 };

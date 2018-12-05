@@ -1,4 +1,5 @@
-4/12/2018
+﻿4/12/2018
+==Scene & SceneManager (Thắng Lê)
 update scene và scene manager
 trong đó
 * lớp scene manager dùng để quản lý các scene
@@ -11,3 +12,19 @@ vì là lớp quản lý nên lớp scene manager sẽ gồm các hàm cơ bản
 +update() // xử lý update theo thời gian thực
 +draw() // vẽ các obj trong scene
 lớp demoscene kế thừa từ scene
+
+5/12/2018
+==Camera (Thắng Nguyễn)
+Các lưu ý:
+*Trong hàm Start()
+- Khởi tạo camera: camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
+- Set position góc dưới trái map: camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+- Phải set camera cho map: map->SetCamera(camera)
+
+*Trong hàm Update()
+- Cho camera di chuyển tùy thích bằng cách set position
+
+*Trong hàm Render()
+- Gọi map->Draw()
+- Bất cứ vật nào cần đứng yên trên map (ko di chuyển theo cam) thì set translate bằng vector sau:
+	D3DXVECTOR2(GameGlobal::wndWidth / 2 - camera->position.x, GameGlobal::wndHeight / 2 - camera->position.y);

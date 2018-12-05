@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="dsutil.h" />
@@ -60,6 +61,7 @@
     <ClInclude Include="Sun.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="dsutil.cpp" />

@@ -13,6 +13,7 @@
 #include"DemoScene.h"
 #include "Sun.h"
 #include "Megaman.h"
+#include "Camera.h"
 
 class Game
 {

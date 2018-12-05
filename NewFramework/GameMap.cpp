@@ -64,8 +64,15 @@ int GameMap::GetTileHeight()
 	return map->GetTileHeight();
 }
 
+void GameMap::SetCamera(Camera *_camera)
+{
+	this->camera = _camera;
+}
+
 void GameMap::Draw()
 {
+	D3DXVECTOR2 translate = D3DXVECTOR2(GameGlobal::wndWidth / 2 - camera->position.x, GameGlobal::wndHeight / 2 - camera->position.y);
+
 	for (int i = 0; i < map->GetNumTileLayers(); i++)
 	{
 		const Tmx::TileLayer *layer = map->GetTileLayer(i);
@@ -108,10 +115,24 @@ void GameMap::Draw()
 
 					D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
 
+					//Xét xem nếu tile mà nằm trong khung camera thì mới vẽ
+					if (camera != NULL) {
+						RECT tileRect;
+						tileRect.left = position.x - tileWidth / 2;
+						tileRect.top = position.y - tileHeight / 2;
+						tileRect.right = tileRect.left + tileWidth;
+						tileRect.bottom = tileRect.top + tileHeight;
+
+						//nằm ngoài thì ko vẽ
+						if (!GameGlobal::IsIntersect(tileRect, camera->GetBound())) {
+							continue;
+						}
+					}
+
 					sprite->width = tileWidth;
 					sprite->height = tileHeight;
 
-					sprite->Draw(position, sourceRECT);
+					sprite->Draw(position, sourceRECT, D3DXVECTOR2(), translate);
 				}
 			}
 		}
