@@ -19,6 +19,14 @@
     </Filter>
     <Filter Include="Framework\Scenes">
       <UniqueIdentifier>{72993790-d844-43b0-8d43-7829e52aa78e}</UniqueIdentifier>
+    <Filter Include="Framework\GameObjects">
+      <UniqueIdentifier>{4a3a8ab1-a320-4526-ab70-0b9a30c5aad6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameObjects\Megaman">
+      <UniqueIdentifier>{b4438f8d-7d4c-42e9-8320-c812891c278f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameObjects\Enemies">
+      <UniqueIdentifier>{4466fcb1-27d4-4939-a2d9-be3477c91b31}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +60,17 @@
     </ClCompile>
     <ClCompile Include="DemoScene.cpp">
       <Filter>Framework\Scenes</Filter>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="MObject.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Sun.cpp">
+      <Filter>Framework\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Megaman.cpp">
+      <Filter>Framework\GameObjects\Megaman</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +103,17 @@
     </ClInclude>
     <ClInclude Include="DemoScene.h">
       <Filter>Framework\Scenes</Filter>
+    <ClInclude Include="Animation.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="MObject.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Sun.h">
+      <Filter>Framework\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Megaman.h">
+      <Filter>Framework\GameObjects\Megaman</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
