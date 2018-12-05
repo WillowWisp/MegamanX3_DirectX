@@ -50,11 +50,11 @@ void Megaman::SetState(int newState)
 
 void Megaman::Update()
 {
-	if (Key_Down(DIK_Z) && !(Key_Down(DIK_LEFT) || ((Key_Down(DIK_RIGHT))))) {
+	if (Input::KeyDown(DIK_Z) && !(Input::KeyDown(DIK_LEFT) || ((Input::KeyDown(DIK_RIGHT))))) {
 		if (StateChanged(STATE_SHOOTING))
 			SetState(STATE_SHOOTING);
 	}
-	else if (Key_Down(DIK_Z) && Key_Down(DIK_LEFT)) {
+	else if (Input::KeyDown(DIK_Z) && Input::KeyDown(DIK_LEFT)) {
 		if (StateChanged(STATE_RUNNING_N_SHOOTING))
 			SetState(STATE_RUNNING_N_SHOOTING);
 
@@ -63,7 +63,7 @@ void Megaman::Update()
 		if (HorizontalDirChanged(-1))
 			ChangeDirHorizontal();
 	}
-	else if (Key_Down(DIK_Z) && Key_Down(DIK_RIGHT)) {
+	else if (Input::KeyDown(DIK_Z) && Input::KeyDown(DIK_RIGHT)) {
 		if (StateChanged(STATE_RUNNING_N_SHOOTING))
 			SetState(STATE_RUNNING_N_SHOOTING);
 
@@ -72,7 +72,7 @@ void Megaman::Update()
 		if (HorizontalDirChanged(1))
 			ChangeDirHorizontal();
 	}
-	else if (Key_Down(DIK_LEFT)) {
+	else if (Input::KeyDown(DIK_LEFT)) {
 		if (StateChanged(STATE_RUNNING))
 			SetState(STATE_RUNNING);
 
@@ -81,7 +81,7 @@ void Megaman::Update()
 		if (HorizontalDirChanged(-1))
 			ChangeDirHorizontal();
 	}
-	else if (Key_Down(DIK_RIGHT)) {
+	else if (Input::KeyDown(DIK_RIGHT)) {
 		if (StateChanged(STATE_RUNNING))
 			SetState(STATE_RUNNING);
 
