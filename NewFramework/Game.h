@@ -14,7 +14,7 @@
 #include "Sun.h"
 #include "Megaman.h"
 
-#define UPDATE_RATE 10 
+#define UPDATE_RATE 10
 
 class Game
 {

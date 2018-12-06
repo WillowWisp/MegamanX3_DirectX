@@ -31,6 +31,7 @@ Sprite *sprite;
 GameMap *map;
 
 Sun* sun;
+Sun* sun2;
 Megaman* megaman;
 
 //Xử lý Init
@@ -41,7 +42,8 @@ void Start() {
 	sprite = new Sprite((char*)"BomberMan.bmp");
 	sprite->position = D3DXVECTOR3(300, 300, 0);
 
-	sun = new Sun(100, 100);
+	sun = new Sun(50, 100);
+	sun2 = new Sun(700, 100);
 	megaman = new Megaman();
 }
 
@@ -59,10 +61,11 @@ void Render() {
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
 
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	sprite->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(5, 5), D3DXVECTOR2(150, 150));
+	sprite->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(50, 5), D3DXVECTOR2(150, 150));
 	//sprite->Draw(D3DXVECTOR3());
 
 	sun->Update();
+	sun2->Update();
 	megaman->Update();
 
 	GameGlobal::mSpriteHandler->End();
