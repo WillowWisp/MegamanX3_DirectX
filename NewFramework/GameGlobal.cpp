@@ -28,3 +28,12 @@ bool GameGlobal::IsIntersect(RECT rect1, RECT rect2) {
 
 	return true;
 }
+
+bool GameGlobal::IsContain(RECT container, RECT rect) {
+	if (rect.left >= container.left && rect.right <= container.right && rect.top >= container.top && rect.bottom <= container.bottom)
+	{
+		return true;
+	}
+
+	return false;
+}

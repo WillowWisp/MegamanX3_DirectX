@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="dsutil.h" />
@@ -52,6 +53,7 @@
     <ClInclude Include="MapReader\TmxUtil.h" />
     <ClInclude Include="MapReader\zconf.h" />
     <ClInclude Include="MapReader\zlib.h" />
+    <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Megaman.h" />
@@ -62,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="dsutil.cpp" />
@@ -91,6 +94,7 @@
     <ClCompile Include="MapReader\TmxTileOffset.cpp" />
     <ClCompile Include="MapReader\TmxTileset.cpp" />
     <ClCompile Include="MapReader\TmxUtil.cpp" />
+    <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Megaman.cpp" />

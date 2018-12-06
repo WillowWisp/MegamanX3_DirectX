@@ -21,5 +21,6 @@ public:
 	~GameGlobal();
 
 	static bool IsIntersect(RECT rect1, RECT rect2);
+	static bool IsContain(RECT container, RECT rect);
 };
 

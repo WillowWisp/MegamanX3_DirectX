@@ -6,6 +6,9 @@ MObject::MObject()
 {
 	state = 0;
 	//imageCount = 1;
+
+	//width = anim->sprite[anim->curframe]->width;
+	//height = anim->sprite[anim->curframe]->height;
 }
 
 void MObject::SetAnimState(int begin, int end, int delay)
@@ -46,6 +49,17 @@ void MObject::ChangeDirHorizontal()
 void MObject::ChangeDirVertical()
 {
 	dirUp *= -1;
+}
+
+RECT MObject::GetRect() {
+	RECT bound;
+
+	bound.left = x - width / 2;
+	bound.right = x + width / 2;
+	bound.top = y - height / 2;
+	bound.bottom = y + height / 2;
+
+	return bound;
 }
 
 MObject::~MObject()

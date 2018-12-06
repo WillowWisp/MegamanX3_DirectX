@@ -20,9 +20,13 @@ public:
 	void ChangeDirHorizontal(); //đổi hướng theo chiều ngang
 	void ChangeDirVertical(); //đổi huowgns theo chiều dọc
 
+	RECT GetRect();
+
 	//
 
 	int x, y;
+
+	int width, height;
 
 	//int width, height;
 	int movex, movey;
