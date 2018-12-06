@@ -15,6 +15,7 @@ Megaman::Megaman()
 	jumpHold = false;
 	dashHold = false;
 	moving = false;
+	jumpAfterDash = false;
 	anim = new Animation(64, 7, 9, ANIM_DELAY + 10);
 
 	char s[50];
@@ -56,14 +57,8 @@ void Megaman::SetState(int newState)
 	case STATE_DASHING:
 		SetAnimState(60, 61, ANIM_DELAY + 5);
 		break;
-	case STATE_DASHING_N_SHOOTING:
-		SetAnimState(62, 63, ANIM_DELAY + 5);
-		break;
 	case STATE_JUMPING:
 		SetAnimState(34, 36, ANIM_DELAY);
-		break;
-	case STATE_JUMPING_N_SHOOTING:
-		SetAnimState(41, 47, ANIM_DELAY);
 		break;
 	case STATE_FALLING:
 		SetAnimState(36, 40, ANIM_DELAY);
@@ -81,20 +76,20 @@ void Megaman::Update()
 	//Check if megaman is moving
 	if (Input::KeyDown(DIK_LEFT)) {
 		
-		movex = (movex == DASH_SPEED) ? DASH_SPEED : MEGAMAN_SPEED; //conserve dash velocity for dash and jump
+		movex = MEGAMAN_SPEED; //conserve dash velocity for dash and jump
 		moving = true;
 
 		if (HorizontalDirChanged(-1) 
-			&& !(state == STATE_DASHING || state == STATE_DASHING_N_SHOOTING)) // can't change direction while dashing
+			&& !(state == STATE_DASHING)) // can't change direction while dashing
 			ChangeDirHorizontal();
 	}
 	else if (Input::KeyDown(DIK_RIGHT)) {
 		
-		movex = (movex == DASH_SPEED) ? DASH_SPEED : MEGAMAN_SPEED;
+		movex = MEGAMAN_SPEED;
 		moving = true;
 
 		if (HorizontalDirChanged(1)
-			&& !(state == STATE_DASHING || state == STATE_DASHING_N_SHOOTING))
+			&& !(state == STATE_DASHING))
 			ChangeDirHorizontal();
 	}
 	else {
@@ -105,9 +100,23 @@ void Megaman::Update()
 	//Check states
 
 	if (state == STATE_JUMPING) {																//ASCENDING
+		//if shooting key is pressed then change animation
+		if (Input::KeyDown(DIK_X)) {
+			//SetState(STATE_DASHING_N_SHOOTING);
+			anim->ChangeAnimFrames(41, 43);
+
+		}
+		else if (!Input::KeyDown(DIK_X)) {
+			//SetState(STATE_DASHING);
+			anim->ChangeAnimFrames(34, 36);
+		}
+
 		//check if velocity is negative (falling down)
 		if (!jumpHold || movey < 0) {
 			SetState(STATE_FALLING);
+			if (Input::KeyDown(DIK_X)) {
+				anim->ChangeAnimFrames(43, 47);
+			}
 			delta_t = 1;
 			movey = delta_t * GRAVITY;	//Quick maths
 		}
@@ -117,9 +126,22 @@ void Megaman::Update()
 		if (anim->curframe == anim->endframe) {
 			anim->animcount = anim->animdelay; //Animation shits
 		}
+		if (jumpAfterDash && moving)
+			movex = DASH_SPEED;
 			
 	}
 	else if (state == STATE_FALLING) {															//FALLING
+		//if shooting key is pressed then change animation
+		if (Input::KeyDown(DIK_X)) {
+			//SetState(STATE_DASHING_N_SHOOTING);
+			anim->ChangeAnimFrames(43, 47);
+
+		}
+		else if (!Input::KeyDown(DIK_X)) {
+			//SetState(STATE_DASHING);
+			anim->ChangeAnimFrames(36, 40);
+		}
+																								
 		//(Temp, will use collision for this shit) Check if megaman hit the ground
 		if (y >= (GROUND_Y - anim->sprite[anim->curframe]->height / 2)) {
 			if (anim->curframe == anim->endframe && anim->animcount == anim->animdelay) {
@@ -135,12 +157,15 @@ void Megaman::Update()
 			delta_t++;
 			movey = movey + delta_t * GRAVITY;
 
-			if (anim->curframe == 38)
+			if (anim->curframe == anim->beginframe + 2)
 				anim->animcount = anim->animdelay;
+			if (jumpAfterDash && moving)
+				movex = DASH_SPEED;
 		}
 	}
 	else if (Input::KeyDown(DIK_Z) && !jumpHold) {												//START JUMPING
-
+		if (state == STATE_DASHING)
+			jumpAfterDash = true;
 		if (StateChanged(STATE_JUMPING))
 			SetState(STATE_JUMPING);
 
@@ -148,9 +173,21 @@ void Megaman::Update()
 		movey = JUMP_SPEED + delta_t * GRAVITY;
 	}
 	else if (state == STATE_DASHING) {															//DASHING
+		//if shooting key is pressed then change animation
+		if (Input::KeyDown(DIK_X)) {
+			//SetState(STATE_DASHING_N_SHOOTING);
+			anim->ChangeAnimFrames(62, 63);
+
+		}
+		else if (!Input::KeyDown(DIK_X)) {
+			//SetState(STATE_DASHING);
+			anim->ChangeAnimFrames(60, 61);
+		}
+		
 		if (!dashHold) {
 			delta_t = -1;
 		}
+
 		//stop if passing dash duration or not holding key
 		if (delta_t == DASH_DURATION || delta_t < 0) {
 			if (anim->curframe == anim->endframe && anim->animcount == anim->animdelay) {
@@ -161,39 +198,13 @@ void Megaman::Update()
 			}
 			movex = 0;
 		}
-		//if shooting key is pressed then change state 
-		else if (Input::KeyDown(DIK_X)) {
-			SetState(STATE_DASHING_N_SHOOTING);
-		}
 		//continue dashing
 		else {
 			delta_t++;
 			anim->animcount = 0;
 			movex = DASH_SPEED;
 		}
-	}
-	else if (state == STATE_DASHING_N_SHOOTING) {												//DASHING AND SHOOTING
-		if (!dashHold) {
-			delta_t = -1;
-		}
-		if (delta_t == DASH_DURATION || delta_t < 0) {
-			if (anim->curframe == anim->endframe && anim->animcount == anim->animdelay) {
-				SetState(STATE_IDLE);
-			}
-			else {
-				anim->curframe = anim->endframe;
-			}
-			movex = 0;
-		}
-		//if shooting key is released then change state
-		else if (!Input::KeyDown(DIK_X)) {
-			SetState(STATE_DASHING);
-		}
-		else {
-			delta_t++;
-			anim->animcount = 0;
-			movex = DASH_SPEED;
-		}
+		
 	}
 	else if (Input::KeyDown(DIK_X) && moving) {													//SHOOTING AND RUNNING
 
@@ -201,17 +212,17 @@ void Megaman::Update()
 			SetState(STATE_RUNNING_N_SHOOTING);
 
 	}
-	else if (Input::KeyDown(DIK_X)) {															//SHOOTING
-		if (StateChanged(STATE_SHOOTING))
-			SetState(STATE_SHOOTING);
-	}
 	else if (Input::KeyDown(DIK_V) && !dashHold) {												//START DASHING
 
 		if (StateChanged(STATE_DASHING))
-				SetState(STATE_DASHING);
+			SetState(STATE_DASHING);
 
-			delta_t = 0;
-			movex = DASH_SPEED;			
+		delta_t = 0;
+		movex = DASH_SPEED;
+	}
+	else if (Input::KeyDown(DIK_X)) {															//SHOOTING
+		if (StateChanged(STATE_SHOOTING))
+			SetState(STATE_SHOOTING);
 	}
 	else {
 		//Only running key is pressed
@@ -226,8 +237,9 @@ void Megaman::Update()
 				SetState(STATE_IDLE);
 			movex = 0;
 			movey = 0;
-
+			//jumpAfterDash = true;
 		}
+		jumpAfterDash = false;
 	}
 
 	if (Input::KeyDown(DIK_Z)) {

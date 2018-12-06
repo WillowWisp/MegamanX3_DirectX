@@ -12,6 +12,7 @@ public:
 	//function prototypes
 	void NextFrame(int); // set curfrfame bằng frame kế tiếp trong animation
 	void Animate(D3DXMATRIX); // chọn frame và draw
+	void ChangeAnimFrames(int begin, int end);
 
 	//
 	int totalFrameCount;

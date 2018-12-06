@@ -29,6 +29,7 @@ public:
 	D3DXMATRIX matrix; //ma trận để lưu vị trí, scale, ... của object
 
 	int state;
+	int prevState; 
 	int dirUp, dirRight;
 
 	Animation* anim;

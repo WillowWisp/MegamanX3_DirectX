@@ -37,6 +37,12 @@ void Animation::Animate(D3DXMATRIX _matrix)
 	sprite[curframe]->Draw(_matrix);
 }
 
+void Animation::ChangeAnimFrames(int begin, int end) {
+	curframe = curframe - beginframe + begin;
+	beginframe = begin;
+	endframe = end;
+}
+
 Animation::~Animation()
 {
 	delete sprite;
