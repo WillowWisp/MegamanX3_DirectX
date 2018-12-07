@@ -4,7 +4,7 @@
 class Animation
 {
 public:
-	Animation(int count = 1, int begin = 0, int end = 0, int delay = 5);
+	Animation(int count = 1, int begin = 0, int end = 0, int delay = 1);
 	//Animation(int, int);
 	//Animation(int, int, int);
 	~Animation();
@@ -12,6 +12,7 @@ public:
 	//function prototypes
 	void NextFrame(int); // set curfrfame bằng frame kế tiếp trong animation
 	void Animate(D3DXMATRIX); // chọn frame và draw
+	void ChangeAnimFrames(int begin, int end);
 
 	//
 	int totalFrameCount;

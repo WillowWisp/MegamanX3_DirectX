@@ -44,7 +44,7 @@ void Sun::Update()
 	}
 
 	D3DXVECTOR2 translation = D3DXVECTOR2(x, y);
-	D3DXVECTOR2 scale = D3DXVECTOR2(2, 2 * -dirUp);
+	D3DXVECTOR2 scale = D3DXVECTOR2(0.5, 200 * -dirUp);
 	D3DXMatrixTransformation2D(&matrix, NULL, 0, &scale, NULL,
 		NULL, &translation);
 	MObject::Update();

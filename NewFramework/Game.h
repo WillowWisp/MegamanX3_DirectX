@@ -15,6 +15,8 @@
 #include "Megaman.h"
 #include "Camera.h"
 
+#define UPDATE_RATE 10
+
 class Game
 {
 public:

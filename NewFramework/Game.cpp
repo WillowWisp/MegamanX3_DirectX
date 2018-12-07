@@ -30,6 +30,7 @@ CSound *backgroundSound;
 Sprite *sprite;
 
 Sun* sun;
+Sun* sun2;
 Megaman* megaman;
 
 GameMap *map;
@@ -43,7 +44,8 @@ void Start() {
 	sprite = new Sprite((char*)"BomberMan.bmp");
 	sprite->position = D3DXVECTOR3(0, 0, 0);
 
-	sun = new Sun(100, 100);
+	sun = new Sun(50, 100);
+	sun2 = new Sun(700, 100);
 	megaman = new Megaman();
 
 	map = new GameMap((char*)"Resources/marioworld1-1.tmx");
@@ -56,7 +58,7 @@ void Start() {
 
 //Hàm này để xử lý logic mỗi frame
 void Update() {
-	if (Input::KeyDown(DIK_A)) {
+	/*if (Input::KeyDown(DIK_A)) {
 		camera->position.x -= 5;
 	}
 	if (Input::KeyDown(DIK_D)) {
@@ -67,7 +69,7 @@ void Update() {
 	}
 	if (Input::KeyDown(DIK_S)) {
 		camera->position.y += 5;
-	}
+	}*/
 }
 
 //Hàm này để render lên màn hình
@@ -80,14 +82,13 @@ void Render() {
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
 
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-
-	D3DXVECTOR2 translate = D3DXVECTOR2(GameGlobal::wndWidth / 2 - camera->position.x, GameGlobal::wndHeight / 2 - camera->position.y);
-	sprite->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(5, 5), translate);
-
-	map->Draw();
+  
+	sprite->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(50, 5), D3DXVECTOR2(150, 150));
+	//sprite->Draw(D3DXVECTOR3());
 
 	sun->Update();
-	//megaman->Update();
+	sun2->Update();
+	megaman->Update();
 
 	GameGlobal::mSpriteHandler->End();
 
@@ -134,7 +135,7 @@ void Game::Game_Run(HWND hWnd) {
 	Input::PollKeyboard();
 
 	//---UPDATE PER FRAME---
-	if (GetTickCount() - start >= 10) {
+	if (GetTickCount() - start >= UPDATE_RATE) {
 		//reset timing
 		start = GetTickCount();
 

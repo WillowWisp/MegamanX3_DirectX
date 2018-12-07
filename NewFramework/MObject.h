@@ -23,13 +23,13 @@ public:
 	//
 
 	int x, y;
-
-	//int width, height;
 	int movex, movey;
+	int delta_t; //For physics related calculation
 
 	D3DXMATRIX matrix; //ma trận để lưu vị trí, scale, ... của object
 
 	int state;
+	int prevState; 
 	int dirUp, dirRight;
 
 	Animation* anim;
