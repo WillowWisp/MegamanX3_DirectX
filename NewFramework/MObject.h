@@ -7,6 +7,8 @@
 
 class MObject
 {
+protected:
+	virtual void OnCollision(MObject *otherObj, float normalx, float normaly);
 public:
 	MObject();
 	~MObject();
@@ -19,6 +21,7 @@ public:
 	bool VerticalDirChanged(int);
 	void ChangeDirHorizontal(); //đổi hướng theo chiều ngang
 	void ChangeDirVertical(); //đổi huowgns theo chiều dọc
+	void SetWidthHeight();
 
 	RECT GetRect();
 

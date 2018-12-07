@@ -33,49 +33,49 @@ MObject Collision::GetSweptBroadphaseBox(MObject object) {
 	return broadphaseBox;
 }
 
-bool Collision::SweptAABB(MObject  object, MObject otherObject, float &normalx, float &normaly) {
+bool Collision::SweptAABB(MObject *object, MObject *otherObject, float &normalx, float &normaly) {
 	float dxEntry, dxExit;
 	float dyEntry, dyExit; //khoảng cách: -entry: 2 cạnh gần ; -exit: 2 cạnh xa
 
 	//tìm khoảng cách giữa 2 cạnh gần và cạnh xa
-	if (object.movex > 0.0f) { //object nằm bên trái otherObject
-		dxEntry = otherObject.x - (object.x + object.width);
-		dxExit = (otherObject.x + otherObject.width) - object.x;
+	if (object->movex > 0.0f) { //object nằm bên trái otherObject
+		dxEntry = otherObject->x - (object->x + object->width);
+		dxExit = (otherObject->x + otherObject->width) - object->x;
 	}
 	else { //object nằm bên phải otherObject
-		dxEntry = (otherObject.x + otherObject.width) - object.x;
-		dxExit = otherObject.x - (object.x + object.width);
+		dxEntry = (otherObject->x + otherObject->width) - object->x;
+		dxExit = otherObject->x - (object->x + object->width);
 	}
 
-	if (object.movey > 0.0f) { //object nằm bên trên otherObject
-		dyEntry = otherObject.y - (object.y + object.height);
-		dyExit = (otherObject.y + otherObject.height) - object.y;
+	if (object->movey > 0.0f) { //object nằm bên trên otherObject
+		dyEntry = otherObject->y - (object->y + object->height);
+		dyExit = (otherObject->y + otherObject->height) - object->y;
 	}
 	else { //object nằm bên dưới otherObject
-		dyEntry = (otherObject.y + otherObject.height) - object.y;
-		dyExit = otherObject.y - (object.y + object.height);
+		dyEntry = (otherObject->y + otherObject->height) - object->y;
+		dyExit = otherObject->y - (object->y + object->height);
 	}
 
 	//tính thời gian từ khoảng cách trên và vận tốc (vận tốc trong 1 khung hình) của vật
 	float txEntry, txExit;
 	float tyEntry, tyExit;
-	if (object.movex == 0.0f) {
+	if (object->movex == 0.0f) {
 		//không di chuyển theo trục y nên thời gian = vô cực
 		txEntry = -std::numeric_limits<float>::infinity();
 		txExit = std::numeric_limits<float>::infinity();
 	}
 	else {
-		txEntry = dxEntry / object.movex;
-		txExit = dxExit / object.movex;
+		txEntry = dxEntry / object->movex;
+		txExit = dxExit / object->movex;
 	}
 
-	if (object.movey == 0.0f) {
+	if (object->movey == 0.0f) {
 		tyEntry = -std::numeric_limits<float>::infinity();
 		tyExit = std::numeric_limits<float>::infinity();
 	}
 	else {
-		tyEntry = dyEntry / object.movey;
-		tyExit = dyExit / object.movey;
+		tyEntry = dyEntry / object->movey;
+		tyExit = dyExit / object->movey;
 	}
 
 	// thời gian va chạm là thời gian lớn nhất trong 2 (2 trục phải cùng tiếp xúc thì mới va chạm)

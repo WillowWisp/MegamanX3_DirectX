@@ -16,6 +16,7 @@
 #include "Sun.h"
 #include "Megaman.h"
 #include "Camera.h"
+#include "GameLog.h"
 
 #define UPDATE_RATE 10
 

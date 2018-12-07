@@ -28,6 +28,10 @@ void MObject::Update()
 	anim->Animate(matrix);
 }
 
+void MObject::SetWidthHeight() {
+	width = anim->sprite[anim->curframe]->width;
+	height = anim->sprite[anim->curframe]->height;
+}
 bool MObject::StateChanged(int newState)
 {
 	return newState != state;
@@ -66,4 +70,8 @@ RECT MObject::GetRect() {
 
 MObject::~MObject()
 {
+}
+
+void MObject::OnCollision(MObject *otherObj, float normalx, float normaly) {
+
 }

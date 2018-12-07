@@ -119,6 +119,7 @@
     <ClCompile Include="Quadtree.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="GameLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -247,6 +248,7 @@
     <ClInclude Include="Quadtree.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
+    <ClInclude Include="GameLog.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

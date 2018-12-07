@@ -11,6 +11,6 @@ public:
 
 	static bool AABBCheck(MObject object, MObject otherObject);
 	static MObject GetSweptBroadphaseBox(MObject object);
-	static bool SweptAABB(MObject object, MObject otherObject, float &normalx, float &normaly);
+	static bool SweptAABB(MObject *object, MObject *otherObject, float &normalx, float &normaly);
 };
 

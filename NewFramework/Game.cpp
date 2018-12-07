@@ -36,19 +36,40 @@ Megaman* megaman;
 GameMap *map;
 Camera *camera;
 
+void CheckCollision() {
+	std::vector<MObject*> collisionList;
+
+	map->GetQuadtree()->GetObjectsCollidableWith(megaman, collisionList);
+
+	for (size_t i = 0; i < collisionList.size(); i++)
+	{
+		float normalx, normaly;
+		bool isCollided = Collision::SweptAABB(megaman, collisionList.at(i), normalx, normaly);
+
+		if (isCollided)
+		{
+			//Gọi đến hàm OnCollision trong MObject
+
+			megaman->OnCollision(collisionList.at(i), normalx, normaly);
+			/*
+
+			//goi den ham xu ly collision cua Player va MObject
+			mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
+			listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
+			}*/
+		}
+	}
+}
+
 //Xử lý Init
 void Start() {
 	background = Graphics::LoadSurface((char*)"myBackground.bmp");
 	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
-	//Sound::PlaySound(backgroundSound);
-	sprite = new Sprite((char*)"BomberMan.bmp");
-	sprite->position = D3DXVECTOR3(0, 0, 0);
-
-	sun = new Sun(50, 100);
-	sun2 = new Sun(700, 100);
+	//Sound::PlaySoundA(backgroundSound);
+	
 	megaman = new Megaman();
 
-	map = new GameMap((char*)"Resources/marioworld1-1.tmx");
+	map = new GameMap((char*)"Resources/test.tmx");
 
 	camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
 	camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
@@ -70,24 +91,23 @@ void Update() {
 	if (Input::KeyDown(DIK_S)) {
 		camera->position.y += 5;
 	}*/
+	megaman->SetWidthHeight();
+	map->GetQuadtree()->Insert(megaman);
+	megaman->Upd();
+	CheckCollision();
 }
 
 //Hàm này để render lên màn hình
 void Render() {
 
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
-
+	
 	//start sprite handler
 	//spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
 
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-  
-	sprite->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(50, 5), D3DXVECTOR2(150, 150));
-	//sprite->Draw(D3DXVECTOR3());
-
-	sun->Update();
-	sun2->Update();
+	map->Draw();
 	megaman->Update();
 
 	GameGlobal::mSpriteHandler->End();
@@ -169,25 +189,3 @@ void Game::Game_End(HWND hWnd) {
 }
 
 
-void CheckCollision() {
-	//std::vector<MObject*> collisionList;
-
-	//map->GetQuadtree()->GetObjectsCollidableWith(megaman, collisionList);
-
-	//for (size_t i = 0; i < collisionList.size(); i++)
-	//{
-	//	float normalx, normaly;
-	//	bool isCollided = Collision::SweptAABB(megaman, collisionList.at(i), normalx, normaly);
-
-	//	if (isCollided)
-	//	{
-	//		//Gọi đến hàm OnCollision trong MObject
-	//		/*
-
-	//		//goi den ham xu ly collision cua Player va MObject
-	//		mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
-	//		listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
-	//		}*/
-	//	}
-	//}
-}

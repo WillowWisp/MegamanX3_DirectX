@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "MObject.h"
 #include "Input.h"
+#include "GameLog.h"
 
 #define STATE_IDLE 0
 #define STATE_RUNNING 1
@@ -32,11 +33,15 @@
 class Megaman :
 	public MObject
 {
+	MObject *collideObject;
 public:
 	Megaman();
 	~Megaman();
 
 	//variables to manage megaman's shitton amount of states
+	bool isHitGround;
+	bool isHitWall;
+
 	bool jumpHold;
 	bool dashHold;
 	bool shootHold;
@@ -50,8 +55,11 @@ public:
 
 	//
 	void SetState(int);
+	void Upd();
 	void Update();
-	bool HitGround();
-	bool HitWall();
+	//bool HitGround();
+	//bool HitWall();
+
+	void OnCollision(MObject *otherObj, float normalx, float normaly);
 };
 
