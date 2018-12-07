@@ -22,6 +22,6 @@ public:
 
 	void Clear(); //Hàm đệ quy: giải phóng vùng nhớ cho obectList, nodes
 	void Insert(MObject* object);
-	void GetObjectCollidableWith(MObject* object, std::vector<MObject*> &returnObjects); //Lấy tất cả objects có thể va chạm (nằm chung node vs *object)
+	void GetObjectsCollidableWith(MObject* object, std::vector<MObject*> &returnObjects); //Lấy tất cả objects có thể va chạm (nằm chung node vs *object)
 };
 

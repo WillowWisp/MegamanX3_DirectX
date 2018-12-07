@@ -244,7 +244,9 @@
     <ClInclude Include="Collision.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="Quadtree.h" />
+    <ClInclude Include="Quadtree.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

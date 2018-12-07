@@ -2,11 +2,13 @@
 
 #include <d3d9.h>
 #include <stdio.h>
+#include <vector>
 #include "GameGlobal.h"
 #include "Graphics.h"
 #include "Sound.h"
 #include "Sprite.h"
 #include "Input.h"
+#include "Collision.h"
 #include "GameMap.h"
 #include"SceneManager.h"
 #include"Scene.h"

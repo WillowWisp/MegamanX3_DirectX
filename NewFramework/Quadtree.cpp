@@ -122,17 +122,17 @@ void Quadtree::Insert(MObject *object) {
 	}
 }
 
-void Quadtree::GetObjectCollidableWith(MObject* object, std::vector<MObject*> &returnObjects) {
+void Quadtree::GetObjectsCollidableWith(MObject* object, std::vector<MObject*> &returnObjects) {
 	if (nodes)
 	{
 		if (nodes[0]->IsContain(object))
-			nodes[0]->GetObjectCollidableWith(object, returnObjects);
+			nodes[0]->GetObjectsCollidableWith(object, returnObjects);
 		if (nodes[1]->IsContain(object))
-			nodes[1]->GetObjectCollidableWith(object, returnObjects);
+			nodes[1]->GetObjectsCollidableWith(object, returnObjects);
 		if (nodes[2]->IsContain(object))
-			nodes[2]->GetObjectCollidableWith(object, returnObjects);
+			nodes[2]->GetObjectsCollidableWith(object, returnObjects);
 		if (nodes[3]->IsContain(object))
-			nodes[3]->GetObjectCollidableWith(object, returnObjects);
+			nodes[3]->GetObjectsCollidableWith(object, returnObjects);
 
 		return; // Return here to ignore rest.
 	}

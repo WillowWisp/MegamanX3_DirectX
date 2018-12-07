@@ -33,7 +33,7 @@ MObject Collision::GetSweptBroadphaseBox(MObject object) {
 	return broadphaseBox;
 }
 
-float Collision::SweptAABB(MObject  object, MObject otherObject, float &normalx, float &normaly) {
+bool Collision::SweptAABB(MObject  object, MObject otherObject, float &normalx, float &normaly) {
 	float dxEntry, dxExit;
 	float dyEntry, dyExit; //khoảng cách: -entry: 2 cạnh gần ; -exit: 2 cạnh xa
 
@@ -89,8 +89,8 @@ float Collision::SweptAABB(MObject  object, MObject otherObject, float &normalx,
 		//hơn nữa, thời gian bắt đầu va chạm sẽ ko bao giờ xảy ra sau khi vật kết thúc va chạm (entryTime > exitTime
 		normalx = 0.0f;
 		normaly = 0.0f;
-		//return 1 = vật không va chạm
-		return 1.0f;
+		//return false = vật không va chạm
+		return false;
 	}
 
 	//nếu có va chạm
@@ -127,5 +127,5 @@ float Collision::SweptAABB(MObject  object, MObject otherObject, float &normalx,
 	}
 
 	//return thời gian va chạm (giá trị giữa 0 và 1)
-	return entryTime;
+	return true;
 }
