@@ -167,3 +167,27 @@ void Game::Game_End(HWND hWnd) {
 	//free all
 	GameGlobal::mSpriteHandler->Release();
 }
+
+
+void CheckCollision() {
+	//std::vector<MObject*> collisionList;
+
+	//map->GetQuadtree()->GetObjectsCollidableWith(megaman, collisionList);
+
+	//for (size_t i = 0; i < collisionList.size(); i++)
+	//{
+	//	float normalx, normaly;
+	//	bool isCollided = Collision::SweptAABB(megaman, collisionList.at(i), normalx, normaly);
+
+	//	if (isCollided)
+	//	{
+	//		//Gọi đến hàm OnCollision trong MObject
+	//		/*
+
+	//		//goi den ham xu ly collision cua Player va MObject
+	//		mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
+	//		listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
+	//		}*/
+	//	}
+	//}
+}

@@ -22,11 +22,13 @@ void GameMap::LoadMap(char* filePath)
 	map = new Tmx::Map();
 	map->ParseFile(filePath);
 
-	RECT r;
-	r.left = 0;
-	r.top = 0;
-	r.right = this->GetWidth();
-	r.bottom = this->GetHeight();
+	//Khởi tạo Quadtree
+	RECT mapRect;
+	mapRect.left = 0;
+	mapRect.top = 0;
+	mapRect.right = this->GetWidth();
+	mapRect.bottom = this->GetHeight();
+	quadtree = new Quadtree(1, mapRect);
 
 	for (int i = 0; i < map->GetNumTilesets(); i++)
 	{
@@ -35,6 +37,29 @@ void GameMap::LoadMap(char* filePath)
 		Sprite *sprite = new Sprite(tileset->GetImage()->GetSource().c_str());
 
 		listTileset.insert(std::pair<int, Sprite*>(i, sprite));
+	}
+
+	//Insert các Static Object (object tĩnh để đứng lên) vào quadtree
+	//Lưu ý: Các static object này KHÔNG vẽ lên, chỉ để va chạm vs người chơi
+	for (int i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+
+		for (int j = 0; j < objectGroup->GetNumObjects(); j++)
+		{
+			//Lấy ObjectGroup # lấy layer
+			//ObjectGroup chứa những object (object của phần mềm Tiled)
+			Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+			MObject *mObject = new MObject();
+			mObject->x = object->GetX() + object->GetWidth() / 2;
+			mObject->y = object->GetY() + object->GetHeight() / 2;
+			mObject->width = object->GetWidth();
+			mObject->height = object->GetHeight();
+			//mObject->Tag = Entity::EntityTypes::Static;
+
+			quadtree->Insert(mObject);
+		}
 	}
 }
 
@@ -62,6 +87,10 @@ int GameMap::GetTileWidth()
 int GameMap::GetTileHeight()
 {
 	return map->GetTileHeight();
+}
+
+Quadtree* GameMap::GetQuadtree() {
+	return quadtree;
 }
 
 void GameMap::SetCamera(Camera *_camera)

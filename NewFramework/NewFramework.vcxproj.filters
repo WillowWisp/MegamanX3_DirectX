@@ -113,6 +113,12 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -233,6 +239,12 @@
       <Filter>Framework\MapReader</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
