@@ -28,11 +28,13 @@ LPD3DXSPRITE spriteHandler;
 LPDIRECT3DSURFACE9 background;
 CSound *backgroundSound;
 Sprite *sprite;
-GameMap *map;
 
 Sun* sun;
 Sun* sun2;
 Megaman* megaman;
+
+GameMap *map;
+Camera *camera;
 
 //Xử lý Init
 void Start() {
@@ -40,20 +42,39 @@ void Start() {
 	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
 	//Sound::PlaySound(backgroundSound);
 	sprite = new Sprite((char*)"BomberMan.bmp");
-	sprite->position = D3DXVECTOR3(300, 300, 0);
+	sprite->position = D3DXVECTOR3(0, 0, 0);
 
 	sun = new Sun(50, 100);
 	sun2 = new Sun(700, 100);
 	megaman = new Megaman();
+
+	map = new GameMap((char*)"Resources/marioworld1-1.tmx");
+
+	camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
+	camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	
+	map->SetCamera(camera);
 }
 
 //Hàm này để xử lý logic mỗi frame
 void Update() {
-	//Sound::LoopSound(backgroundSound);
+	/*if (Input::KeyDown(DIK_A)) {
+		camera->position.x -= 5;
+	}
+	if (Input::KeyDown(DIK_D)) {
+		camera->position.x += 5;
+	}
+	if (Input::KeyDown(DIK_W)) {
+		camera->position.y -= 5;
+	}
+	if (Input::KeyDown(DIK_S)) {
+		camera->position.y += 5;
+	}*/
 }
 
 //Hàm này để render lên màn hình
 void Render() {
+
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
 
 	//start sprite handler
@@ -61,6 +82,7 @@ void Render() {
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
 
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+  
 	sprite->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(50, 5), D3DXVECTOR2(150, 150));
 	//sprite->Draw(D3DXVECTOR3());
 
