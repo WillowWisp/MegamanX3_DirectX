@@ -11,24 +11,24 @@ Collision::~Collision()
 {
 }
 
-bool Collision::AABBCheck(MObject object, MObject otherObject)
+bool Collision::AABBCheck(MObject *object, MObject *otherObject)
 {
-	float left = otherObject.x - (object.x + object.width);
-	float top = (otherObject.y + otherObject.height) - object.y;
-	float right = (otherObject.x + otherObject.width) - object.x;
-	float bottom = otherObject.y - (object.y + object.height);
+	float left = otherObject->x - (object->x + object->width);
+	float top = (otherObject->y + otherObject->height) - object->y;
+	float right = (otherObject->x + otherObject->width) - object->x;
+	float bottom = otherObject->y - (object->y + object->height);
 
 	// xét ngược lại
 	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
 }
 
 
-MObject Collision::GetSweptBroadphaseBox(MObject object) {
-	MObject broadphaseBox;
-	broadphaseBox.x = object.movex > 0 ? object.x : object.x + object.movex;
-	broadphaseBox.y = object.movex > 0 ? object.y : object.y + object.movey;
-	broadphaseBox.width = object.width + abs(object.movex);
-	broadphaseBox.height = object.height + abs(object.movey);
+MObject* Collision::GetSweptBroadphaseBox(MObject *object) {
+	MObject *broadphaseBox = new MObject();
+	broadphaseBox->x = object->movex > 0 ? object->x : object->x + object->movex;
+	broadphaseBox->y = object->movex > 0 ? object->y : object->y + object->movey;
+	broadphaseBox->width = object->width + abs(object->movex);
+	broadphaseBox->height = object->height + abs(object->movey);
 
 	return broadphaseBox;
 }
@@ -128,4 +128,54 @@ bool Collision::SweptAABB(MObject *object, MObject *otherObject, float &normalx,
 
 	//return thời gian va chạm (giá trị giữa 0 và 1)
 	return true;
+}
+
+char* Collision::IsCollided(MObject *object, MObject *otherObj) {
+	char* result = (char*)"none";
+
+	MObject *broadphaseBox = GetSweptBroadphaseBox(object);
+	if (AABBCheck(broadphaseBox, otherObj)) {
+		float normalxOtherObj, normalyOtherObj; //vector pháp tuyến trên bề mặt paddle (hướng va chạm)
+		bool isCollided = SweptAABB(object, otherObj, normalxOtherObj, normalyOtherObj);
+		
+		if (isCollided) {
+			if (normalxOtherObj == 1.0f && normalyOtherObj == 0.0f)
+				result = (char*)"right";
+			if (normalxOtherObj == -1.0f && normalyOtherObj == 0.0f)
+				result = (char*)"left";
+			if (normalxOtherObj == 0.0f && normalyOtherObj == 1.0f)
+				result = (char*)"bottom";
+			if (normalxOtherObj == 0.0f && normalyOtherObj == -1.0f)
+				result = (char*)"top";
+		}
+	}
+
+	return result;
+}
+
+char* Collision::IsIntersect(MObject *obj1, MObject *obj2) {
+	RECT obj1Rect = obj1->GetRect();
+	RECT obj2Rect = obj2->GetRect();
+
+	//Không va chạm
+	if (!GameGlobal::IsIntersect(obj1Rect, obj2Rect)) {
+		return (char*)"none";
+	}
+
+	//Có va chạm thì tìm vector pháp tuyến trên bề mặt <<obj2>>
+	//Đúng ra chỉ cần obj1Rect.bottom == obj2Rect.top là trả về "top" dc rồi nhưng do tọa độ làm tròn số nên
+	if (obj1Rect.bottom >= obj2Rect.top && obj2Rect.top >= obj1Rect.bottom - 2) {
+		return (char*)"top";
+	}
+	if (obj2Rect.bottom >= obj1Rect.top && obj1Rect.top >= obj2Rect.bottom - 2) {
+		return (char*)"bottom";
+	}
+	if (obj1Rect.right >= obj2Rect.left && obj2Rect.left >= obj1Rect.right - 2) {
+		return (char*)"left";
+	}
+	if (obj2Rect.right >= obj1Rect.left && obj1Rect.left >= obj2Rect.right - 2) {
+		return (char*)"right";
+	}
+
+	return (char*)"unknown";
 }

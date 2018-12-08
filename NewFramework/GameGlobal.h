@@ -3,6 +3,7 @@
 #include <d3d9.h>
 #include <Windows.h>
 #include "Sound.h"
+#include "Camera.h"
 
 class GameGlobal
 {
@@ -16,6 +17,8 @@ public:
 	static LPDIRECT3DSURFACE9 backbuffer;
 
 	static bool isGameRunning; //trang thai xem game co dang chay khong
+
+	static Camera *camera;
 
 	GameGlobal();
 	~GameGlobal();

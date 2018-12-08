@@ -1,6 +1,6 @@
 #include "GameGlobal.h"
 
-int GameGlobal::wndWidth = 800;
+int GameGlobal::wndWidth = 1024;
 int GameGlobal::wndHeight = 800;
 
 LPDIRECT3D9 GameGlobal::d3d = NULL;
@@ -10,6 +10,8 @@ LPD3DXSPRITE GameGlobal::mSpriteHandler = NULL;
 LPDIRECT3DSURFACE9 GameGlobal::backbuffer = NULL;
 
 bool GameGlobal::isGameRunning = true;
+
+Camera *GameGlobal::camera = NULL;
 
 GameGlobal::GameGlobal()
 {

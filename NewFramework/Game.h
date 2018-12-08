@@ -17,6 +17,7 @@
 #include "Megaman.h"
 #include "Camera.h"
 #include "GameLog.h"
+#include "DebugDraw.h"
 
 #define UPDATE_RATE 10
 

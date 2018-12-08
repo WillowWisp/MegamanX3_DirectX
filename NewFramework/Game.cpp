@@ -34,31 +34,54 @@ Sun* sun2;
 Megaman* megaman;
 
 GameMap *map;
-Camera *camera;
+
+std::vector<MObject*> collisionList;
+DebugDraw *debugDraw;
+
+int i = 0;
 
 void CheckCollision() {
-	std::vector<MObject*> collisionList;
-
+	collisionList.clear();
 	map->GetQuadtree()->GetObjectsCollidableWith(megaman, collisionList);
-
+	int count = 0;
+	//GAMELOG("movey: %d", megaman->movey);;
 	for (size_t i = 0; i < collisionList.size(); i++)
 	{
-		float normalx, normaly;
-		bool isCollided = Collision::SweptAABB(megaman, collisionList.at(i), normalx, normaly);
+		//char* isCollided = Collision::IsCollided(megaman, collisionList.at(i));
+		//if (isCollided != (char*)"none")
+		//{
 
-		if (isCollided)
-		{
-			//Gọi đến hàm OnCollision trong MObject
+		//	GAMELOG("ASD: %s", (char*)isCollided);
+		//	//Gọi đến hàm OnCollision trong MObject
+		//	megaman->OnCollision(collisionList.at(i));
+		//	/*
 
-			megaman->OnCollision(collisionList.at(i), normalx, normaly);
-			/*
+		//	//goi den ham xu ly collision cua Player va MObject
+		//	mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
+		//	listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
+		//	}*/
+		//}
 
-			//goi den ham xu ly collision cua Player va MObject
-			mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
-			listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
-			}*/
+		/*if (GameGlobal::IsIntersect(megaman->GetRect(), collisionList.at(i)->GetRect())) {
+			GAMELOG("ASD: %d", megaman->GetRect().left);
+			GAMELOG("ZXC: %d", collisionList.at(i)->GetRect().right);
+			megaman->OnCollision(collisionList.at(i));
+		}*/
+
+		char* sideCollided = Collision::IsIntersect(megaman, collisionList.at(i));
+		
+		if (sideCollided != (char*)"none") {
+			GAMELOG("Huong: %s", (char*)sideCollided);	
+			megaman->OnCollision(collisionList.at(i), sideCollided);
+		}
+		else {
+			count++;
 		}
 	}
+
+	//if (count >= collisionList.size()) {
+	//	megaman->isHitGround = false;
+	//}
 }
 
 //Xử lý Init
@@ -66,36 +89,66 @@ void Start() {
 	background = Graphics::LoadSurface((char*)"myBackground.bmp");
 	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
 	//Sound::PlaySoundA(backgroundSound);
-	
+	debugDraw = new DebugDraw();
 	megaman = new Megaman();
 
 	map = new GameMap((char*)"Resources/test.tmx");
-
-	camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
-	camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
 	
-	map->SetCamera(camera);
+	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
+	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	
+	map->SetCamera(GameGlobal::camera);
 }
 
 //Hàm này để xử lý logic mỗi frame
 void Update() {
 	/*if (Input::KeyDown(DIK_A)) {
-		camera->position.x -= 5;
+		GameGlobal::camera->position.x -= 5;
 	}
 	if (Input::KeyDown(DIK_D)) {
-		camera->position.x += 5;
+		GameGlobal::camera->position.x += 5;
 	}
 	if (Input::KeyDown(DIK_W)) {
-		camera->position.y -= 5;
+		GameGlobal::camera->position.y -= 5;
 	}
 	if (Input::KeyDown(DIK_S)) {
-		camera->position.y += 5;
+		GameGlobal::camera->position.y += 5;
 	}*/
 	megaman->SetWidthHeight();
-	map->GetQuadtree()->Insert(megaman);
+
 	megaman->Upd();
 	CheckCollision();
 }
+
+void DrawQuadtree(Quadtree *quadtree)
+{
+	if (quadtree->nodes)
+	{
+		for (size_t i = 0; i < 4; i++)
+		{
+			DrawQuadtree(quadtree->nodes[i]);
+		}
+	}
+
+	debugDraw->DrawRect(quadtree->region, GameGlobal::camera);
+
+	if (quadtree->nodes)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			debugDraw->DrawRect(quadtree->nodes[i]->region, GameGlobal::camera);
+		}
+	}
+}
+
+void DrawCollidable()
+{
+	for (auto child : collisionList)
+	{
+		debugDraw->DrawRect(child->GetRect(), GameGlobal::camera);
+	}
+}
+
 
 //Hàm này để render lên màn hình
 void Render() {
@@ -109,6 +162,11 @@ void Render() {
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map->Draw();
 	megaman->Update();
+
+	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
+
+	DrawQuadtree(map->GetQuadtree());
+	DrawCollidable();
 
 	GameGlobal::mSpriteHandler->End();
 
@@ -151,7 +209,7 @@ void Game::Game_Run(HWND hWnd) {
 	}
 
 	//update mouse & keyboard
-	Input::PollMouse();
+	//Input::PollMouse();
 	Input::PollKeyboard();
 
 	//---UPDATE PER FRAME---

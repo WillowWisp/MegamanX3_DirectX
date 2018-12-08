@@ -24,7 +24,7 @@ void MObject::SetAnimState(int begin, int end, int delay)
 void MObject::Update()
 {
 	x += movex * dirRight;
-	y -= movey;
+	y += movey;
 	anim->Animate(matrix);
 }
 
@@ -72,6 +72,6 @@ MObject::~MObject()
 {
 }
 
-void MObject::OnCollision(MObject *otherObj, float normalx, float normaly) {
+void MObject::OnCollision(MObject *otherObj, char* sideCollided) {
 
 }

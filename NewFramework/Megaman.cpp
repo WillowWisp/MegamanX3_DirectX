@@ -3,8 +3,9 @@
 Megaman::Megaman()
 {
 	//x = (LEFTWALL_X + RIGHTWALL_X) / 2;
-	x = LEFTWALL_X + 100;
-	y = GROUND_Y - 50;
+	/*x = LEFTWALL_X + 100;*/
+	x = 0;
+	y = 0;
 	isHitGround = false;
 
 	delta_t = -1;
@@ -37,16 +38,19 @@ Megaman::~Megaman()
 {
 }
 
-void Megaman::OnCollision(MObject *otherObj, float normalx, float normaly) {
-	if (normalx == 0.0f && normaly == -1.0f) {
+int temp = 0;
+void Megaman::OnCollision(MObject *otherObj, char* sideCollided) {
+	collideObject = otherObj;
+	movey = 0;
+	movex = 0;
+	GAMELOG("Collided %d", temp++);
+	if (sideCollided == (char*)"top") {
 		isHitGround = true;
-		this->collideObject = otherObj;
-		GAMELOG("Co Va Cham");
+	}
+	else {
+		isHitGround = false;
 	}
 
-	if ((normalx == 1.0f || normalx == -1.0f) && normaly == 0.0f) {
-
-	}
 }
 
 void Megaman::SetState(int newState)
@@ -99,12 +103,24 @@ void Megaman::SetState(int newState)
 }
 
 void Megaman::Upd() {
-	isHitGround = false;
+	/*isHitGround = false;*/
 }
 
 void Megaman::Update()
 {
-	movey += GRAVITY * 10;
+	if (Input::KeyDown(DIK_S)) {
+		movey = 3;
+	}
+	else if (Input::KeyDown(DIK_W)) {
+		movey = -3;
+	}
+	if (Input::KeyDown(DIK_D)) {
+		movex = 3;
+	}
+	else if (Input::KeyDown(DIK_A)) {
+		movex = -3;
+	}
+	
 	//Check if megaman is moving
 	if (Input::KeyDown(DIK_LEFT)) {
 
@@ -140,6 +156,11 @@ void Megaman::Update()
 		moving = false;
 		if (movex > 0) //if not bouncing
 			movex = 0;
+	}
+
+	if (!isHitGround) {
+		if (StateChanged(STATE_FALLING))
+			SetState(STATE_FALLING);
 	}
 
 	//Check states
@@ -309,6 +330,7 @@ void Megaman::Update()
 			delta_t = 0;
 			movey = JUMP_SPEED + delta_t * GRAVITY;
 			inMidAir = true;
+			isHitGround = false;
 		}
 		else if (state == STATE_DASHING) {															//DASHING
 			//if shooting key is pressed then change animation
@@ -425,9 +447,14 @@ void Megaman::Update()
 			x = LEFTWALL_X + movex;
 	}*/
 
-	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex * dirRight, y - movey);
+	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex, y + movey);
+	D3DXVECTOR2 translate = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
+	D3DXVECTOR2 combined = translation + translate;
+
 	D3DXVECTOR2 scale = D3DXVECTOR2(2 * dirRight, 2);
 	D3DXMatrixTransformation2D(&matrix, NULL, 0, &scale, NULL,
-		NULL, &translation);
+		NULL, &combined);
 	MObject::Update();
+
+	//isHitGround = false;
 }

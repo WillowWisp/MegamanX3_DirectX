@@ -8,7 +8,7 @@
 class MObject
 {
 protected:
-	virtual void OnCollision(MObject *otherObj, float normalx, float normaly);
+	virtual void OnCollision(MObject *otherObj, char* sideCollided);
 public:
 	MObject();
 	~MObject();

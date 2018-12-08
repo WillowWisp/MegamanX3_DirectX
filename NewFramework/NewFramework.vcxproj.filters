@@ -119,7 +119,12 @@
     <ClCompile Include="Quadtree.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="GameLog.cpp" />
+    <ClCompile Include="GameLog.cpp">
+      <Filter>Framework\GameComponents\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugDraw.cpp">
+      <Filter>Framework\GameComponents\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -248,7 +253,12 @@
     <ClInclude Include="Quadtree.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="GameLog.h" />
+    <ClInclude Include="GameLog.h">
+      <Filter>Framework\GameComponents\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugDraw.h">
+      <Filter>Framework\GameComponents\Debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -271,6 +281,9 @@
     </Filter>
     <Filter Include="Framework\Characters">
       <UniqueIdentifier>{d57162d4-208f-4b2c-9438-77b479de1476}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameComponents\Debug">
+      <UniqueIdentifier>{6c27f144-d463-46e4-8eb4-6511366dcf9f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
