@@ -6,6 +6,7 @@
 class Camera
 {
 public:
+	
 	int width, height;
 	D3DXVECTOR3 position;
 

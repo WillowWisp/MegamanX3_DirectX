@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="212" height="16" tilewidth="32" tileheight="32" nextobjectid="50">
- <tileset firstgid="1" name="mariotileset" tilewidth="32" tileheight="32" tilecount="924" columns="33">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="212" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="53">
+ <tileset firstgid="1" name="mariotileset" tilewidth="32" tileheight="32" tilecount="0" columns="33">
   <image source="Resources/mariotileset.png" width="1056" height="896"/>
  </tileset>
- <layer name="background" width="212" height="16">
+ <layer id="1" name="background" width="212" height="16">
   <data encoding="base64" compression="zlib">
    eJztlk1OwzAQhZ2s+RFwg+yBRRU4BOwqVlwBtl31GoBEOQcgAWcBbsJUykjD1P9xIU3fJ42axvb42ZkXxxg3j7UxC4qn2tMJAPCLT/LLF8W38s0b/X+n+HD4CX4DIA+bd0J+AwDYz6sY79xR2z3FQw9/cY6+efrMDf3Qf13lj03B9433TPdeKF4d65Brda2Xc/jypJDyjKAf+pl5la4/hz7feHKtpZ5X7Jwl5oL+/Dk3TT/7qaR+AMZG00WI+R997wGwqTQGfgKgBI2BnwAogfZSrp92RIyNC1rvZeQ7JKUvWKVxXMeMyx1bCpuXcv20S7FHsR8x/nBg9RbywA213Yp2n37dd4gMbf8Zmyds9aj122o3tpZL4fJSjH7tp+WZdCzCd0ZNaeyM4irzmabUQuxZEfKAbD+g3wnFkaN/KNd/13JIf4h16fd5Qt7T+l2166pn1t/3O0KO93lJz2/bf+2nuosTca31L5l2uWYRnmqp7UzEeeWvhVb0Y2LPCtmvVXPKdp5/4tHBfUvoz8Gmn4nRb8uzbv26/nhOfV/r99Wuvq/169pI1c/jQ16yvQv0/mvPsYdOxbVt/yvESjAlcmCPsQ/bHkyJHH3zjCG2aR9+AMW1lz8=
   </data>
  </layer>
- <layer name="coin" width="212" height="16" visible="0">
+ <layer id="2" name="coin" width="212" height="16" visible="0">
   <data encoding="base64" compression="zlib">
    eJzt1kEKwDAIBMB8w/9/tOfQEhISabEzJ0FY1JOtAQAAAAD04u0BPm7nPqdvGwmZAADA3dPfHYNeFRm7jTJjoq7sL3sCAAAArLoA/4kBXw==
   </data>
  </layer>
- <layer name="brick" width="212" height="16" visible="0">
+ <layer id="3" name="brick" width="212" height="16">
   <data encoding="base64" compression="zlib">
    eJzt19sKgDAIANDh/v+fex0xa9FlUefAUGSor5YCAAAAAPBPsfOyv0/amhtJDgAA3K8m8UtiFc/06NWvuGOO9Jhx041qd3vrjgAAAAAzLWOaAEA=
   </data>
  </layer>
- <objectgroup name="object">
+ <objectgroup id="4" name="object">
   <object id="1" x="1" y="447" width="2206" height="61"/>
   <object id="2" x="896.667" y="385" width="62.3333" height="62"/>
   <object id="3" x="1217" y="353" width="62" height="94"/>
@@ -56,5 +56,8 @@
   <object id="45" x="5729.33" y="386.667" width="64" height="58.6667"/>
   <object id="46" x="2849.33" y="448.667" width="2044.67" height="61.3333"/>
   <object id="47" x="4960.67" y="448" width="1820.67" height="65.3333"/>
+  <object id="50" x="4868" y="449" width="128" height="61"/>
+  <object id="51" x="2727" y="453" width="166" height="58"/>
+  <object id="52" x="2170" y="452" width="154" height="59"/>
  </objectgroup>
 </map>

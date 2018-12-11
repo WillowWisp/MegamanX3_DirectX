@@ -61,5 +61,8 @@ public:
 	//bool HitWall();
 
 	void OnCollision(MObject *otherObj, char* sideCollided);
+
+	Camera *camera;
+	void SetCamera(Camera *newCamera);
 };
 

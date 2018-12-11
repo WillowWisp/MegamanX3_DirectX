@@ -177,5 +177,5 @@ char* Collision::IsIntersect(MObject *obj1, MObject *obj2) {
 		return (char*)"right";
 	}
 
-	return (char*)"unknown";
+	return (char*)"top";
 }

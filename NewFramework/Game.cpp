@@ -79,9 +79,9 @@ void CheckCollision() {
 		}
 	}
 
-	//if (count >= collisionList.size()) {
-	//	megaman->isHitGround = false;
-	//}
+	if (count >= collisionList.size()) {
+		megaman->isHitGround = false;
+	}
 }
 
 //Xử lý Init
@@ -92,21 +92,59 @@ void Start() {
 	debugDraw = new DebugDraw();
 	megaman = new Megaman();
 
-	map = new GameMap((char*)"Resources/test.tmx");
+	map = new GameMap((char*)"Resources/marioworld1-1.tmx");
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
 	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	//GameGlobal::camera->position = D3DXVECTOR3(0,0,0);
 	
 	map->SetCamera(GameGlobal::camera);
+	megaman->SetCamera(GameGlobal::camera);
 }
 
 //Hàm này để xử lý logic mỗi frame
-void Update() {
-	/*if (Input::KeyDown(DIK_A)) {
-		GameGlobal::camera->position.x -= 5;
+void UpdateCameraWorldMap()
+{
+	if(megaman->x>GameGlobal::camera->position.x)
+		GameGlobal::camera->position = D3DXVECTOR3(megaman->x, GameGlobal::camera->position.y, 0);
+	if((megaman->x < GameGlobal::camera->position.x) )
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	if((megaman->x + GameGlobal::wndWidth / 2 >= map->GetWidth()))
+		GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth()-GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	
+	/*if (GameGlobal::camera->GetBound().left < 0)
+	{
+		//vi position cua camera ma chinh giua camera
+		//luc nay o vi tri goc ben trai cua the gioi thuc
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->width / 2, GameGlobal::camera->position.y, 0);
 	}
-	if (Input::KeyDown(DIK_D)) {
-		GameGlobal::camera->position.x += 5;
+
+	if (GameGlobal::camera->GetBound().right > map->GetWidth())
+	{
+		//luc nay cham goc ben phai cua the gioi thuc
+		GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth() - GameGlobal::camera->width / 2,
+			GameGlobal::camera->position.y, 0);
+	}
+
+	if (GameGlobal::camera->GetBound().top < 0)
+	{
+		//luc nay cham goc tren the gioi thuc
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, GameGlobal::camera->height / 2, 0);
+	}
+
+	if (GameGlobal::camera->GetBound().bottom > map->GetHeight())
+	{
+		//luc nay cham day cua the gioi thuc
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x,
+			map->GetHeight() - GameGlobal::camera->height / 2, 0);
+	}*/
+}
+void Update() {
+	/*if (Input::KeyDown(DIK_LEFT)) {
+		GameGlobal::camera->position.x -= 2;
+	}
+	if (Input::KeyDown(DIK_RIGHT)) {
+		GameGlobal::camera->position.x += 2;
 	}
 	if (Input::KeyDown(DIK_W)) {
 		GameGlobal::camera->position.y -= 5;
@@ -114,6 +152,7 @@ void Update() {
 	if (Input::KeyDown(DIK_S)) {
 		GameGlobal::camera->position.y += 5;
 	}*/
+	UpdateCameraWorldMap();
 	megaman->SetWidthHeight();
 
 	megaman->Upd();
