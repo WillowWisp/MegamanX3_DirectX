@@ -111,7 +111,8 @@ void UpdateCameraWorldMap()
 		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
 	if((megaman->x + GameGlobal::wndWidth / 2 >= map->GetWidth()))
 		GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth()-GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
-	
+
+
 	/*if (GameGlobal::camera->GetBound().left < 0)
 	{
 		//vi position cua camera ma chinh giua camera
