@@ -93,6 +93,7 @@ void Start() {
 	megaman = new Megaman();
 
 	map = new GameMap((char*)"Resources/marioworld1-1.tmx");
+	//map = new GameMap((char*)"Resources/mapp.tmx");
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
 	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
@@ -111,7 +112,10 @@ void UpdateCameraWorldMap()
 		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
 	if((megaman->x + GameGlobal::wndWidth / 2 >= map->GetWidth()))
 		GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth()-GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
-
+	if (megaman->y < GameGlobal::camera->position.y)
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x,megaman->y, 0);
+	
+	
 
 	/*if (GameGlobal::camera->GetBound().left < 0)
 	{

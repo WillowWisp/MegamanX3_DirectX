@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="18">
- <tileset firstgid="1" name="86465" tilewidth="32" tileheight="32" tilecount="10184" columns="152">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="18">
+ <tileset firstgid="1" name="86465" tilewidth="32" tileheight="32" tilecount="0" columns="152">
   <image source="Resources/86465.png" width="4894" height="2172"/>
  </tileset>
- <layer id="1" name="Tile Layer 1" width="25" height="20" visible="0">
+ <layer id="1" name="Tile Layer 1" width="25" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
