@@ -24,6 +24,8 @@ public:
 	void SetWidthHeight();
 
 	RECT GetRect();
+	void MoveXYToCorner();
+	void MoveXYToCenter();
 
 	//
 

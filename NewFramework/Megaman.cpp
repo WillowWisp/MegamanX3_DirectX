@@ -12,6 +12,7 @@ Megaman::Megaman()
 	isHitWallRight = false;
 	isHitWallLeft = false;
 	curGroundY = 1000000;
+	curCeilY = -1000000;
 	curLeftWallX = -1000000;
 	curRightWallX = 1000000;
 
@@ -42,7 +43,7 @@ Megaman::Megaman()
 	}
 	//SetState(STATE_IDLE);
 	SetState(STATE_FALLING);
-	//SetWidthHeight();
+	SetWidthHeight();
 }
 
 
@@ -129,15 +130,19 @@ void Megaman::SetState(int newState)
 	case STATE_JUMPING:
 		SetAnimState(34, 36, ANIM_DELAY);
 		SetWidthHeight();
+		GAMELOG("jumping");
 		//movex = jumpAfterDash ? DASH_SPEED : MEGAMAN_SPEED;
 		break;
 	case STATE_FALLING:
 		SetAnimState(36, 40, ANIM_DELAY);
 		SetWidthHeight();
+		delta_t = 0;
+		inMidAir = true;
 		//GAMELOG("falling");
 		break;
 	case STATE_WALL_SLIDING:
-		SetAnimState(48, 50, ANIM_DELAY + 1);
+		SetAnimState(48, 50, ANIM_DELAY);
+		GAMELOG("sliding");
 		//jumpAfterDash = false;
 		break;
 	case STATE_WALL_KICKING:
@@ -162,8 +167,16 @@ bool Megaman::HitGround() {
 	return (y + height / 2 >= curGroundY);
 }
 
+bool Megaman::HitCeil() {
+	return (y - height / 2 <= curCeilY);
+}
+
 bool Megaman::HitWall() {
 	return (x - width / 2 <= curLeftWallX || x + width / 2 >= curRightWallX);
+}
+
+bool Megaman::CloseToWall() {
+	return (x - width / 2 <= curLeftWallX - 2 * dirRight || x + width / 2 >= curRightWallX - 2 * dirRight);
 }
 
 void Megaman::Update()
@@ -218,17 +231,12 @@ void Megaman::Update()
 			movex = 0;
 	}
 
-	//if (!isHitGround && state != STATE_JUMPING) {
-	//	if (StateChanged(STATE_FALLING))
-	//		SetState(STATE_FALLING);
-	//	//delta_t = 0;
-	//}
-	//else {
-	//	//if (StateChanged(STATE_IDLE))
-	//	//	SetState(STATE_IDLE);
-	//}
 
-	if (y + height / 2 < curGroundY && state != STATE_JUMPING) {
+	if (!HitGround() 
+		&& state != STATE_JUMPING 
+		&& state != STATE_WALL_SLIDING
+		&& state != STATE_WALL_KICKING) {
+
 		if (StateChanged(STATE_FALLING))
 			SetState(STATE_FALLING);
 		//delta_t = 0;
@@ -238,117 +246,143 @@ void Megaman::Update()
 		//	SetState(STATE_IDLE);
 	}
 
-	//if (isHitWallLeft) {
-	//	//movex = 5;
-	//	//ChangeDirHorizontal();
-	//	//x = this->collideObject->y - this->collideObject->height / 2 - height / 2 + 5;
-	//	//x -= 20;
-	//	//x += ((x + width) - collideObject->x);
-	//	x = this->collideObject->x - this->collideObject->width / 2 - width / 2 - 5;
-	//	isHitWallLeft = false;
-	//}
-	//if (isHitWallRight) {
-	//	//movex = 5;
-	//	//ChangeDirHorizontal();
-	//	//x += 20;
-	//	//x -= ((x + width) - collideObject->x);
-	//	x = this->collideObject->x + this->collideObject->width / 2 + width / 2 + 5;
-	//	isHitWallRight = false;
-	//}
-
-	//if (isHitGround) {
-	//	movey = 0;
-	//}
-	//else {
-	//	movey = 5;
-	//}
 
 	//Check states
-	//if (state == STATE_WALL_SLIDING || (inMidAir && (isHitWallLeft || isHitWallRight))) {									//CANCER
-	//	if (StateChanged(STATE_WALL_SLIDING))
-	//		SetState(STATE_WALL_SLIDING);
+	if (state == STATE_WALL_SLIDING || (inMidAir && HitWall())) {									//CANCER
+		if (StateChanged(STATE_WALL_SLIDING))
+			SetState(STATE_WALL_SLIDING);
 
-	//	//if (Input::KeyDown(DIK_X)) {
-	//	//	anim->ChangeAnimFrames(53, 55);
-	//	//}
+		//if (Input::KeyDown(DIK_X)) {
+		//	anim->ChangeAnimFrames(53, 55);
+		//}
 
-	//	if (isHitGround) {
-	//		if (anim->curframe == anim->endframe && anim->animcount == anim->animdelay) {
-	//			SetState(STATE_IDLE);
-	//		}
-	//		else {
-	//			anim->animdelay = 0;
-	//		}
-	//		y = GROUND_Y;
-	//		movey = 0;
-	//		inMidAir = false;
-	//	}
-	//	//wall kick
-	//	else if (Input::KeyDown(DIK_Z) && !jumpHold) {
-	//		SetState(STATE_WALL_KICKING);
-	//		delta_t = 0;
-	//		movex = -WALL_JUMP_SPEED;
-	//		movey = WALL_JUMP_SPEED;
-	//	}
-	//	//if not holding left/right key or holding both keys -> fall
-	//	else if (((dirRight > 0 && !rightHold) || (dirRight < 0 && !leftHold))) {
-	//		jumpAfterDash = false;
-	//		wallJump = false;
-	//		SetState(STATE_FALLING);
-	//		delta_t = 0;
-	//		x += 20 * (-dirRight); //bounce back
-	//		//movex = 0;
-	//		movey = WALL_SLIDE_SPEED;
-	//		//movey = 10;
-	//	}
-	//	else {
+		if (HitGround()) {
+			if (anim->curframe == anim->endframe && anim->animcount == anim->animdelay) {
+				SetState(STATE_IDLE);
+			}
+			else {
+				anim->animdelay = 0;
+			}
+			y = curGroundY - (height / 2) + 2;
+			movey = 0;
+			inMidAir = false;
+		}
+		//wall kick
+		else if (Input::KeyDown(DIK_Z) && !jumpHold) {
+			SetState(STATE_WALL_KICKING);
+			delta_t = 0;
+			movex = -WALL_JUMP_SPEED;
+			movey = -WALL_JUMP_SPEED;
+		}
+		//if not holding left/right key or holding both keys -> fall
+		else if (((dirRight > 0 && !rightHold) || (dirRight < 0 && !leftHold)) || !HitWall()) {
+			jumpAfterDash = false;
+			wallJump = false;
+			SetState(STATE_FALLING);
+			delta_t = -1;
+			x += 20 * (-dirRight); //bounce back
+			//movex = 0;
+			//movey = -WALL_SLIDE_SPEED;
+			movey = 0;
+			//movey = 10;
+		}
+		else {
 
-	//		movey = WALL_SLIDE_SPEED;
+			movey = -WALL_SLIDE_SPEED;
 
-	//		if (anim->curframe == anim->beginframe + 2) {
-	//			anim->animcount = anim->animdelay;
-	//		}
-	//	}
-	//}
-	//else if (state == STATE_WALL_KICKING) {															//CANCER2
-	//	//check if kick velocity is positive
-	//	if (movex + delta_t * KICK_ANTI_FORCE >= 0)
-	//	{
-	//		SetState(STATE_JUMPING);
-	//		if (Input::KeyDown(DIK_X)) {
-	//			anim->ChangeAnimFrames(42, 43);
-	//		}
-	//		anim->curframe = anim->beginframe + 2;
-	//		delta_t = WALL_JUMP_SPEED / 2;
-	//		movey += delta_t * GRAVITY;	//Quick maths
-	//		movex = 0;
-	//		if (rightHold && HorizontalDirChanged(1)) {
-	//			dirRight = 1;
-	//		}
-	//		else if (leftHold && HorizontalDirChanged(-1)) {
-	//			dirRight = -1;
-	//		}
-	//	}
-	//	else {
-	//		if (Input::KeyDown(DIK_X)) {
-	//			anim->ChangeAnimFrames(56, 57);
-	//		}
+			if (anim->curframe == anim->endframe) {
+				anim->animcount = anim->animdelay;
+			}
+		}
+	}
+	else if (state == STATE_WALL_KICKING) {															//CANCER2
+		//check if kick velocity is positive
+		if (movex + delta_t * KICK_ANTI_FORCE >= 0)
+		{
+			SetState(STATE_JUMPING);
+			if (Input::KeyDown(DIK_X)) {
+				anim->ChangeAnimFrames(42, 43);
+			}
+			anim->curframe = anim->beginframe + 2;
+			delta_t = WALL_JUMP_SPEED / 2;
+			/*delta_t = 0;*/
+			movey -= delta_t * GRAVITY;	//Quick maths
+			movex = 0;
+			if (rightHold && HorizontalDirChanged(1)) {
+				dirRight = 1;
+			}
+			else if (leftHold && HorizontalDirChanged(-1)) {
+				dirRight = -1;
+			}
+		}
+		else {
+			if (Input::KeyDown(DIK_X)) {
+				anim->ChangeAnimFrames(56, 57);
+			}
 
-	//		if (anim->curframe == anim->endframe) {
-	//			anim->animcount = anim->animdelay; //Animation shits
-	//		}
+			if (anim->curframe == anim->endframe) {
+				anim->animcount = anim->animdelay; //Animation shits
+			}
 
-	//		delta_t++;
-	//		if (jumpAfterDash) {
-	//			movex = movex + delta_t * (KICK_ANTI_FORCE / 2); //Quick physics
-	//		}
-	//		else {
-	//			movex = movex + delta_t * KICK_ANTI_FORCE;
-	//		}
-	//	}
-	//}
-	//else 
-	if (!(HitWall()) || 1) {
+			delta_t++;
+			if (jumpAfterDash) {
+				movex = movex + delta_t * (KICK_ANTI_FORCE / 2); //Quick physics
+			}
+			else {
+				movex = movex + delta_t * KICK_ANTI_FORCE;
+			}
+		}
+	}
+	else if (state == STATE_DASHING) {															//DASHING
+
+		if (Input::KeyDown(DIK_Z) && !jumpHold) {
+
+			if (StateChanged(STATE_JUMPING))
+				SetState(STATE_JUMPING);
+
+			jumpAfterDash = true;
+			delta_t = 0;
+			movey = -(JUMP_SPEED + delta_t * GRAVITY);
+			inMidAir = true;
+		}
+
+		else {
+
+			//if shooting key is pressed then change animation
+			if (Input::KeyDown(DIK_X)) {
+				//SetState(STATE_DASHING_N_SHOOTING);
+				anim->ChangeAnimFrames(62, 63);
+
+			}
+			else if (!Input::KeyDown(DIK_X)) {
+				//SetState(STATE_DASHING);
+				anim->ChangeAnimFrames(60, 61);
+			}
+
+			if (!dashHold) {
+				delta_t = -1;
+			}
+
+			//stop if passing dash duration or not holding key
+			if (delta_t == DASH_DURATION || delta_t < 0) {
+				if (anim->curframe == anim->endframe && anim->animcount == anim->animdelay) {
+					SetState(STATE_IDLE);
+				}
+				else {
+					anim->curframe = anim->endframe;
+				}
+				movex = 0;
+			}
+			//continue dashing
+			else {
+				delta_t++;
+				anim->animcount = 0;
+				movex = DASH_SPEED;
+			}
+		}
+	}
+	else 
+	if (!(HitWall())) {
 		if (state == STATE_JUMPING) {																//ASCENDING
 			//if shooting key is pressed then change animation
 			if (Input::KeyDown(DIK_X)) {
@@ -442,47 +476,13 @@ void Megaman::Update()
 			inMidAir = true;
 			//isHitGround = false;
 		}
-		else if (state == STATE_DASHING) {															//DASHING
-			//if shooting key is pressed then change animation
-			if (Input::KeyDown(DIK_X)) {
-				//SetState(STATE_DASHING_N_SHOOTING);
-				anim->ChangeAnimFrames(62, 63);
-
-			}
-			else if (!Input::KeyDown(DIK_X)) {
-				//SetState(STATE_DASHING);
-				anim->ChangeAnimFrames(60, 61);
-			}
-
-			if (!dashHold) {
-				delta_t = -1;
-			}
-
-			//stop if passing dash duration or not holding key
-			if (delta_t == DASH_DURATION || delta_t < 0) {
-				if (anim->curframe == anim->endframe && anim->animcount == anim->animdelay) {
-					SetState(STATE_IDLE);
-				}
-				else {
-					anim->curframe = anim->endframe;
-				}
-				movex = 0;
-			}
-			//continue dashing
-			else {
-				delta_t++;
-				anim->animcount = 0;
-				movex = DASH_SPEED;
-			}
-
-		}
-		else if (Input::KeyDown(DIK_X) && moving) {													//SHOOTING AND RUNNING
+		else if (Input::KeyDown(DIK_X) && moving && !CloseToWall()) {													//SHOOTING AND RUNNING
 
 			if (StateChanged(STATE_RUNNING_N_SHOOTING))
 				SetState(STATE_RUNNING_N_SHOOTING);
 
 		}
-		else if (Input::KeyDown(DIK_V) && !dashHold) {												//START DASHING
+		else if (Input::KeyDown(DIK_V) && !dashHold && !CloseToWall()) {												//START DASHING
 
 			if (StateChanged(STATE_DASHING))
 				SetState(STATE_DASHING);
@@ -496,7 +496,7 @@ void Megaman::Update()
 		}
 		else {
 			//Only running key is pressed
-			if (moving) {																			//RUNNING
+			if (moving && !CloseToWall()) {																			//RUNNING
 				if (StateChanged(STATE_RUNNING))
 					SetState(STATE_RUNNING);
 
@@ -608,9 +608,13 @@ void Megaman::Update()
 		else if (x - width / 2 <= curLeftWallX)
 			x = curLeftWallX + width / 2;*/
 		if (x - width / 2 <= curLeftWallX)
-			x = curLeftWallX + width / 2;
+			x = curLeftWallX + width / 2 + 2;
 		else if (x + width / 2 >= curRightWallX)
-			x = curRightWallX - width / 2;
+			x = curRightWallX - width / 2 - 2;
+	}
+
+	if (HitCeil()) {
+		y = curCeilY + height / 2 + 2;
 	}
 
 	//if (isHitWallRight || isHitWallLeft) {
@@ -627,10 +631,19 @@ void Megaman::Update()
 		movey = 0;
 		delta_t = 0;
 	}
+
+	if (Input::KeyDown(DIK_Y)) {
+		y = 0;
+		movex = 0;
+		movey = 0;
+		delta_t = 0;
+	}
+
 	if (Input::KeyDown(DIK_L)) {
 		GAMELOG("left %d", curLeftWallX);
 		GAMELOG("right %d", curRightWallX);
 		GAMELOG("ground %d", curGroundY);
+		GAMELOG("ceil %d", curCeilY);
 	}
 
 	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex, y + movey);
@@ -644,3 +657,8 @@ void Megaman::Update()
 
 	//isHitGround = false;
 }
+
+//void Megaman::SetWidthHeight() {
+//	//width = 34;
+//	//height = 30;
+//}

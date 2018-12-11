@@ -23,7 +23,7 @@
 #define WALL_JUMP_SPEED 20
 #define WALL_DASH_JUMP_SPEED 5
 #define WALL_DASH_BOUNCE_SPEED 10
-#define GRAVITY -0.25
+#define GRAVITY -0.25 
 #define KICK_ANTI_FORCE 5
 #define WALL_SLIDE_SPEED -7
 #define GROUND_Y 390
@@ -43,6 +43,7 @@ public:
 	bool isHitWallLeft;
 	bool isHitWallRight;
 	int curGroundY;
+	int curCeilY;
 	int curLeftWallX;
 	int curRightWallX;
 	//bool isHitWall;
@@ -59,11 +60,14 @@ public:
 	bool dashKick;
 
 	//
+	//void SetWidthHeight();
 	void SetState(int);
 	void Upd();
 	void Update();
 	bool HitGround();
+	bool HitCeil();
 	bool HitWall();
+	bool CloseToWall();
 
 	void OnCollision(MObject *otherObj, char* sideCollided);
 };

@@ -5,6 +5,7 @@
 MObject::MObject()
 {
 	state = 0;
+	dirRight = 1;
 	//imageCount = 1;
 
 	//width = anim->sprite[anim->curframe]->width;
@@ -30,8 +31,10 @@ void MObject::Update()
 }
 
 void MObject::SetWidthHeight() {
-	width = anim->sprite[anim->curframe]->width;
-	height = anim->sprite[anim->curframe]->height;
+	if (anim != NULL) {
+		width = anim->sprite[anim->curframe]->width;
+		height = anim->sprite[anim->curframe]->height;
+	}
 }
 bool MObject::StateChanged(int newState)
 {
@@ -67,6 +70,20 @@ RECT MObject::GetRect() {
 	bound.bottom = y + height / 2;
 
 	return bound;
+}
+
+void MObject::MoveXYToCorner() {
+	//Hot fix collision
+	SetWidthHeight();
+	x -= width / 2;
+	y -= height / 2;
+}
+
+void MObject::MoveXYToCenter() {
+	//Hot fix collision
+	SetWidthHeight();
+	x += width / 2;
+	y += height / 2;
 }
 
 MObject::~MObject()

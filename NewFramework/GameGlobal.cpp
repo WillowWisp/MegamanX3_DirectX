@@ -38,8 +38,8 @@ bool GameGlobal::IsIntersectX(RECT rect1, RECT rect2) {
 bool GameGlobal::IsIntersectY(RECT rect1, RECT rect2) {
 	//if (IsIntersect(rect1, rect2))
 	//	return false;
-	if (rect1.left >= rect2.left && rect1.right <= rect2.right)
-		return false;
+	//if (rect1.left >= rect2.left && rect1.right <= rect2.right)
+	//	return false;
 	//if (rect1.left < rect2.left) {
 	//
 	//}
