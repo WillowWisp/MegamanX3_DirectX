@@ -33,6 +33,8 @@ Sun* sun;
 Sun* sun2;
 Megaman* megaman;
 
+NotorBanger* enemy;
+
 GameMap *map;
 
 std::vector<MObject*> collisionList;
@@ -40,85 +42,6 @@ DebugDraw *debugDraw;
 
 int i = 0;
 
-void CheckCollision() {
-	collisionList.clear();
-	map->GetQuadtree()->GetObjectsCollidableWith(megaman, collisionList);
-	int count = 0;
-	//GAMELOG("movey: %d", megaman->movey);;
-	for (size_t i = 0; i < collisionList.size(); i++)
-	{
-		//char* isCollided = Collision::IsCollided(megaman, collisionList.at(i));
-		//if (isCollided != (char*)"none")
-		//{
-
-		//	GAMELOG("ASD: %s", (char*)isCollided);
-		//	//Gọi đến hàm OnCollision trong MObject
-		//	megaman->OnCollision(collisionList.at(i));
-		//	/*
-
-		//	//goi den ham xu ly collision cua Player va MObject
-		//	mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
-		//	listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
-		//	}*/
-		//}
-
-		/*if (GameGlobal::IsIntersect(megaman->GetRect(), collisionList.at(i)->GetRect())) {
-			GAMELOG("ASD: %d", megaman->GetRect().left);
-			GAMELOG("ZXC: %d", collisionList.at(i)->GetRect().right);
-			megaman->OnCollision(collisionList.at(i));
-		}*/
-
-		char* sideCollided = Collision::IsIntersect(megaman, collisionList.at(i));
-		
-		if (sideCollided != (char*)"none") {
-			GAMELOG("Huong: %s", (char*)sideCollided);	
-			megaman->OnCollision(collisionList.at(i), sideCollided);
-		}
-		else {
-			count++;
-		}
-	}
-
-	//if (count >= collisionList.size()) {
-	//	megaman->isHitGround = false;
-	//}
-}
-
-//Xử lý Init
-void Start() {
-	background = Graphics::LoadSurface((char*)"myBackground.bmp");
-	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
-	//Sound::PlaySoundA(backgroundSound);
-	debugDraw = new DebugDraw();
-	megaman = new Megaman();
-
-	map = new GameMap((char*)"Resources/test.tmx");
-	
-	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
-	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
-	
-	map->SetCamera(GameGlobal::camera);
-}
-
-//Hàm này để xử lý logic mỗi frame
-void Update() {
-	/*if (Input::KeyDown(DIK_A)) {
-		GameGlobal::camera->position.x -= 5;
-	}
-	if (Input::KeyDown(DIK_D)) {
-		GameGlobal::camera->position.x += 5;
-	}
-	if (Input::KeyDown(DIK_W)) {
-		GameGlobal::camera->position.y -= 5;
-	}
-	if (Input::KeyDown(DIK_S)) {
-		GameGlobal::camera->position.y += 5;
-	}*/
-	megaman->SetWidthHeight();
-
-	megaman->Upd();
-	CheckCollision();
-}
 
 void DrawQuadtree(Quadtree *quadtree)
 {
@@ -149,12 +72,95 @@ void DrawCollidable()
 	}
 }
 
+void CheckCollision() {
+	collisionList.clear();
+	map->GetQuadtree()->GetObjectsCollidableWith(megaman, collisionList);
+	int count = 0;
+	bool collided = false;
+	//GAMELOG("movey: %d", megaman->movey);;
+	for (size_t i = 0; i < collisionList.size(); i++)
+	{
+		//char* isCollided = Collision::IsCollided(megaman, collisionList.at(i));
+		//if (isCollided != (char*)"none")
+		//{
+
+		//	GAMELOG("ASD: %s", (char*)isCollided);
+		//	//Gọi đến hàm OnCollision trong MObject
+		//	megaman->OnCollision(collisionList.at(i));
+		//	/*
+
+		//	//goi den ham xu ly collision cua Player va MObject
+		//	mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
+		//	listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
+		//	}*/
+		//}
+
+		/*if (GameGlobal::IsIntersect(megaman->GetRect(), collisionList.at(i)->GetRect())) {
+			GAMELOG("ASD: %d", megaman->GetRect().left);
+			GAMELOG("ZXC: %d", collisionList.at(i)->GetRect().right);
+			megaman->OnCollision(collisionList.at(i));
+		}*/
+
+		char* sideCollided = Collision::IsIntersect(megaman, collisionList.at(i));
+		
+		if (sideCollided != (char*)"none") {
+			megaman->OnCollision(collisionList.at(i), sideCollided);
+			collided = true;
+		}
+		else {
+			count++;
+		}
+	}
+	
+	/*megaman->isHitGround = collided;*/
+	if (count >= collisionList.size()) {
+		megaman->isHitGround = false;
+	}
+}
+
+//Xử lý Init
+void Start() {
+	background = Graphics::LoadSurface((char*)"myBackground.bmp");
+	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
+	//Sound::PlaySoundA(backgroundSound);
+	debugDraw = new DebugDraw();
+	megaman = new Megaman();
+
+	enemy = new NotorBanger(megaman);
+
+	map = new GameMap((char*)"Resources/test.tmx");
+	
+	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
+	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	
+	map->SetCamera(GameGlobal::camera);
+}
+
+//Hàm này để xử lý logic mỗi frame
+void Update() {
+	/*if (Input::KeyDown(DIK_A)) {
+		GameGlobal::camera->position.x -= 5;
+	}
+	if (Input::KeyDown(DIK_D)) {
+		GameGlobal::camera->position.x += 5;
+	}
+	if (Input::KeyDown(DIK_W)) {
+		GameGlobal::camera->position.y -= 5;
+	}
+	if (Input::KeyDown(DIK_S)) {
+		GameGlobal::camera->position.y += 5;
+	}*/
+	megaman->SetWidthHeight();
+
+	enemy->Update();
+	CheckCollision();
+}
 
 //Hàm này để render lên màn hình
 void Render() {
 
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
-	
+
 	//start sprite handler
 	//spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
@@ -162,6 +168,8 @@ void Render() {
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map->Draw();
 	megaman->Update();
+	enemy->Render();
+	GAMELOG("deltaT: %d", enemy->delta_t);
 
 	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
 

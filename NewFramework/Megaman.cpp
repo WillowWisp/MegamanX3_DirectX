@@ -38,17 +38,12 @@ Megaman::~Megaman()
 {
 }
 
-int temp = 0;
 void Megaman::OnCollision(MObject *otherObj, char* sideCollided) {
 	collideObject = otherObj;
 	movey = 0;
 	movex = 0;
-	GAMELOG("Collided %d", temp++);
 	if (sideCollided == (char*)"top") {
 		isHitGround = true;
-	}
-	else {
-		isHitGround = false;
 	}
 
 }
@@ -101,11 +96,6 @@ void Megaman::SetState(int newState)
 		break;
 	}
 }
-
-void Megaman::Upd() {
-	/*isHitGround = false;*/
-}
-
 void Megaman::Update()
 {
 	if (Input::KeyDown(DIK_S)) {
@@ -262,13 +252,13 @@ void Megaman::Update()
 			}
 
 			//check if velocity is negative (falling down)
-			if (!jumpHold || movey < 0) {
+			if (!jumpHold || movey > 0) {
 				SetState(STATE_FALLING);
 				if (Input::KeyDown(DIK_X)) {
 					anim->ChangeAnimFrames(43, 47);
 				}
 				delta_t = 1;
-				movey = delta_t * GRAVITY;	//Quick maths
+				movey = -(delta_t * GRAVITY);	//Quick maths
 			}
 			else {
 				if (anim->curframe == anim->endframe) {
@@ -280,7 +270,7 @@ void Megaman::Update()
 				}
 
 				delta_t++;
-				movey = movey + delta_t * GRAVITY;	//Quick physics
+				movey -= delta_t * GRAVITY;	//Quick physics
 			}
 
 		}
@@ -304,7 +294,8 @@ void Megaman::Update()
 				else {
 					anim->animdelay = 0;
 				}
-				y = this->collideObject->y - this->collideObject->height / 2 - this->height / 2;
+				y = this->collideObject->y - this->collideObject->height / 2 - this->height / 2 + 2;
+				delta_t = 0;
 				movey = 0;
 				inMidAir = false;
 			}
@@ -318,7 +309,7 @@ void Megaman::Update()
 				}
 
 				delta_t++;
-				movey = movey + delta_t * GRAVITY;
+				movey -= delta_t * GRAVITY;
 			}
 		}
 		else if (Input::KeyDown(DIK_Z) && !jumpHold) {												//START JUMPING
@@ -328,7 +319,7 @@ void Megaman::Update()
 				SetState(STATE_JUMPING);
 
 			delta_t = 0;
-			movey = JUMP_SPEED + delta_t * GRAVITY;
+			movey = -(JUMP_SPEED + delta_t * GRAVITY);
 			inMidAir = true;
 			isHitGround = false;
 		}

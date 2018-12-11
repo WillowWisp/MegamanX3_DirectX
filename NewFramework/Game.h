@@ -15,6 +15,7 @@
 #include"DemoScene.h"
 #include "Sun.h"
 #include "Megaman.h"
+#include "NotorBanger.h"
 #include "Camera.h"
 #include "GameLog.h"
 #include "DebugDraw.h"

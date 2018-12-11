@@ -14,7 +14,7 @@ public:
 	~MObject();
 
 	//function prototypes
-	void SetAnimState(int, int, int); //set chỉ số frame đầu và frame cuối của animation
+	void SetAnimState(int begin, int end, int delay); //set chỉ số frame đầu và frame cuối của animation
 	void Update();
 	bool StateChanged(int);
 	bool HorizontalDirChanged(int);
