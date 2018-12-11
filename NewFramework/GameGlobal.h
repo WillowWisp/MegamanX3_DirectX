@@ -24,6 +24,8 @@ public:
 	~GameGlobal();
 
 	static bool IsIntersect(RECT rect1, RECT rect2);
+	static bool IsIntersectX(RECT rect1, RECT rect2);
+	static bool IsIntersectY(RECT rect1, RECT rect2);
 	static bool IsContain(RECT container, RECT rect);
 };
 

@@ -59,3 +59,8 @@ void DebugDraw::setColor(D3DCOLOR color)
 {
 	mColor = color;
 }
+
+D3DCOLOR DebugDraw::getColor()
+{
+	return mColor;
+}

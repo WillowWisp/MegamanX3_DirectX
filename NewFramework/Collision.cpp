@@ -20,13 +20,17 @@ bool Collision::AABBCheck(MObject *object, MObject *otherObject)
 
 	// xét ngược lại
 	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
+
+	/*return !(b1->x + b1->width < b2->x || b1->x > b2->x + b2->width || b1->y + b1->height < b2->y || b1->y > b2->y + b2->height);*/
 }
 
 
 MObject* Collision::GetSweptBroadphaseBox(MObject *object) {
 	MObject *broadphaseBox = new MObject();
 	broadphaseBox->x = object->movex > 0 ? object->x : object->x + object->movex;
-	broadphaseBox->y = object->movex > 0 ? object->y : object->y + object->movey;
+	broadphaseBox->y = object->movey > 0 ? object->y : object->y + object->movey;
+	//broadphaseBox->x = object->movex > 0 ? (object->x - object->width / 2) : (object->x - object->width / 2) + object->movex;
+	//broadphaseBox->y = object->movey > 0 ? (object->y - object->height / 2) : (object->y - object->height / 2) + object->movey;
 	broadphaseBox->width = object->width + abs(object->movex);
 	broadphaseBox->height = object->height + abs(object->movey);
 
@@ -47,7 +51,7 @@ bool Collision::SweptAABB(MObject *object, MObject *otherObject, float &normalx,
 		dxExit = otherObject->x - (object->x + object->width);
 	}
 
-	if (object->movey > 0.0f) { //object nằm bên trên otherObject
+	if (object->movey >= 0.0f) { //object nằm bên trên otherObject
 		dyEntry = otherObject->y - (object->y + object->height);
 		dyExit = (otherObject->y + otherObject->height) - object->y;
 	}
@@ -148,6 +152,9 @@ char* Collision::IsCollided(MObject *object, MObject *otherObj) {
 			if (normalxOtherObj == 0.0f && normalyOtherObj == -1.0f)
 				result = (char*)"top";
 		}
+		else {
+			//return IsIntersect(object, otherObj);
+		}
 	}
 
 	return result;
@@ -170,10 +177,10 @@ char* Collision::IsIntersect(MObject *obj1, MObject *obj2) {
 	if (obj2Rect.bottom >= obj1Rect.top && obj1Rect.top >= obj2Rect.bottom - 2) {
 		return (char*)"bottom";
 	}
-	if (obj1Rect.right >= obj2Rect.left && obj2Rect.left >= obj1Rect.right - 2) {
+	if (obj1Rect.right >= obj2Rect.left && obj2Rect.left >= obj1Rect.right - 5) {
 		return (char*)"left";
 	}
-	if (obj2Rect.right >= obj1Rect.left && obj1Rect.left >= obj2Rect.right - 2) {
+	if (obj2Rect.right >= obj1Rect.left && obj1Rect.left >= obj2Rect.right - 5) {
 		return (char*)"right";
 	}
 

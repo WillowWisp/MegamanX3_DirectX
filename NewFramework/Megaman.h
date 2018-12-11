@@ -23,12 +23,12 @@
 #define WALL_JUMP_SPEED 20
 #define WALL_DASH_JUMP_SPEED 5
 #define WALL_DASH_BOUNCE_SPEED 10
-#define GRAVITY 0.25
+#define GRAVITY -0.25
 #define KICK_ANTI_FORCE 5
 #define WALL_SLIDE_SPEED -7
 #define GROUND_Y 390
-#define LEFTWALL_X 50
-#define RIGHTWALL_X 700
+#define LEFTWALL_X 0
+#define RIGHTWALL_X 227
 
 class Megaman :
 	public MObject
@@ -40,7 +40,12 @@ public:
 
 	//variables to manage megaman's shitton amount of states
 	bool isHitGround;
-	bool isHitWall;
+	bool isHitWallLeft;
+	bool isHitWallRight;
+	int curGroundY;
+	int curLeftWallX;
+	int curRightWallX;
+	//bool isHitWall;
 
 	bool jumpHold;
 	bool dashHold;
@@ -57,8 +62,8 @@ public:
 	void SetState(int);
 	void Upd();
 	void Update();
-	//bool HitGround();
-	//bool HitWall();
+	bool HitGround();
+	bool HitWall();
 
 	void OnCollision(MObject *otherObj, char* sideCollided);
 };
