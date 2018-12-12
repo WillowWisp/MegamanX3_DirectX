@@ -86,15 +86,15 @@ void MObject::MoveXYToCenter() {
 	y += height / 2;
 }
 
-//void MObject::SetSignedMoveX() {
-//	if (dirRight == -1) {
-//		movex *= -1;
-//	}
-//}
-//
-//void MObject::SetUnsignedMoveX() {
-//	movex = abs(movex);
-//}
+void MObject::SetSignedMoveX() {
+	if (dirRight == -1) {
+		movex *= -1;
+	}
+}
+
+void MObject::SetUnsignedMoveX() {
+	movex = abs(movex);
+}
 
 
 

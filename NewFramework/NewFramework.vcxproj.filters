@@ -128,6 +128,12 @@
     <ClCompile Include="NotorBanger.cpp">
       <Filter>Framework\Characters</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Framework\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBangerBullet.cpp">
+      <Filter>Framework\Bullets\NotorBangerBullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -265,6 +271,12 @@
     <ClInclude Include="NotorBanger.h">
       <Filter>Framework\Characters</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Framework\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="NotorBangerBullet.h">
+      <Filter>Framework\Bullets\NotorBangerBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -290,6 +302,12 @@
     </Filter>
     <Filter Include="Framework\GameComponents\Debug">
       <UniqueIdentifier>{6c27f144-d463-46e4-8eb4-6511366dcf9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Bullets">
+      <UniqueIdentifier>{4bcfbf6d-da1c-4010-9904-e77a1715e4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Bullets\NotorBangerBullet">
+      <UniqueIdentifier>{a35d3bce-b8e3-4463-ac81-10a8c2449a1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

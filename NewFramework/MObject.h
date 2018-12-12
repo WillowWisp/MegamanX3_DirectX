@@ -26,10 +26,11 @@ public:
 	RECT GetRect();
 	void MoveXYToCorner();
 	void MoveXYToCenter();
-	//void SetSignedMoveX();
-	//void SetUnsignedMoveX();
+	void SetSignedMoveX();
+	void SetUnsignedMoveX();
 	//
 
+	char* tag;
 	int x, y;
 	int width, height;
   

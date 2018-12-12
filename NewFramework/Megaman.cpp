@@ -663,18 +663,18 @@ void Megaman::Update()
 //	//height = 30;
 //}
 
-void Megaman::SetSignedMoveX() {
-	if (dirRight == -1) {
-		movex *= -1;
-	}
-	//if (state == STATE_WALL_KICKING) {
-	//	movex *= -1;
-	//}
-}
-
-void Megaman::SetUnsignedMoveX() {
-	movex = abs(movex);
-	if (state == STATE_WALL_KICKING) {
-		movex *= -1;
-	}
-}
+//void Megaman::SetSignedMoveX() {
+//	if (dirRight == -1) {
+//		movex *= -1;
+//	}
+//	//if (state == STATE_WALL_KICKING) {
+//	//	movex *= -1;
+//	//}
+//}
+//
+//void Megaman::SetUnsignedMoveX() {
+//	movex = abs(movex);
+//	if (state == STATE_WALL_KICKING) {
+//		movex *= -1;
+//	}
+//}

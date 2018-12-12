@@ -52,6 +52,7 @@ void GameMap::LoadMap(char* filePath)
 			Tmx::Object *object = objectGroup->GetObjects().at(j);
 
 			MObject *mObject = new MObject();
+			mObject->tag = (char*)"static";
 			mObject->x = object->GetX() + object->GetWidth() / 2;
 			mObject->y = object->GetY() + object->GetHeight() / 2;
 			mObject->width = object->GetWidth();
