@@ -237,17 +237,24 @@ void Start() {
 //Hàm này để xử lý logic mỗi frame
 void UpdateCameraWorldMap()
 {
-	if(megaman->x>GameGlobal::camera->position.x)
+	//khi megaman di chuyen qua window width /2 thi bat dau di chuyen camera ngang qua
+	if (megaman->x > GameGlobal::camera->position.x)
 		GameGlobal::camera->position = D3DXVECTOR3(megaman->x, GameGlobal::camera->position.y, 0);
-	if((megaman->x < GameGlobal::camera->position.x) )
+	//khi vi tri megaman nho hon vi tri camera (nghia la da di sat mep ben trai map)
+	if ((megaman->x < GameGlobal::camera->position.x))
 		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
-	if((megaman->x + GameGlobal::wndWidth / 2 >= map->GetWidth()))
-		GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth()-GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	//khi vi tri megaman toi vi tri tan cung cua map
+	if ((megaman->x + GameGlobal::wndWidth / 2 >= map->GetWidth()))
+		GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth() - GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	//khi vi tri megaman nhay cao hon vi tri window height / 2 thi bat dau di chuyen camera doc len
 	if (megaman->y < GameGlobal::camera->position.y)
-		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x,megaman->y, 0);
-	if(megaman->y>=GameGlobal::camera->position.y&&GameGlobal::camera->position.y!=(map->GetHeight() - GameGlobal::wndHeight / 2))
 		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, megaman->y, 0);
-	if(megaman->x>=GameGlobal::camera->position.x&&megaman->y >= GameGlobal::camera->position.y&&GameGlobal::camera->position.y >= (map->GetHeight() - GameGlobal::wndHeight / 2))
+	//khi vi tri megaman rot xuong ( chua rot toi tan cung cua map)
+	if (megaman->y >= GameGlobal::camera->position.y&&GameGlobal::camera->position.y != (map->GetHeight() - GameGlobal::wndHeight / 2))
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, megaman->y, 0);
+	//khi rot toi vi tri tan cung cua map (nhung chua di het map ngang)
+	if (megaman->x >= GameGlobal::camera->position.x&&megaman->y >= GameGlobal::camera->position.y&&GameGlobal::camera->position.y >= (map->GetHeight() - GameGlobal::wndHeight / 2) &&
+		(GameGlobal::camera->position.x + GameGlobal::wndWidth / 2) != map->GetWidth())
 		GameGlobal::camera->position = D3DXVECTOR3(megaman->x, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
 	
 
