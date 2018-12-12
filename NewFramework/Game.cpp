@@ -45,6 +45,10 @@ int i = 0;
 
 void DrawQuadtree(Quadtree *quadtree)
 {
+	D3DCOLOR oldColor = debugDraw->getColor();
+
+	debugDraw->setColor(D3DCOLOR_XRGB(0, 0, 0));
+
 	if (quadtree->nodes)
 	{
 		for (size_t i = 0; i < 4; i++)
@@ -62,14 +66,22 @@ void DrawQuadtree(Quadtree *quadtree)
 			debugDraw->DrawRect(quadtree->nodes[i]->region, GameGlobal::camera);
 		}
 	}
+
+	debugDraw->setColor(oldColor);
 }
 
 void DrawCollidable()
 {
+	D3DCOLOR oldColor = debugDraw->getColor();
+
+	debugDraw->setColor(D3DCOLOR_XRGB(255, 255, 255));
+
 	for (auto child : collisionList)
 	{
 		debugDraw->DrawRect(child->GetRect(), GameGlobal::camera);
 	}
+
+	debugDraw->setColor(oldColor);
 }
 
 void CheckCollision() {
@@ -217,6 +229,7 @@ void CheckCollision() {
 //Xử lý Init
 void Start() {
 	background = Graphics::LoadSurface((char*)"myBackground.bmp");
+	//background = Graphics::LoadSurface((char*)"Resources/86465smallerscale2.png");
 	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
 	//Sound::PlaySoundA(backgroundSound);
 	debugDraw = new DebugDraw();
@@ -224,7 +237,7 @@ void Start() {
 
 	enemy = new NotorBanger(megaman);
 
-	map = new GameMap((char*)"Resources/test.tmx");
+	map = new GameMap((char*)"Resources/test7.tmx");
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
 	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
@@ -302,7 +315,6 @@ void Update() {
 
 //Hàm này để render lên màn hình
 void Render() {
-
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
 
 	//start sprite handler
@@ -328,7 +340,7 @@ void Render() {
 	border.left = megaman->curLeftWallX;
 	border.right = megaman->curLeftWallX + 2;
 	border.top = 0;
-	border.bottom = 1000;
+	border.bottom = 10000;
 	debugDraw->DrawRect(border, GameGlobal::camera);
 
 	//right wall
@@ -336,13 +348,13 @@ void Render() {
 	border.left = megaman->curRightWallX;
 	border.right = megaman->curRightWallX + 2;
 	border.top = 0;
-	border.bottom = 1000;
+	border.bottom = 10000;
 	debugDraw->DrawRect(border, GameGlobal::camera);
 
 	//ground
 	debugDraw->setColor(D3DCOLOR_XRGB(0, 255, 255));
 	border.left = 0;
-	border.right = 1000;
+	border.right = 10000;
 	border.top = megaman->curGroundY;
 	border.bottom = megaman->curGroundY + 2;
 	debugDraw->DrawRect(border, GameGlobal::camera);
@@ -350,7 +362,7 @@ void Render() {
 	//ceil
 	debugDraw->setColor(D3DCOLOR_XRGB(255, 255, 0));
 	border.left = 0;
-	border.right = 1000;
+	border.right = 10000;
 	border.top = megaman->curCeilY;
 	border.bottom = megaman->curCeilY + 2;
 	debugDraw->DrawRect(border, GameGlobal::camera);

@@ -3,6 +3,7 @@
 #include "MObject.h"
 #include "Input.h"
 #include "GameLog.h"
+#include "Effects.h"
 
 #define STATE_IDLE 0
 #define STATE_RUNNING 1
@@ -29,6 +30,9 @@
 #define GROUND_Y 390
 #define LEFTWALL_X 0
 #define RIGHTWALL_X 227
+#define CHARGED_SHOT_LV1_TIME 15
+#define CHARGED_SHOT_LV2_TIME 40
+#define SHOOTING_ANIMATION_DELAY 10
 
 class Megaman :
 	public MObject
@@ -58,6 +62,9 @@ public:
 	bool inMidAir;
 	bool wallJump;
 	bool dashKick;
+	int energy_t;
+	int shootingAnimDelay;
+	bool shooting;
 
 	//
 	//void SetWidthHeight();

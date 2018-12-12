@@ -26,6 +26,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxutil.h" />
+    <ClInclude Include="Effects.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="GameLog.h" />
@@ -73,6 +74,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="dsutil.cpp" />
     <ClCompile Include="dxutil.cpp" />
+    <ClCompile Include="Effects.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameGlobal.cpp" />
     <ClCompile Include="GameLog.cpp" />
@@ -112,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MapReader\Tmx.h.in" />
+    <None Include="Resources\test5.tmx" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
