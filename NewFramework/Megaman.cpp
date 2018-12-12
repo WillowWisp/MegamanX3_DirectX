@@ -93,6 +93,11 @@ void Megaman::OnCollision(MObject *otherObj, char* sideCollided) {
 
 }
 
+void Megaman::SetCamera(Camera * newCamera)
+{
+	this->camera = newCamera;
+}
+
 void Megaman::SetState(int newState)
 {
 	state = newState;
@@ -195,7 +200,7 @@ void Megaman::Update()
 	
 	//Check if megaman is moving
 	if (Input::KeyDown(DIK_LEFT)) {
-
+		//camera->position.x -= (movex-5);
 		if (state != STATE_WALL_KICKING) {		// can't change velocity while wall kicking
 			movex = MEGAMAN_SPEED;
 			moving = true;
@@ -210,7 +215,7 @@ void Megaman::Update()
 		}
 	}
 	else if (Input::KeyDown(DIK_RIGHT)) {
-
+		//camera->position.x += (movex )-5;
 		if (state != STATE_WALL_KICKING) {
 			movex = MEGAMAN_SPEED;
 			moving = true;

@@ -190,7 +190,6 @@ void CheckCollision() {
 	}
 	/*megaman->isHitGround = collideTop ? collideTop : megaman->isHitGround;*/
 
-
 	/*megaman->isHitGround = collideTop;*/
 	////megaman->isHitWallLeft = collideLeft;
 	////megaman->isHitWallRight = collideRight;
@@ -227,24 +226,71 @@ void Start() {
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
 	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	//GameGlobal::camera->position = D3DXVECTOR3(0,0,0);
 	
 	map->SetCamera(GameGlobal::camera);
+	megaman->SetCamera(GameGlobal::camera);
 }
 
 //Hàm này để xử lý logic mỗi frame
+void UpdateCameraWorldMap()
+{
+	if(megaman->x>GameGlobal::camera->position.x)
+		GameGlobal::camera->position = D3DXVECTOR3(megaman->x, GameGlobal::camera->position.y, 0);
+	if((megaman->x < GameGlobal::camera->position.x) )
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	if((megaman->x + GameGlobal::wndWidth / 2 >= map->GetWidth()))
+		GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth()-GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	if (megaman->y < GameGlobal::camera->position.y)
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x,megaman->y, 0);
+	if(megaman->y>=GameGlobal::camera->position.y&&GameGlobal::camera->position.y!=(map->GetHeight() - GameGlobal::wndHeight / 2))
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, megaman->y, 0);
+	if(megaman->x>=GameGlobal::camera->position.x&&megaman->y >= GameGlobal::camera->position.y&&GameGlobal::camera->position.y >= (map->GetHeight() - GameGlobal::wndHeight / 2))
+		GameGlobal::camera->position = D3DXVECTOR3(megaman->x, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	
+
+	/*if (GameGlobal::camera->GetBound().left < 0)
+	{
+		//vi position cua camera ma chinh giua camera
+		//luc nay o vi tri goc ben trai cua the gioi thuc
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->width / 2, GameGlobal::camera->position.y, 0);
+	}
+
+	if (GameGlobal::camera->GetBound().right > map->GetWidth())
+	{
+		//luc nay cham goc ben phai cua the gioi thuc
+		GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth() - GameGlobal::camera->width / 2,
+			GameGlobal::camera->position.y, 0);
+	}
+
+	if (GameGlobal::camera->GetBound().top < 0)
+	{
+		//luc nay cham goc tren the gioi thuc
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, GameGlobal::camera->height / 2, 0);
+	}
+
+	if (GameGlobal::camera->GetBound().bottom > map->GetHeight())
+	{
+		//luc nay cham day cua the gioi thuc
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x,
+			map->GetHeight() - GameGlobal::camera->height / 2, 0);
+	}*/
+}
 void Update() {
 	if (Input::KeyDown(DIK_A)) {
 		GameGlobal::camera->position.x -= 5;
 	}
-	if (Input::KeyDown(DIK_D)) {
-		GameGlobal::camera->position.x += 5;
+	if (Input::KeyDown(DIK_S)) {
+		megaman->y += 5;
 	}
+	/*
 	if (Input::KeyDown(DIK_W)) {
 		GameGlobal::camera->position.y -= 5;
 	}
 	if (Input::KeyDown(DIK_S)) {
 		GameGlobal::camera->position.y += 5;
-	}
+	}*/
+	UpdateCameraWorldMap();
 	megaman->SetWidthHeight();
 
 	enemy->Update();
