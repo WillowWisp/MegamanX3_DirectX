@@ -4,7 +4,7 @@ Megaman::Megaman()
 {
 	//x = (LEFTWALL_X + RIGHTWALL_X) / 2;
 	/*x = LEFTWALL_X + 100;*/
-	x = 500;
+	x = 70;
 	y = 500;
 	//x = 0;
 	//y = 0;
@@ -161,10 +161,6 @@ void Megaman::SetState(int newState)
 		movey = 0;
 		break;
 	}
-}
-
-void Megaman::Upd() {
-	/*isHitGround = false;*/
 }
 
 bool Megaman::HitGround() {
@@ -666,3 +662,19 @@ void Megaman::Update()
 //	//width = 34;
 //	//height = 30;
 //}
+
+void Megaman::SetSignedMoveX() {
+	if (dirRight == -1) {
+		movex *= -1;
+	}
+	//if (state == STATE_WALL_KICKING) {
+	//	movex *= -1;
+	//}
+}
+
+void Megaman::SetUnsignedMoveX() {
+	movex = abs(movex);
+	if (state == STATE_WALL_KICKING) {
+		movex *= -1;
+	}
+}

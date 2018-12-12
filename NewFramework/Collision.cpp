@@ -29,8 +29,6 @@ MObject* Collision::GetSweptBroadphaseBox(MObject *object) {
 	MObject *broadphaseBox = new MObject();
 	broadphaseBox->x = object->movex > 0 ? object->x : object->x + object->movex;
 	broadphaseBox->y = object->movey > 0 ? object->y : object->y + object->movey;
-	//broadphaseBox->x = object->movex > 0 ? (object->x - object->width / 2) : (object->x - object->width / 2) + object->movex;
-	//broadphaseBox->y = object->movey > 0 ? (object->y - object->height / 2) : (object->y - object->height / 2) + object->movey;
 	broadphaseBox->width = object->width + abs(object->movex);
 	broadphaseBox->height = object->height + abs(object->movey);
 
@@ -101,7 +99,7 @@ bool Collision::SweptAABB(MObject *object, MObject *otherObject, float &normalx,
 	//tính vector pháp tuyến của bề mặt va chạm (hướng va chạm)
 	if (txEntry > tyEntry) //đụng ở cạnh trái & phải của otherObject ???
 	{
-		if (dxEntry < 0.0f)
+		if (dxEntry < 0.0f || (dxEntry == 0 && object->movex < 0))
 		{
 			//Vector PHẢI
 			normalx = 1.0f;

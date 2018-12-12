@@ -26,7 +26,8 @@ public:
 	RECT GetRect();
 	void MoveXYToCorner();
 	void MoveXYToCenter();
-
+	//void SetSignedMoveX();
+	//void SetUnsignedMoveX();
 	//
 
 	int x, y;

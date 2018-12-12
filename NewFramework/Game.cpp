@@ -94,9 +94,11 @@ void CheckCollision() {
 	{
 		megaman->MoveXYToCorner();
 		collisionList.at(i)->MoveXYToCorner();
+		megaman->SetSignedMoveX();
 		char* isCollided = Collision::IsCollided(megaman, collisionList.at(i));
 		megaman->MoveXYToCenter();
 		collisionList.at(i)->MoveXYToCenter();
+		megaman->SetUnsignedMoveX();
 		if (isCollided != (char*)"none")
 		{
 
