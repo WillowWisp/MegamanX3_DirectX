@@ -310,6 +310,7 @@ void Megaman::Update()
 					anim->animdelay = 0;
 				}
 				y = this->collideObject->y - this->collideObject->height / 2 - this->height / 2+10;
+				delta_t = 0;
 				movey = 0;
 				inMidAir = false;
 			}

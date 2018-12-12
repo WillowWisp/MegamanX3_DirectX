@@ -114,7 +114,10 @@ void UpdateCameraWorldMap()
 		GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth()-GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
 	if (megaman->y < GameGlobal::camera->position.y)
 		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x,megaman->y, 0);
-	
+	if(megaman->y>=GameGlobal::camera->position.y&&GameGlobal::camera->position.y!=(map->GetHeight() - GameGlobal::wndHeight / 2))
+		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, megaman->y, 0);
+	if(megaman->x>=GameGlobal::camera->position.x&&megaman->y >= GameGlobal::camera->position.y&&GameGlobal::camera->position.y >= (map->GetHeight() - GameGlobal::wndHeight / 2))
+		GameGlobal::camera->position = D3DXVECTOR3(megaman->x, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
 	
 
 	/*if (GameGlobal::camera->GetBound().left < 0)
@@ -145,12 +148,13 @@ void UpdateCameraWorldMap()
 	}*/
 }
 void Update() {
-	/*if (Input::KeyDown(DIK_LEFT)) {
-		GameGlobal::camera->position.x -= 2;
+	if (Input::KeyDown(DIK_W)) {
+		megaman->y -= 5;
 	}
-	if (Input::KeyDown(DIK_RIGHT)) {
-		GameGlobal::camera->position.x += 2;
+	if (Input::KeyDown(DIK_S)) {
+		megaman->y += 5;
 	}
+	/*
 	if (Input::KeyDown(DIK_W)) {
 		GameGlobal::camera->position.y -= 5;
 	}
