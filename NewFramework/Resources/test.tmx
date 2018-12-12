@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="18">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="32">
  <tileset firstgid="1" name="86465" tilewidth="32" tileheight="32" tilecount="0" columns="152">
   <image source="Resources/86465.png" width="4894" height="2172"/>
  </tileset>
- <layer id="1" name="Tile Layer 1" width="25" height="20">
+ <layer id="1" name="Tile Layer 1" width="25" height="20" visible="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -35,12 +35,10 @@
   <object id="5" x="422" y="558" width="148" height="34"/>
   <object id="6" x="565" y="526.333" width="223.333" height="68.6667"/>
   <object id="7" x="773.333" y="499.333" width="24.6667" height="106"/>
-  <object id="11" x="30" y="220" width="35" height="39"/>
-  <object id="12" x="91" y="188" width="40" height="41"/>
-  <object id="13" x="125" y="254" width="36" height="37"/>
-  <object id="14" x="190" y="285" width="34" height="36"/>
-  <object id="15" x="30" y="317" width="37" height="37"/>
-  <object id="16" x="94" y="316" width="36" height="37"/>
-  <object id="17" x="126" y="348" width="38" height="39"/>
+  <object id="19" x="180" y="49" width="140" height="329"/>
+  <object id="21" x="705" y="377" width="119" height="211"/>
+  <object id="22" x="-104" y="289" width="154" height="370"/>
+  <object id="23" x="266" y="-51" width="235" height="179"/>
+  <object id="31" x="347" y="244" width="301" height="45"/>
  </objectgroup>
 </map>

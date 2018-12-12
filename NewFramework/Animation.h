@@ -3,6 +3,7 @@
 
 class Animation
 {
+	void NextFrameWithoutLoop(int newframe);
 public:
 	Animation(int count = 1, int begin = 0, int end = 0, int delay = 1);
 	//Animation(int, int);
@@ -12,6 +13,7 @@ public:
 	//function prototypes
 	void NextFrame(int); // set curfrfame bằng frame kế tiếp trong animation
 	void Animate(D3DXMATRIX); // chọn frame và draw
+	void AnimateWithoutLoop(D3DXMATRIX _matrix);
 	void ChangeAnimFrames(int begin, int end);
 
 	//

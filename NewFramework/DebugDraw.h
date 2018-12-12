@@ -15,6 +15,7 @@ public:
 	//set do rong cua duong ve, mac dinh = 10
 	void setLineSize(float width);
 	void setColor(D3DCOLOR color);
+	D3DCOLOR getColor();
 	~DebugDraw();
 
 private:

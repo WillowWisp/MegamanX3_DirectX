@@ -9,6 +9,7 @@
 #include "GameGlobal.h"
 #include "Camera.h"
 #include "Quadtree.h"
+#include "DebugDraw.h"
 
 class GameMap
 {
