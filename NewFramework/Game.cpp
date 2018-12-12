@@ -33,12 +33,44 @@ Sun* sun;
 Sun* sun2;
 Megaman* megaman;
 
+NotorBanger* enemy;
+
 GameMap *map;
 
 std::vector<MObject*> collisionList;
 DebugDraw *debugDraw;
 
 int i = 0;
+
+
+void DrawQuadtree(Quadtree *quadtree)
+{
+	if (quadtree->nodes)
+	{
+		for (size_t i = 0; i < 4; i++)
+		{
+			DrawQuadtree(quadtree->nodes[i]);
+		}
+	}
+
+	debugDraw->DrawRect(quadtree->region, GameGlobal::camera);
+
+	if (quadtree->nodes)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			debugDraw->DrawRect(quadtree->nodes[i]->region, GameGlobal::camera);
+		}
+	}
+}
+
+void DrawCollidable()
+{
+	for (auto child : collisionList)
+	{
+		debugDraw->DrawRect(child->GetRect(), GameGlobal::camera);
+	}
+}
 
 void CheckCollision() {
 	collisionList.clear();
@@ -58,7 +90,6 @@ void CheckCollision() {
 	//if (megaman->movey == 0) {
 	//	megaman->movey = 5;
 	//}
-
 	for (size_t i = 0; i < collisionList.size(); i++)
 	{
 		megaman->MoveXYToCorner();
@@ -190,6 +221,8 @@ void Start() {
 	debugDraw = new DebugDraw();
 	megaman = new Megaman();
 
+	enemy = new NotorBanger(megaman);
+
 	map = new GameMap((char*)"Resources/test.tmx");
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
@@ -214,46 +247,16 @@ void Update() {
 	}
 	megaman->SetWidthHeight();
 
-	megaman->Upd();
+	enemy->Update();
 	CheckCollision();
 	//GAMELOG("%d", megaman->isHitGround);
 }
-
-void DrawQuadtree(Quadtree *quadtree)
-{
-	if (quadtree->nodes)
-	{
-		for (size_t i = 0; i < 4; i++)
-		{
-			DrawQuadtree(quadtree->nodes[i]);
-		}
-	}
-
-	debugDraw->DrawRect(quadtree->region, GameGlobal::camera);
-
-	if (quadtree->nodes)
-	{
-		for (int i = 0; i < 4; i++)
-		{
-			debugDraw->DrawRect(quadtree->nodes[i]->region, GameGlobal::camera);
-		}
-	}
-}
-
-void DrawCollidable()
-{
-	for (auto child : collisionList)
-	{
-		debugDraw->DrawRect(child->GetRect(), GameGlobal::camera);
-	}
-}
-
 
 //Hàm này để render lên màn hình
 void Render() {
 
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
-	
+
 	//start sprite handler
 	//spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
@@ -261,6 +264,8 @@ void Render() {
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map->Draw();
 	megaman->Update();
+	enemy->Render();
+	GAMELOG("deltaT: %d", enemy->delta_t);
 
 	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
 

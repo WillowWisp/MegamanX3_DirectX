@@ -37,6 +37,24 @@ void Animation::Animate(D3DXMATRIX _matrix)
 	sprite[curframe]->Draw(_matrix);
 }
 
+void Animation::NextFrameWithoutLoop(int newframe) {
+	if (newframe > endframe || newframe < beginframe) //state changed or out of frame range
+		return;
+	curframe = newframe;
+}
+
+void Animation::AnimateWithoutLoop(D3DXMATRIX _matrix) {
+	if (animcount > animdelay) {
+		animcount = 0;
+		NextFrameWithoutLoop(curframe + 1);
+	}
+	else {
+		animcount++;
+	}
+
+	sprite[curframe]->Draw(_matrix);
+}
+
 void Animation::ChangeAnimFrames(int begin, int end) {
 	curframe = curframe - beginframe + begin;
 	beginframe = begin;

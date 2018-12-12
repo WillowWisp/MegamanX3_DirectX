@@ -62,7 +62,6 @@ public:
 	//
 	//void SetWidthHeight();
 	void SetState(int);
-	void Upd();
 	void Update();
 	bool HitGround();
 	bool HitCeil();

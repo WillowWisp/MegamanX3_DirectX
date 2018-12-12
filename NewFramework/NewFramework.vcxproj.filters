@@ -125,6 +125,9 @@
     <ClCompile Include="DebugDraw.cpp">
       <Filter>Framework\GameComponents\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="NotorBanger.cpp">
+      <Filter>Framework\Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -258,6 +261,9 @@
     </ClInclude>
     <ClInclude Include="DebugDraw.h">
       <Filter>Framework\GameComponents\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="NotorBanger.h">
+      <Filter>Framework\Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

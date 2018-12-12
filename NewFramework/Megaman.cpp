@@ -51,7 +51,6 @@ Megaman::~Megaman()
 {
 }
 
-int temp = 0;
 void Megaman::OnCollision(MObject *otherObj, char* sideCollided) {
 	collideObject = otherObj;
 	//movey = 0;
