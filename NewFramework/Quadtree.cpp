@@ -122,6 +122,8 @@ void Quadtree::Insert(MObject *object) {
 	}
 }
 
+
+
 void Quadtree::GetObjectsCollidableWith(MObject* object, std::vector<MObject*> &returnObjects) {
 	if (nodes)
 	{
@@ -140,10 +142,45 @@ void Quadtree::GetObjectsCollidableWith(MObject* object, std::vector<MObject*> &
 	//Add all objects in current region into returnObjects
 	if (this->IsContain(object))
 	{
-		for (auto i = returnObjects.begin(); i != returnObjects.end(); i++)
+		for (auto i = objectList.begin(); i != objectList.end(); i++)
 		{
 			if (object != *i)
 				returnObjects.push_back(*i);
 		}
 	}
+
+	//int index = this->GetIndex(object->GetRect());
+
+	//if (index != -1)
+	//{
+	//	//nhung Entity o day se la nam tren 2 node con nen chung ta cung se lay de set va cham
+	//	for (auto child : objectList)
+	//	{
+	//		returnObjects.push_back(child);
+	//	}
+
+	//	if (nodes != NULL)
+	//	{
+	//		//kiem tra va lay cac node trong node con
+	//		nodes[index]->GetObjectsCollidableWith(object, returnObjects);
+	//	}
+	//}
+	//else
+	//{
+	//	GetAllObjects(returnObjects);
+	//}
+}
+
+int Quadtree::GetTotalObjects() {
+	int total = objectList.size();
+
+	if (nodes)
+	{
+		for (size_t i = 0; i < 4; i++)
+		{
+			total += nodes[i]->GetTotalObjects();
+		}
+	}
+
+	return total;
 }

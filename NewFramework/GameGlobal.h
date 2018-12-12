@@ -3,6 +3,7 @@
 #include <d3d9.h>
 #include <Windows.h>
 #include "Sound.h"
+#include "Camera.h"
 
 class GameGlobal
 {
@@ -17,10 +18,14 @@ public:
 
 	static bool isGameRunning; //trang thai xem game co dang chay khong
 
+	static Camera *camera;
+
 	GameGlobal();
 	~GameGlobal();
 
 	static bool IsIntersect(RECT rect1, RECT rect2);
+	static bool IsIntersectX(RECT rect1, RECT rect2);
+	static bool IsIntersectY(RECT rect1, RECT rect2);
 	static bool IsContain(RECT container, RECT rect);
 };
 
