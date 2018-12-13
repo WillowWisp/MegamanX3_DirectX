@@ -81,7 +81,7 @@ void Sprite::InitWithSprite(const char* _filePath, RECT _sourceRect, int _width,
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(255, 0, 255),
+		_colorKey,
 		&imageInfo,
 		NULL,
 		&texture);
@@ -133,7 +133,7 @@ void Sprite::Draw(D3DXVECTOR3 _position, RECT _sourceRect, D3DXVECTOR2 _scale, D
 	GameGlobal::mSpriteHandler->SetTransform(&oldMatrix); // set lai matrix cu~ de Sprite chi ap dung transfrom voi class nay
 }
 
-void Sprite::Draw(D3DXMATRIX _matrix) {
+void Sprite::Draw(D3DXMATRIX _matrix, D3DCOLOR _color) {
 	D3DXMATRIX oldMatrix;
 	GameGlobal::mSpriteHandler->GetTransform(&oldMatrix);
 	GameGlobal::mSpriteHandler->SetTransform(&_matrix);
@@ -144,7 +144,7 @@ void Sprite::Draw(D3DXMATRIX _matrix) {
 		NULL,
 		&center,
 		NULL,
-		D3DCOLOR_ARGB(255, 255, 255, 255)); // nhung pixel nao co mau trang se duoc to mau nay len
+		_color); // nhung pixel nao co mau trang se duoc to mau nay len
 
 	GameGlobal::mSpriteHandler->SetTransform(&oldMatrix); // set lai matrix cu~ de Sprite chi ap dung transfrom voi class nay
 }

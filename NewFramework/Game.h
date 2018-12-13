@@ -19,6 +19,7 @@
 #include "Camera.h"
 #include "GameLog.h"
 #include "DebugDraw.h"
+#include "BulletsManager.h"
 
 #define UPDATE_RATE 10
 
