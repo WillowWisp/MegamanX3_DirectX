@@ -27,19 +27,19 @@ MegamanBullet::MegamanBullet(int _x, int _y, int _dirRight, int level)
 	switch (chargedLevel)
 	{
 	case 0:
-		anim = new Animation(26, 0, 0, MBULLET_ANIM_DELAY);
+		anim = new Animation(26, 0, 0, MBULLET_ANIM_DELAY - 1);
 		dmg = MBULLET_DMG_LVL0;
 		break;
 	case 1:
-		anim = new Animation(26, 4, 5, MBULLET_ANIM_DELAY);
+		anim = new Animation(26, 4, 5, MBULLET_ANIM_DELAY - 1);
 		dmg = MBULLET_DMG_LVL1;
 		break;
 	case 2:
-		anim = new Animation(26, 14, 15, MBULLET_ANIM_DELAY);
+		anim = new Animation(26, 14, 15, MBULLET_ANIM_DELAY - 1);
 		dmg = MBULLET_DMG_LVL2;
 		break;
 	default:
-		anim = new Animation(26, 0, 0, MBULLET_ANIM_DELAY);
+		anim = new Animation(26, 0, 0, MBULLET_ANIM_DELAY - 1);
 		dmg = MBULLET_DMG_LVL0;
 		break;
 	}
@@ -61,20 +61,20 @@ void MegamanBullet::SetState(int newState) {
 		switch (chargedLevel)
 		{
 		case 0:
-			SetAnimState(0, 0, MBULLET_ANIM_DELAY);
-			dmg = MBULLET_DMG_LVL0;
+			SetAnimState(0, 0, MBULLET_ANIM_DELAY - 1);
+			//dmg = MBULLET_DMG_LVL0;
 			break;
 		case 1:
-			SetAnimState(4, 5, MBULLET_ANIM_DELAY);
-			dmg = MBULLET_DMG_LVL1;
+			SetAnimState(4, 5, MBULLET_ANIM_DELAY - 1);
+			//dmg = MBULLET_DMG_LVL1;
 			break;
 		case 2:
-			SetAnimState(14, 15, MBULLET_ANIM_DELAY);
-			dmg = MBULLET_DMG_LVL2;
+			SetAnimState(14, 15, MBULLET_ANIM_DELAY - 1);
+			//dmg = MBULLET_DMG_LVL2;
 			break;
 		default:
-			SetAnimState(0, 0, MBULLET_ANIM_DELAY);
-			dmg = MBULLET_DMG_LVL0;
+			SetAnimState(0, 0, MBULLET_ANIM_DELAY - 1);
+			//dmg = MBULLET_DMG_LVL0;
 			break;
 		}
 	}
