@@ -6,6 +6,8 @@ Megaman::Megaman()
 	/*x = LEFTWALL_X + 100;*/
 	x = 70;
 	y = 500;
+	x = 200;
+	y = 800;
 	//x = 0;
 	//y = 0;
 	isHitGround = false;
@@ -627,6 +629,8 @@ void Megaman::Update()
 	if (Input::KeyDown(DIK_F)) {
 		x = 0;
 		y = 0;
+		x = 200;
+		y = 400;
 		movex = 0;
 		movey = 0;
 		delta_t = 0;

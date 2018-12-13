@@ -217,6 +217,7 @@ void CheckCollision() {
 //Xử lý Init
 void Start() {
 	background = Graphics::LoadSurface((char*)"myBackground.bmp");
+	background = Graphics::LoadSurface((char*)"BG2.bmp");
 	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
 	//Sound::PlaySoundA(backgroundSound);
 	debugDraw = new DebugDraw();
@@ -225,9 +226,10 @@ void Start() {
 	enemy = new NotorBanger(megaman);
 
 	map = new GameMap((char*)"Resources/test.tmx");
+	map = new GameMap((char*)"Resources/BlastHornetLarge.tmx");
+	
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
-	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
 	//GameGlobal::camera->position = D3DXVECTOR3(0,0,0);
 	
 	map->SetCamera(GameGlobal::camera);
