@@ -12,7 +12,7 @@ NotorBanger::NotorBanger(MObject* _player)
 	movex = 0;
 	movey = 10;
 	dirUp = 1;
-	dirRight = 1;
+	dirRight = -1;
 
 	delta_t = 0;
 
@@ -33,6 +33,12 @@ void NotorBanger::Shoot45() {
 	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint.x, firePoint.y, dirRight);
 	bulletList.push_back(bullet);
 	bullet->Fly45();
+}
+
+void NotorBanger::Shoot90() {
+	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint.x, firePoint.y, dirRight);
+	bulletList.push_back(bullet);
+	bullet->Fly90();
 }
 
 void NotorBanger::OnCollision(MObject *otherObj, char* sideCollided) {
@@ -85,28 +91,66 @@ void NotorBanger::SetState(int newState) {
 void NotorBanger::Updates() {
 	delta_t++;
 
-	firePoint = D3DXVECTOR2(x + dirRight * 15, y - 20);
+	//Quyết định hướng & góc bắn
+	if (delta_t == 1) {
+		dirRight = (x > player->x) ? -1 : 1; //Quay đầu theo hướng player
+		//Nếu player đứng xa thì bắn góc 45 độ
+		if (abs(x - player->x) >= 150) {
+			angle = (char*)"45";
+			firePoint = D3DXVECTOR2(x + dirRight * 15, y - 20);
+		}
+		//Nếu player đứng gẫn thì bắn góc 90 độ
+		else {
+			angle = (char*)"90";
+			firePoint = D3DXVECTOR2(x - dirRight * 8, y - 20);
+		}
+	}
 
-	//Nếu player ở tầm xa thì bắn 45 độ
-	if (delta_t == 1) {		//Giơ nòng súng lên
-		SetState(STATE_45_UP);
+	if (angle == (char*)"45") {
+		if (delta_t == 2) {		//Giơ nòng súng lên
+			SetState(STATE_45_UP);
+		}
+		if (delta_t == 50) {	//Bắn
+			SetState(STATE_45_SHOOT);
+			Shoot45();
+		}
+		if (delta_t == 75) {	//Bắn
+			SetState(STATE_45_SHOOT);
+			Shoot45();
+		}
+		if (delta_t == 100) {	//Bắn
+			SetState(STATE_45_SHOOT);
+			Shoot45();
+		}
+		if (delta_t == 125) {	//Hạ nòng
+			SetState(STATE_45_DOWN);
+		}
 	}
-	if (delta_t == 50) {	//Bắn
-		SetState(STATE_45_SHOOT);
-		Shoot45();
+	
+	if (angle == (char*)"90") {
+		if (delta_t == 2) {		//Giơ nòng súng lên
+			SetState(STATE_90_UP);
+		}
+		if (delta_t == 50) {	//Bắn
+			SetState(STATE_90_SHOOT);
+			Shoot90();
+		}
+		if (delta_t == 75) {	//Bắn
+			SetState(STATE_90_SHOOT);
+			Shoot90();
+		}
+		if (delta_t == 100) {	//Bắn
+			SetState(STATE_90_SHOOT);
+			Shoot90();
+		}
+		if (delta_t == 125) {	//Hạ nòng
+			SetState(STATE_90_DOWN);
+		}
 	}
-	if (delta_t == 75) {	//Bắn
-		SetState(STATE_45_SHOOT);
-		Shoot45();
-	}
-	if (delta_t == 100) {	//Bắn
-		SetState(STATE_45_SHOOT);
-		Shoot45();
-	}
-	if (delta_t == 125) {	//Hạ nòng
-		SetState(STATE_45_DOWN);
-	}
+	
+
 	if (delta_t == 150) {	//Lấy đà
+		dirRight = (x > player->x) ? -1 : 1;
 		SetState(STATE_PREPARE);
 	}
 	if (delta_t >= 160) {	//Nhảy

@@ -11,6 +11,7 @@ public:
 	NotorBangerBullet(int _x, int _y, int _dirRight);
 
 	void Fly45();
+	void Fly90();
 
 	void OnCollision(MObject *otherObj, char* sideCollided);
 	void Update();

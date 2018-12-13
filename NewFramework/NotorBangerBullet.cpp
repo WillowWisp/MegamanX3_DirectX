@@ -31,6 +31,11 @@ void NotorBangerBullet::Fly45() {
 	movey = -15;
 }
 
+void NotorBangerBullet::Fly90() {
+	movex = 3 * dirRight;
+	movey = -25;
+}
+
 void NotorBangerBullet::Update() {
 	movey += 1;
 }
