@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="61" height="29" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="43">
+ <tileset firstgid="1" name="86465" tilewidth="32" tileheight="32" tilecount="0" columns="152">
+  <image source="Resources/86465.png" width="4894" height="2172"/>
+ </tileset>
+ <tileset firstgid="1" source="bbb.tsx"/>
+ <layer id="6" name="Tile Layer 1" width="61" height="29" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20LL6AAAAAAAACApwEbpAAB
+  </data>
+ </layer>
+ <layer id="7" name="Tile Layer 2" width="61" height="29">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7Dh3zQmlsDRKmgCAAAAAADw21wHoGwBHngAAg==
+  </data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="1" x="61.6667" y="781.333" width="248.667" height="66.6667"/>
+  <object id="2" x="310" y="719" width="62.6667" height="116.667"/>
+  <object id="3" x="364" y="735" width="72" height="93.3333"/>
+  <object id="4" x="429.333" y="750" width="69.3333" height="80"/>
+  <object id="5" x="486" y="782" width="148" height="34"/>
+  <object id="6" x="629" y="750.333" width="223.333" height="68.6667"/>
+  <object id="7" x="837.333" y="723.333" width="24.6667" height="106"/>
+  <object id="19" x="244" y="273" width="140" height="329"/>
+  <object id="21" x="769" y="601" width="119" height="211"/>
+  <object id="22" x="-40" y="513" width="154" height="370"/>
+  <object id="31" x="411" y="468" width="301" height="45"/>
+ </objectgroup>
+</map>

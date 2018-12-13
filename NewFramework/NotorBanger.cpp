@@ -6,8 +6,8 @@ NotorBanger::NotorBanger(MObject* _player)
 {
 	player = _player;
 
-	x = 300;
-	y = 300;
+	x = 500;
+	y = 500;
 	movex = 0;
 	movey = 0;
 	dirUp = 1;

@@ -4,6 +4,8 @@
 #include "Input.h"
 #include "GameLog.h"
 #include "Effects.h"
+#include "BulletsManager.h"
+#include "MegamanBullet.h"
 
 #define STATE_IDLE 0
 #define STATE_RUNNING 1

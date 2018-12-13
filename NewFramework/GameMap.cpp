@@ -1,4 +1,5 @@
 ﻿#include "GameMap.h"
+#include "GameLog.h"
 
 
 
@@ -21,6 +22,7 @@ void GameMap::LoadMap(char* filePath)
 {
 	map = new Tmx::Map();
 	map->ParseFile(filePath);
+	//GAMELOG(file);
 
 	//Khởi tạo Quadtree
 	RECT mapRect;

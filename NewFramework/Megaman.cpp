@@ -35,7 +35,7 @@ Megaman::Megaman()
 	shooting = false;
 	jumpAfterDash = false;
 
-	color = D3DCOLOR_ARGB(255, 150, 150, 255);
+	//color = D3DCOLOR_ARGB(255, 150, 150, 255);
 
 	anim = new Animation(64, 7, 9, ANIM_DELAY + 10);
 
@@ -178,13 +178,33 @@ void Megaman::Update()
 		shooting = true;
 		shootingAnimDelay = 0;
 		energy_t++;
+		int temp_dirRight = 1;
+		if (state == STATE_WALL_SLIDING)
+			temp_dirRight = -1;
 		//Create Bullet here
+		BulletsManager::CreateBullet(new MegamanBullet(x + (dirRight * temp_dirRight * width / 2), 
+														y - (height / 5), dirRight * temp_dirRight, 
+														0));
 	}
 	else if (shootHold && !Input::KeyDown(DIK_X)) {		//Shooting with energy
 		shooting = true;
 		shootingAnimDelay = 0;
-		energy_t = -1;
+		int temp_dirRight = 1;
+		if (state == STATE_WALL_SLIDING)
+			temp_dirRight = -1;
 		//Create Bullet here
+		if (energy_t >= CHARGED_SHOT_LV1_TIME && energy_t < CHARGED_SHOT_LV2_TIME) {
+			BulletsManager::CreateBullet(new MegamanBullet(x + (dirRight * temp_dirRight * width / 2), 
+															y - (height / 5), dirRight * temp_dirRight, 
+															1));
+		}
+		else if (energy_t >= CHARGED_SHOT_LV2_TIME) {
+			BulletsManager::CreateBullet(new MegamanBullet(x + (dirRight * temp_dirRight * width / 2), 
+															y - (height / 5), dirRight * temp_dirRight, 
+															2));
+		}
+
+		energy_t = -1;
 	}
 	
 	//Check if megaman is moving
@@ -614,7 +634,7 @@ void Megaman::Update()
 		}
 	}
 
-	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex, y + movey);
+	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex * dirRight, y + movey);
 	D3DXVECTOR2 translate = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
 	D3DXVECTOR2 combined = translation + translate;
 

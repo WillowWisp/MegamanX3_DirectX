@@ -28,7 +28,7 @@ void MObject::Update()
 	x += movex * dirRight;
 	y += movey;
 	anim->Animate(matrix, color);
-	SetWidthHeight();
+	//SetWidthHeight();
 }
 
 void MObject::SetWidthHeight() {

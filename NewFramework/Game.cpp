@@ -237,7 +237,7 @@ void Start() {
 
 	enemy = new NotorBanger(megaman);
 
-	map = new GameMap((char*)"Resources/test7.tmx");
+	map = new GameMap((char*)"Resources/test9.tmx");
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
 	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
@@ -324,8 +324,9 @@ void Render() {
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map->Draw();
 	megaman->Update();
+	BulletsManager::UpdateBullets();
 	enemy->Render();
-	GAMELOG("deltaT: %d", enemy->delta_t);
+	GAMELOG("bullet count: %d", BulletsManager::bulletsList.size());
 
 	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
 
