@@ -9,6 +9,7 @@ MegamanBullet::MegamanBullet()
 
 MegamanBullet::~MegamanBullet()
 {
+	delete this;
 }
 
 MegamanBullet::MegamanBullet(int _x, int _y, int _dirRight, int level)

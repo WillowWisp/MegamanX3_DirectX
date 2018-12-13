@@ -237,7 +237,7 @@ void Start() {
 
 	enemy = new NotorBanger(megaman);
 
-	map = new GameMap((char*)"Resources/test9.tmx");
+	map = new GameMap((char*)"Resources/test8.tmx");
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
 	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);

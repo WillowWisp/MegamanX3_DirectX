@@ -84,7 +84,7 @@ void Megaman::SetState(int newState)
 	{
 	case STATE_IDLE:
 		SetAnimState(7, 9, ANIM_DELAY + 10);
-		SetWidthHeight();
+		//SetWidthHeight();
 		movex = 0;
 		movey = 0;
 		isHitGround = true;
@@ -92,33 +92,33 @@ void Megaman::SetState(int newState)
 		break;
 	case STATE_RUNNING:
 		SetAnimState(13, 23, ANIM_DELAY - 1);
-		SetWidthHeight();
+		//SetWidthHeight();
 		//movex = MEGAMAN_SPEED;
 		break;
 	case STATE_SHOOTING:
 		SetAnimState(11, 12, ANIM_DELAY + 2);
-		SetWidthHeight();
+		//SetWidthHeight();
 		movex = 0;
 		movey = 0;
 		break;
 	case STATE_RUNNING_N_SHOOTING:
-		SetAnimState(24, 33, ANIM_DELAY + 2);
-		SetWidthHeight();
+		SetAnimState(24, 33, ANIM_DELAY - 1);
+		//SetWidthHeight();
 		//movex = MEGAMAN_SPEED;
 		break;
 	case STATE_DASHING:
-		SetAnimState(60, 61, ANIM_DELAY + 5);
-		SetWidthHeight();
+		SetAnimState(60, 61, ANIM_DELAY + 4);
+		//SetWidthHeight();
 		break;
 	case STATE_JUMPING:
 		SetAnimState(34, 36, ANIM_DELAY);
-		SetWidthHeight();
+		//SetWidthHeight();
 		GAMELOG("jumping");
 		//movex = jumpAfterDash ? DASH_SPEED : MEGAMAN_SPEED;
 		break;
 	case STATE_FALLING:
 		SetAnimState(36, 40, ANIM_DELAY);
-		SetWidthHeight();
+		//SetWidthHeight();
 		delta_t = 0;
 		inMidAir = true;
 		//GAMELOG("falling");
@@ -130,12 +130,12 @@ void Megaman::SetState(int newState)
 		break;
 	case STATE_WALL_KICKING:
 		SetAnimState(51, 52, ANIM_DELAY + 1);
-		SetWidthHeight();
+		//SetWidthHeight();
 		//jumpAfterDash = false;
 		break;
 	default:
-		SetAnimState(7, 10, ANIM_DELAY + 4);
-		SetWidthHeight();
+		SetAnimState(7, 10, ANIM_DELAY);
+		//SetWidthHeight();
 		movex = 0;
 		movey = 0;
 		break;
