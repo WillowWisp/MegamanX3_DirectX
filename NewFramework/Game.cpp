@@ -113,6 +113,8 @@ void CheckCollision() {
 		megaman->SetUnsignedMoveX();
 		if (isCollided != (char*)"none")
 		{
+#pragma region Megaman Collision
+
 
 			//GAMELOG("ASD: %s", (char*)isCollided);
 			//Gọi đến hàm OnCollision trong MObject
@@ -157,6 +159,7 @@ void CheckCollision() {
 			}
 
 			collideTop = true;
+#pragma endregion
 		}
 		else {
 			count++;
@@ -224,6 +227,23 @@ void CheckCollision() {
 	megaman->curRightWallX = min(megaman->curRightWallX, newRightWallX);
 
 	//GAMELOG("%d", megaman->isHitGround);
+}
+
+void CheckCollisionEnemy() {
+	collisionList.clear();
+	map->GetQuadtree()->GetObjectsCollidableWith(enemy, collisionList);
+
+	for (size_t i = 0; i < collisionList.size(); i++) {
+		enemy->MoveXYToCorner();
+		collisionList.at(i)->MoveXYToCorner();
+		char* isCollided = Collision::IsCollided(enemy, collisionList.at(i));
+		enemy->MoveXYToCenter();
+		collisionList.at(i)->MoveXYToCenter();
+
+		if (isCollided != (char*)"none") {
+			enemy->OnCollision(collisionList.at(i), isCollided);
+		}
+	}
 }
 
 //Xử lý Init
@@ -300,6 +320,7 @@ void UpdateCameraWorldMap()
 			map->GetHeight() - GameGlobal::camera->height / 2, 0);
 	}*/
 }
+
 void Update() {
 	if (Input::KeyDown(DIK_A)) {
 		GameGlobal::camera->position.x -= 5;
@@ -317,9 +338,9 @@ void Update() {
 	UpdateCameraWorldMap();
 	megaman->SetWidthHeight();
 
-	enemy->Update();
+	enemy->Updates();
 	CheckCollision();
-	//GAMELOG("%d", megaman->isHitGround);
+	CheckCollisionEnemy();
 }
 
 //Hàm này để render lên màn hình

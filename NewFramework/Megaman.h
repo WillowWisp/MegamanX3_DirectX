@@ -76,8 +76,8 @@ public:
 	bool HitCeil();
 	bool HitWall();
 	bool CloseToWall();
-	void SetSignedMoveX();
-	void SetUnsignedMoveX();
+	//void SetSignedMoveX();
+	//void SetUnsignedMoveX();
 
 	void OnCollision(MObject *otherObj, char* sideCollided);
 
