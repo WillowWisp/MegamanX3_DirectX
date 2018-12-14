@@ -8,7 +8,7 @@ NotorBanger::NotorBanger(MObject* _player)
 
 	tag = (char*)"enemy";
 	x = 300;
-	y = 300;
+	y = 750;
 	movex = 0;
 	movey = 10;
 	dirUp = 1;
