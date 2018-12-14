@@ -6,6 +6,7 @@ MObject::MObject()
 {
 	state = 0;
 	dirRight = 1;
+	color = D3DCOLOR_ARGB(255, 255, 255, 255);
 	//imageCount = 1;
 
 	//width = anim->sprite[anim->curframe]->width;
@@ -26,8 +27,8 @@ void MObject::Update()
 {
 	x += movex * dirRight;
 	y += movey;
-	anim->Animate(matrix);
-	SetWidthHeight();
+	anim->Animate(matrix, color);
+	//SetWidthHeight();
 }
 
 void MObject::SetWidthHeight() {

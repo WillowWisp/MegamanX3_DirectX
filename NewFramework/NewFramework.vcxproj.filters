@@ -128,11 +128,19 @@
     <ClCompile Include="NotorBanger.cpp">
       <Filter>Framework\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Framework\Bullets</Filter>
-    </ClCompile>
     <ClCompile Include="NotorBangerBullet.cpp">
       <Filter>Framework\Bullets\NotorBangerBullet</Filter>
+    <ClCompile Include="Effects.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletsManager.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="MegamanBullet.cpp">
+      <Filter>Framework\GameComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -271,11 +279,19 @@
     <ClInclude Include="NotorBanger.h">
       <Filter>Framework\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Framework\Bullets</Filter>
-    </ClInclude>
     <ClInclude Include="NotorBangerBullet.h">
       <Filter>Framework\Bullets\NotorBangerBullet</Filter>
+    <ClInclude Include="Effects.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletsManager.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="MegamanBullet.h">
+      <Filter>Framework\GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -314,5 +330,6 @@
     <None Include="MapReader\Tmx.h.in">
       <Filter>Framework\MapReader</Filter>
     </None>
+    <None Include="Resources\test5.tmx" />
   </ItemGroup>
 </Project>

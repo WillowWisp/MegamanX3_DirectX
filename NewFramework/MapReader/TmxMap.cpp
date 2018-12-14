@@ -34,6 +34,7 @@
 #include "TmxTileLayer.h"
 #include "TmxObjectGroup.h"
 #include "TmxImageLayer.h"
+#include "../GameLog.h"
 
 using std::vector;
 using std::string;
@@ -146,6 +147,7 @@ namespace Tmx
             error_code = TMX_PARSING_ERROR;
             error_text = doc.GetErrorStr1();
             return;
+			GAMELOG("ausguad");
         }
 
         tinyxml2::XMLNode *mapNode = doc.FirstChildElement("map");

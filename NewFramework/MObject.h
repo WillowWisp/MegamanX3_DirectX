@@ -38,6 +38,7 @@ public:
 	int delta_t; //For physics related calculation
 
 	D3DXMATRIX matrix; //ma trận để lưu vị trí, scale, ... của object
+	D3DCOLOR color; //Một số state của object có dùng tới đổi màu
 
 	int state;
 	int prevState; 

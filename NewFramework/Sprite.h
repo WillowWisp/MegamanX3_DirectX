@@ -38,7 +38,7 @@ public:
 	//Hàm chính để vẽ sprite
 	void Draw(D3DXVECTOR3 _position = D3DXVECTOR3(), RECT _sourceRect = RECT(), D3DXVECTOR2 _scale = D3DXVECTOR2(), D3DXVECTOR2 _transform = D3DXVECTOR2(), D3DXVECTOR2 _rotationCenter = D3DXVECTOR2());
 	//Hàm thêm vào để rút gọn số parameters cần nhập
-	void Draw(D3DXMATRIX _matrix);
+	void Draw(D3DXMATRIX _matrix, D3DCOLOR _color = D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	void FlipVertical(); //Lật quanh trục dọc
 	void FlipHorizontal(); //Lật quanh trục ngang
