@@ -9,7 +9,7 @@ MegamanBullet::MegamanBullet()
 
 MegamanBullet::~MegamanBullet()
 {
-	delete this;
+	//delete this;
 }
 
 MegamanBullet::MegamanBullet(int _x, int _y, int _dirRight, int level)
@@ -96,6 +96,7 @@ void MegamanBullet::SetState(int newState) {
 		}
 	}
 	else if (state == MBULLET_STATE_VANISHING) {
+		movex = 0;
 		switch (chargedLevel)
 		{
 		case 0:
@@ -129,6 +130,7 @@ void MegamanBullet::Update() {
 		if (state_t > MBULLET_VANISHING_ANIMATION_TIME) {
 			//
 			isDestroyed = true;
+			//movex = 0;
 		}
 	}
 	state_t++;
@@ -147,6 +149,7 @@ void MegamanBullet::Update() {
 void MegamanBullet::Vanish() {
 	if (StateChanged(MBULLET_STATE_VANISHING))
 		SetState(MBULLET_STATE_VANISHING);
+	//movex = 0;
 }
 
 

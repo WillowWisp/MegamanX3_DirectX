@@ -10,6 +10,7 @@ Effects::Effects()
 
 Effects::~Effects()
 {
+	delete megamanEnergy;
 }
 
 void Effects::CreateMegamanEnergy() {

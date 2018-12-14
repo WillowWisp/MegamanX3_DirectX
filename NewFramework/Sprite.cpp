@@ -133,12 +133,19 @@ void Sprite::Draw(D3DXVECTOR3 _position, RECT _sourceRect, D3DXVECTOR2 _scale, D
 	GameGlobal::mSpriteHandler->SetTransform(&oldMatrix); // set lai matrix cu~ de Sprite chi ap dung transfrom voi class nay
 }
 
-void Sprite::Draw(D3DXMATRIX _matrix, D3DCOLOR _color) {
+void Sprite::Draw(D3DXMATRIX _matrix, D3DCOLOR _color, D3DXVECTOR3 _center) {
 	D3DXMATRIX oldMatrix;
 	GameGlobal::mSpriteHandler->GetTransform(&oldMatrix);
 	GameGlobal::mSpriteHandler->SetTransform(&_matrix);
 
-	D3DXVECTOR3 center = D3DXVECTOR3(width / 2, height / 2, 0);
+	D3DXVECTOR3 center;
+
+	if (_center != D3DXVECTOR3()) {
+		center = _center;
+	}
+	else {
+		center = D3DXVECTOR3(width / 2, height / 2, 0);
+	}
 
 	GameGlobal::mSpriteHandler->Draw(texture,
 		NULL,

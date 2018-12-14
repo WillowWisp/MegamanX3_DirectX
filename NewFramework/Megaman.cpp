@@ -2,17 +2,10 @@
 
 Megaman::Megaman()
 {
-	//x = (LEFTWALL_X + RIGHTWALL_X) / 2;
-	/*x = LEFTWALL_X + 100;*/
 	x = 700;
 	y = 500;
-	x = 200;
-	y = 800;
-	//x = 0;
-	//y = 0;
-	isHitGround = false;
-	isHitWallRight = false;
-	isHitWallLeft = false;
+	tag = (char*)"megaman";
+
 	curGroundY = 1000000;
 	curCeilY = -1000000;
 	curLeftWallX = -1000000;
@@ -20,6 +13,8 @@ Megaman::Megaman()
 
 	delta_t = -1;
 	energy_t = -1;
+	invulnerable_t = -1;
+	forcedAnim_t = -1;
 	shootingAnimDelay = -1;
 	movex = 0;
 	movey = 0;
@@ -36,13 +31,18 @@ Megaman::Megaman()
 	moving = false;
 	shooting = false;
 	jumpAfterDash = false;
+	isVulnerable = true;
+	isControllable = true;
+
+	HP = 20;
+
 
 	//color = D3DCOLOR_ARGB(255, 150, 150, 255);
 
-	anim = new Animation(64, 7, 9, ANIM_DELAY + 10);
+	anim = new Animation(75, 7, 9, ANIM_DELAY + 10);
 
 	char s[50];
-	for (int i = 0; i < 64; i++) {
+	for (int i = 0; i < 75; i++) {
 		sprintf_s(s, "sprites/megaman/%d.png", i);
 		anim->sprite[i] = new Sprite(s);
 	}
@@ -58,20 +58,12 @@ Megaman::~Megaman()
 
 void Megaman::OnCollision(MObject *otherObj, char* sideCollided) {
 	collideObject = otherObj;
-
-
-	if (sideCollided == (char*)"left") {
-		isHitWallLeft = true;
-		isHitWallRight = false;
-		
+	if (isVulnerable) {
+		if (collideObject->tag == (char*)"enemy") {
+			SetState(STATE_TAKING_DAMAGE);
+			GAMELOG("HP: %d", HP);
+		}
 	}
-
-	if (sideCollided == (char*)"right") {
-		isHitWallRight = true;
-		isHitWallLeft = false;
-
-	}
-
 }
 
 void Megaman::SetCamera(Camera * newCamera)
@@ -89,7 +81,6 @@ void Megaman::SetState(int newState)
 		//SetWidthHeight();
 		movex = 0;
 		movey = 0;
-		isHitGround = true;
 		//GAMELOG("idle");
 		break;
 	case STATE_RUNNING:
@@ -135,6 +126,15 @@ void Megaman::SetState(int newState)
 		//SetWidthHeight();
 		//jumpAfterDash = false;
 		break;
+	case STATE_TAKING_DAMAGE:
+		SetAnimState(64, 74, ANIM_DELAY);
+		isControllable = false;
+		isVulnerable = false;
+		forcedAnim_t = 0;
+		movex = -3;
+		movey = -7;
+		HP -= 2;
+		break;
 	default:
 		SetAnimState(7, 10, ANIM_DELAY);
 		//SetWidthHeight();
@@ -160,6 +160,31 @@ bool Megaman::CloseToWall() {
 	return (x - width / 2 <= curLeftWallX - 2 * dirRight || x + width / 2 >= curRightWallX - 2 * dirRight);
 }
 
+void Megaman::ForcedAnimation() {
+	if (state == STATE_TAKING_DAMAGE) {
+		if (forcedAnim_t > TAKING_DMG_ANIMATION_TIME) {
+			isControllable = true;
+			//SetState(STATE_IDLE);
+			return;
+		}
+		else {
+			if (anim->beginframe == 64 && anim->curframe >= 66 && anim->curframe <= 73) {
+				anim->beginframe = 66;
+				anim->animdelay = ANIM_DELAY - 2;
+			}
+			else if (anim->curframe == 74) {
+				anim->beginframe = 74;
+				anim->animdelay = ANIM_DELAY - 1;
+			}
+			movex = -3;
+			movey += 1;
+			if (y + movey - 1 + height / 2 > curGroundY)
+				movey = 0;
+		}
+	}
+	forcedAnim_t++;
+}
+
 void Megaman::Update()
 {
 	if (Input::KeyDown(DIK_S)) {
@@ -173,6 +198,13 @@ void Megaman::Update()
 	}
 	else if (Input::KeyDown(DIK_A)) {
 		movex = -3;
+	}
+
+	if (!isControllable) {
+		ForcedAnimation();
+		if (!isControllable) {
+			return;
+		}
 	}
 
 	//Check if megaman start shooting
@@ -468,7 +500,6 @@ void Megaman::Update()
 				movey = 0;
 				inMidAir = false;
 				delta_t = 0;
-				isHitGround = true;
 			}
 			else {
 				if (anim->curframe == anim->beginframe + 2)
@@ -638,14 +669,35 @@ void Megaman::Update()
 		}
 	}
 
+	if (!isVulnerable) {
+		if (invulnerable_t > INVULNERABLE_TIME) {
+			isVulnerable = true;
+			invulnerable_t = -1;
+		}
+		else if (invulnerable_t % 3 == 0) {
+			color = D3DCOLOR_ARGB(0, 255, 255, 255);
+		}
+		else {
+			color = D3DCOLOR_ARGB(180, 255, 255, 255);
+		}
+		invulnerable_t++;
+	}
+
+	//isHitGround = false;
+}
+
+void Megaman::Render() {
 	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex * dirRight, y + movey);
 	D3DXVECTOR2 translate = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
 	D3DXVECTOR2 combined = translation + translate;
 
 	D3DXVECTOR2 scale = D3DXVECTOR2(2 * dirRight, 2);
+	//center = D3DXVECTOR3(width / 2, height / 2, 0);
 	D3DXMatrixTransformation2D(&matrix, NULL, 0, &scale, NULL,
 		NULL, &combined);
+	
 	MObject::Update();
+	MObject::Render();
 
 	if (energy_t > SHOOTING_ANIMATION_DELAY) {
 		if (energy_t >= CHARGED_SHOT_LV1_TIME && energy_t < CHARGED_SHOT_LV2_TIME) {
@@ -655,8 +707,6 @@ void Megaman::Update()
 			Effects::DrawMegamanEnergy(matrix, x, y, 2);
 		}
 	}
-
-	//isHitGround = false;
 }
 
 //void Megaman::SetWidthHeight() {
@@ -664,18 +714,18 @@ void Megaman::Update()
 //	//height = 30;
 //}
 
-//void Megaman::SetSignedMoveX() {
-//	if (dirRight == -1) {
-//		movex *= -1;
-//	}
-//	//if (state == STATE_WALL_KICKING) {
-//	//	movex *= -1;
-//	//}
-//}
-//
-//void Megaman::SetUnsignedMoveX() {
-//	movex = abs(movex);
-//	if (state == STATE_WALL_KICKING) {
-//		movex *= -1;
-//	}
-//}
+void Megaman::SetSignedMoveX() {
+	if (dirRight == -1) {
+		movex *= -1;
+	}
+	//if (state == STATE_WALL_KICKING) {
+	//	movex *= -1;
+	//}
+}
+
+void Megaman::SetUnsignedMoveX() {
+	movex = abs(movex);
+	if (state == STATE_WALL_KICKING) {
+		movex *= -1;
+	}
+}

@@ -84,17 +84,59 @@ void DrawCollidable()
 	debugDraw->setColor(oldColor);
 }
 
+void DrawBorders() {
+	//DRAW WALL AND GROUND
+
+	D3DCOLOR oldColor = debugDraw->getColor();
+
+	RECT border;
+
+	//left wall
+	debugDraw->setColor(D3DCOLOR_XRGB(0, 255, 0));
+	border.left = megaman->curLeftWallX;
+	border.right = megaman->curLeftWallX + 2;
+	border.top = 0;
+	border.bottom = 10000;
+	debugDraw->DrawRect(border, GameGlobal::camera);
+
+	//right wall
+	debugDraw->setColor(D3DCOLOR_XRGB(0, 0, 255));
+	border.left = megaman->curRightWallX;
+	border.right = megaman->curRightWallX + 2;
+	border.top = 0;
+	border.bottom = 10000;
+	debugDraw->DrawRect(border, GameGlobal::camera);
+
+	//ground
+	debugDraw->setColor(D3DCOLOR_XRGB(0, 255, 255));
+	border.left = 0;
+	border.right = 10000;
+	border.top = megaman->curGroundY;
+	border.bottom = megaman->curGroundY + 2;
+	debugDraw->DrawRect(border, GameGlobal::camera);
+
+	//ceil
+	debugDraw->setColor(D3DCOLOR_XRGB(255, 255, 0));
+	border.left = 0;
+	border.right = 10000;
+	border.top = megaman->curCeilY;
+	border.bottom = megaman->curCeilY + 2;
+	debugDraw->DrawRect(border, GameGlobal::camera);
+
+	debugDraw->setColor(oldColor);
+
+	//END DRAW
+}
+
 void CheckCollision() {
 	collisionList.clear();
 	map->GetQuadtree()->GetObjectsCollidableWith(megaman, collisionList);
-	int count = 0;
-	bool collideTop = false;
-	bool collideLeft = false;
-	bool collideRight = false;
+	//int count = 0;
 	int newGroundY = 1000000;
 	int newCeilY = -1000000;
 	int newLeftWallX = -1000000;
 	int newRightWallX = 1000000;
+	bool isCollideStatic = false;
 
 	//GAMELOG("movey: %d", megaman->movey);
 
@@ -114,70 +156,67 @@ void CheckCollision() {
 		if (isCollided != (char*)"none")
 		{
 #pragma region Megaman Collision
-
-
 			//GAMELOG("ASD: %s", (char*)isCollided);
 			//Gọi đến hàm OnCollision trong MObject
-			megaman->OnCollision(collisionList.at(i), (char*)isCollided);
-			/*
 
-			//goi den ham xu ly collision cua Player va MObject
-			mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
-			listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
-			}*/
-			if (isCollided == (char*)"top" || isCollided == (char*)"bottom") {
-				if (isCollided == (char*)"top") {
-					megaman->curGroundY = collisionList.at(i)->y - collisionList.at(i)->height / 2;
-					megaman->y = megaman->curGroundY - megaman->height / 2;	
-					//megaman->delta_t = 0;
+			if (collisionList.at(i)->tag == (char*)"static") {	// Cham tuong, dat,..
+				
+				/*
+				//goi den ham xu ly collision cua Player va MObject
+				mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
+				listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
+				}*/
+				isCollideStatic = true;
+
+				if (isCollided == (char*)"top" || isCollided == (char*)"bottom") {
+					if (isCollided == (char*)"top") {
+						megaman->curGroundY = collisionList.at(i)->y - collisionList.at(i)->height / 2;
+						megaman->y = megaman->curGroundY - megaman->height / 2;
+						//megaman->delta_t = 0;
+					}
+					else if (isCollided == (char*)"bottom") {
+						megaman->curCeilY = collisionList.at(i)->y + collisionList.at(i)->height / 2;
+						megaman->y = megaman->curCeilY + megaman->height / 2;
+					}
+					megaman->movey = 0;
 				}
-				else if (isCollided == (char*)"bottom") {
-					megaman->curCeilY = collisionList.at(i)->y + collisionList.at(i)->height / 2;
-					megaman->y = megaman->curCeilY + megaman->height / 2;
+				else if (isCollided == (char*)"left" || isCollided == (char*)"right") {
+					if (isCollided == (char*)"left") {
+						megaman->curRightWallX = collisionList.at(i)->x - collisionList.at(i)->width / 2;
+						megaman->x = megaman->curRightWallX - megaman->width / 2;
+					}
+					else if (isCollided == (char*)"right") {
+						megaman->curLeftWallX = collisionList.at(i)->x + collisionList.at(i)->width / 2;
+						megaman->x = megaman->curLeftWallX + megaman->width / 2;
+					}
+					megaman->movex = 0;
 				}
-				megaman->movey = 0;
 			}
-			//else if ((isCollided == (char*)"left" || isCollided == (char*)"right") 
-			//	&& GameGlobal::IsIntersectY(megaman->GetRect(), collisionList.at(i)->GetRect())) {
-			//	if (megaman->dirRight > 0) {
-			//		megaman->curRightWallX = collisionList.at(i)->x - collisionList.at(i)->width / 2;
-			//	}
-			//	else {
-			//		megaman->curLeftWallX = collisionList.at(i)->x + collisionList.at(i)->width / 2;
-			//	}
-			//}
-			else if (isCollided == (char*)"left" || isCollided == (char*)"right") {
-				if (isCollided == (char*)"left") {
-					megaman->curRightWallX = collisionList.at(i)->x - collisionList.at(i)->width / 2;
-					megaman->x = megaman->curRightWallX - megaman->width / 2;
-				}
-				else if (isCollided == (char*)"right") {
-					megaman->curLeftWallX = collisionList.at(i)->x + collisionList.at(i)->width / 2;
-					megaman->x = megaman->curLeftWallX + megaman->width / 2;
-				}
-				megaman->movex = 0;
+			else {
+				megaman->OnCollision(collisionList.at(i), (char*)isCollided);
 			}
 
-			collideTop = true;
 #pragma endregion
 		}
 		else {
-			count++;
-			if (GameGlobal::IsIntersectX(megaman->GetRect(), collisionList.at(i)->GetRect()) 
-				&& megaman->y <= collisionList.at(i)->y - collisionList.at(i)->height / 2) {
-				newGroundY = min(newGroundY, collisionList.at(i)->y - collisionList.at(i)->height / 2);
-			}
-			if (GameGlobal::IsIntersectX(megaman->GetRect(), collisionList.at(i)->GetRect())
-				&& megaman->y >= collisionList.at(i)->y + collisionList.at(i)->height / 2) {
-				newCeilY = max(newCeilY, collisionList.at(i)->y + collisionList.at(i)->height / 2);
-			}
-			if (GameGlobal::IsIntersectY(megaman->GetRect(), collisionList.at(i)->GetRect())
-				&& megaman->x <= collisionList.at(i)->x - collisionList.at(i)->width / 2) {
-				newRightWallX = min(newRightWallX, collisionList.at(i)->x - collisionList.at(i)->width / 2);
-			}
-			if (GameGlobal::IsIntersectY(megaman->GetRect(), collisionList.at(i)->GetRect())
-				&& megaman->x >= collisionList.at(i)->x + collisionList.at(i)->width / 2) {
-				newLeftWallX = max(newLeftWallX, collisionList.at(i)->x + collisionList.at(i)->width / 2);
+			//count++;
+			if (collisionList.at(i)->tag == (char*)"static") {
+				if (GameGlobal::IsIntersectX(megaman->GetRect(), collisionList.at(i)->GetRect())
+					&& megaman->y <= collisionList.at(i)->y - collisionList.at(i)->height / 2) {
+					newGroundY = min(newGroundY, collisionList.at(i)->y - collisionList.at(i)->height / 2);
+				}
+				if (GameGlobal::IsIntersectX(megaman->GetRect(), collisionList.at(i)->GetRect())
+					&& megaman->y >= collisionList.at(i)->y + collisionList.at(i)->height / 2) {
+					newCeilY = max(newCeilY, collisionList.at(i)->y + collisionList.at(i)->height / 2);
+				}
+				if (GameGlobal::IsIntersectY(megaman->GetRect(), collisionList.at(i)->GetRect())
+					&& megaman->x <= collisionList.at(i)->x - collisionList.at(i)->width / 2) {
+					newRightWallX = min(newRightWallX, collisionList.at(i)->x - collisionList.at(i)->width / 2);
+				}
+				if (GameGlobal::IsIntersectY(megaman->GetRect(), collisionList.at(i)->GetRect())
+					&& megaman->x >= collisionList.at(i)->x + collisionList.at(i)->width / 2) {
+					newLeftWallX = max(newLeftWallX, collisionList.at(i)->x + collisionList.at(i)->width / 2);
+				}
 			}
 		}
 
@@ -211,7 +250,7 @@ void CheckCollision() {
 	////megaman->isHitWallLeft = collideLeft;
 	////megaman->isHitWallRight = collideRight;
 
-	if (count >= collisionList.size()) {
+	if (!isCollideStatic) {
 		/*megaman->isHitGround = false;
 		megaman->isHitWallRight = false;
 		megaman->isHitWallLeft = false;*/
@@ -244,6 +283,19 @@ void CheckCollisionEnemy() {
 			enemy->OnCollision(collisionList.at(i), isCollided);
 		}
 	}
+
+	//Check collision with Megaman
+	//enemy->MoveXYToCorner();
+	//megaman->MoveXYToCorner();
+	//char* isCollided = Collision::IsCollided(enemy, megaman);
+	//enemy->MoveXYToCenter();
+	//megaman->MoveXYToCenter();
+	char* isCollided = Collision::IsIntersect(enemy, megaman);
+
+	if (isCollided != (char*)"none") {
+		enemy->OnCollision(megaman, isCollided);
+		megaman->OnCollision(enemy, (char*)"X");
+	}
 }
 
 //Xử lý Init
@@ -259,7 +311,8 @@ void Start() {
 
 
 	//map = new GameMap((char*)"Resources/test.tmx");
-	map = new GameMap((char*)"Resources/BlastHornetLarge.tmx");
+	map = new GameMap((char*)"Resources/test7.tmx");
+	map->GetQuadtree()->Insert(enemy);
 
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
@@ -336,11 +389,21 @@ void Update() {
 		GameGlobal::camera->position.y += 5;
 	}*/
 	UpdateCameraWorldMap();
-	megaman->SetWidthHeight();
+	//megaman->SetWidthHeight();
 
+	map->GetQuadtree()->Remove(enemy);
 	enemy->Updates();
-	CheckCollision();
+	map->GetQuadtree()->Insert(enemy);
+
+	/*megaman->Update();*/
+	
+
+	int count = 0;
+	map->GetQuadtree()->Debug(count);
+	//GAMELOG("count: %d", count);
+
 	CheckCollisionEnemy();
+	CheckCollision();
 }
 
 //Hàm này để render lên màn hình
@@ -353,55 +416,16 @@ void Render() {
 
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map->Draw();
-	megaman->Update();
-	BulletsManager::UpdateBullets();
 	enemy->Render();
-	GAMELOG("bullet count: %d", BulletsManager::bulletsList.size());
+	BulletsManager::UpdateBullets();
+
+	megaman->Update();
+	megaman->Render();
+	//GAMELOG("bullet count: %d", BulletsManager::bulletsList.size());
 
 	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
 
-	//DRAW WALL AND GROUND
-
-	D3DCOLOR oldColor = debugDraw->getColor();
-
-	RECT border;
-
-	//left wall
-	debugDraw->setColor(D3DCOLOR_XRGB(0, 255, 0));
-	border.left = megaman->curLeftWallX;
-	border.right = megaman->curLeftWallX + 2;
-	border.top = 0;
-	border.bottom = 10000;
-	debugDraw->DrawRect(border, GameGlobal::camera);
-
-	//right wall
-	debugDraw->setColor(D3DCOLOR_XRGB(0, 0, 255));
-	border.left = megaman->curRightWallX;
-	border.right = megaman->curRightWallX + 2;
-	border.top = 0;
-	border.bottom = 10000;
-	debugDraw->DrawRect(border, GameGlobal::camera);
-
-	//ground
-	debugDraw->setColor(D3DCOLOR_XRGB(0, 255, 255));
-	border.left = 0;
-	border.right = 10000;
-	border.top = megaman->curGroundY;
-	border.bottom = megaman->curGroundY + 2;
-	debugDraw->DrawRect(border, GameGlobal::camera);
-
-	//ceil
-	debugDraw->setColor(D3DCOLOR_XRGB(255, 255, 0));
-	border.left = 0;
-	border.right = 10000;
-	border.top = megaman->curCeilY;
-	border.bottom = megaman->curCeilY + 2;
-	debugDraw->DrawRect(border, GameGlobal::camera);
-
-	debugDraw->setColor(oldColor);
-
-	//END DRAW
-
+	DrawBorders();
 	DrawQuadtree(map->GetQuadtree());
 	DrawCollidable();
 
@@ -420,10 +444,10 @@ int Game::Game_Init(HWND hWnd) {
 	}
 
 	//init mouse
-	if (!Input::InitMouse(hWnd)) {
+	/*if (!Input::InitMouse(hWnd)) {
 		MessageBox(hWnd, "Error initializing the mouse", "Error", MB_OK);
 		return 0;
-	}
+	}*/
 
 	//create sprite handler object
 	

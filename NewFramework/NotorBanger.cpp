@@ -7,8 +7,8 @@ NotorBanger::NotorBanger(MObject* _player)
 	player = _player;
 
 	tag = (char*)"enemy";
-	x = 300;
-	y = 300;
+	x = 500;
+	y = 500;
 	movex = 0;
 	movey = 10;
 	dirUp = 1;
@@ -89,6 +89,20 @@ void NotorBanger::SetState(int newState) {
 }
 
 void NotorBanger::Updates() {
+	if (Input::KeyDown(DIK_I)) {
+		y -= 5;
+	}
+	if (Input::KeyDown(DIK_K)) {
+		y += 5;
+	}
+	if (Input::KeyDown(DIK_J)) {
+		x -= 5;
+	}
+	if (Input::KeyDown(DIK_L)) {
+		x += 5;
+	}
+	//return;
+
 	delta_t++;
 
 	//Quyết định hướng & góc bắn
@@ -168,7 +182,7 @@ void NotorBanger::Updates() {
 }
 
 void NotorBanger::Render() {
-	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex, y + movey);
+	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex * dirRight, y + movey);
 	D3DXVECTOR2 shift = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
 	D3DXVECTOR2 combined = translation + shift;
 

@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "MObject.h"
 #include "NotorBangerBullet.h"
+#include "Input.h"
 #include <vector>
 #include <cmath>
 
