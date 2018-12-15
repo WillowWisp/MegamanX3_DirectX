@@ -49,6 +49,10 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sun.cpp" />
     <ClCompile Include="winmain.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="HP.cpp" />
+    <ClCompile Include="Random.cpp" />
+    <ClCompile Include="ItemsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
@@ -101,6 +105,10 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Sun.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="HP.h" />
+    <ClInclude Include="Random.h" />
+    <ClInclude Include="ItemsManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MapReader\Tmx.h.in" />

@@ -298,6 +298,34 @@ void CheckCollisionEnemy() {
 	}
 }
 
+void CheckCollisionItems() {
+	for (auto hp : ItemsManager::HPItemsList) {
+		collisionList.clear();
+		map->GetQuadtree()->GetObjectsCollidableWith(hp, collisionList);
+
+		for (size_t i = 0; i < collisionList.size(); i++) {
+			hp->MoveXYToCorner();
+			collisionList.at(i)->MoveXYToCorner();
+			char* isCollided = Collision::IsCollided(hp, collisionList.at(i));
+			hp->MoveXYToCenter();
+			collisionList.at(i)->MoveXYToCenter();
+
+			if (isCollided != (char*)"none") {
+				hp->OnCollision(collisionList.at(i), isCollided);
+			}
+		}
+
+		char* isCollided = Collision::IsIntersect(hp, megaman);
+
+		if (isCollided != (char*)"none") {
+			if (!hp->isDisappeared)
+				megaman->Heal(hp->heal);
+			hp->OnCollision(megaman, isCollided);
+			//megaman->OnCollision(hp, (char*)"X");
+		}
+	}
+}
+
 //Xử lý Init
 void Start() {
 	//background = Graphics::LoadSurface((char*)"myBackground.bmp");
@@ -306,9 +334,12 @@ void Start() {
 	//Sound::PlaySoundA(backgroundSound);
 	debugDraw = new DebugDraw();
 	megaman = new Megaman();
+	Random::Init();
 
 	enemy = new NotorBanger(megaman);
 
+	//hp = new HP(500, 500, 0);
+	ItemsManager::DropItem(new HP(500, 500, 0));
 
 	//map = new GameMap((char*)"Resources/test.tmx");
 	map = new GameMap((char*)"Resources/test7.tmx");
@@ -375,12 +406,12 @@ void UpdateCameraWorldMap()
 }
 
 void Update() {
-	if (Input::KeyDown(DIK_A)) {
-		GameGlobal::camera->position.x -= 5;
-	}
-	if (Input::KeyDown(DIK_S)) {
-		megaman->y += 5;
-	}
+	//if (Input::KeyDown(DIK_A)) {
+	//	GameGlobal::camera->position.x -= 5;
+	//}
+	//if (Input::KeyDown(DIK_S)) {
+	//	megaman->y += 5;
+	//}
 	/*
 	if (Input::KeyDown(DIK_W)) {
 		GameGlobal::camera->position.y -= 5;
@@ -395,14 +426,19 @@ void Update() {
 	enemy->Updates();
 	map->GetQuadtree()->Insert(enemy);
 
+	if (Input::KeyDown(DIK_C)) {
+		ItemsManager::DropItem(new HP(megaman->x + 50, megaman->y, 0));
+	}
+
 	/*megaman->Update();*/
 	
 
 	int count = 0;
 	map->GetQuadtree()->Debug(count);
-	//GAMELOG("count: %d", count);
+	GAMELOG("rand: %d", Random::RandInt(1, 3));
 
 	CheckCollisionEnemy();
+	CheckCollisionItems();
 	CheckCollision();
 }
 
@@ -418,6 +454,8 @@ void Render() {
 	map->Draw();
 	enemy->Render();
 	BulletsManager::UpdateBullets();
+	ItemsManager::UpdateItems();
+
 
 	megaman->Update();
 	megaman->Render();

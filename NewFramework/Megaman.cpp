@@ -33,8 +33,9 @@ Megaman::Megaman()
 	jumpAfterDash = false;
 	isVulnerable = true;
 	isControllable = true;
+	isHealing = false;
 
-	HP = 20;
+	HP = MEGAMAN_MAX_HP;
 
 
 	//color = D3DCOLOR_ARGB(255, 150, 150, 255);
@@ -61,9 +62,12 @@ void Megaman::OnCollision(MObject *otherObj, char* sideCollided) {
 	if (isVulnerable) {
 		if (collideObject->tag == (char*)"enemy") {
 			SetState(STATE_TAKING_DAMAGE);
-			GAMELOG("HP: %d", HP);
+			//GAMELOG("HP: %d", HP);
 		}
 	}
+	//if (collideObject->tag == (char*)"item") {
+	//	y -= 100;
+	//}
 }
 
 void Megaman::SetCamera(Camera * newCamera)
@@ -106,7 +110,7 @@ void Megaman::SetState(int newState)
 	case STATE_JUMPING:
 		SetAnimState(34, 36, ANIM_DELAY);
 		//SetWidthHeight();
-		GAMELOG("jumping");
+		//GAMELOG("jumping");
 		//movex = jumpAfterDash ? DASH_SPEED : MEGAMAN_SPEED;
 		break;
 	case STATE_FALLING:
@@ -182,7 +186,30 @@ void Megaman::ForcedAnimation() {
 				movey = 0;
 		}
 	}
+	else if (isHealing) {
+		if (forcedAnim_t > HEALING_TIME) {
+			isControllable = true;
+			forcedAnim_t = -1;
+			isHealing = false;
+		}
+		else {
+			anim->animcount--;
+		}
+	}
 	forcedAnim_t++;
+}
+
+void Megaman::Heal(int healAmount) {
+	if (HP >= MEGAMAN_MAX_HP)
+		return;
+	HP += healAmount;
+	if (HP > MEGAMAN_MAX_HP)
+		HP = MEGAMAN_MAX_HP;
+	isControllable = false;
+	isHealing = true;
+	forcedAnim_t = 0;
+	movex = 0;
+	movey = 0;
 }
 
 void Megaman::Update()

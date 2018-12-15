@@ -31,13 +31,13 @@ NotorBanger::~NotorBanger()
 
 void NotorBanger::Shoot45() {
 	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint.x, firePoint.y, dirRight);
-	bulletList.push_back(bullet);
+	//bulletList.push_back(bullet);
 	bullet->Fly45();
 }
 
 void NotorBanger::Shoot90() {
 	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint.x, firePoint.y, dirRight);
-	bulletList.push_back(bullet);
+	//bulletList.push_back(bullet);
 	bullet->Fly90();
 }
 
@@ -176,9 +176,9 @@ void NotorBanger::Updates() {
 		movey = movey + 1;
 	}
 
-	for (int i = 0; i < bulletList.size(); i++) {
-		bulletList.at(i)->Update();
-	}
+	//for (int i = 0; i < bulletList.size(); i++) {
+	//	bulletList.at(i)->Update();
+	//}
 }
 
 void NotorBanger::Render() {
@@ -192,8 +192,8 @@ void NotorBanger::Render() {
 	x += movex;
 	y += movey;
 	anim->AnimateWithoutLoop(matrix);
-
-	for (int i = 0; i < bulletList.size(); i++) {
-		bulletList.at(i)->Render();
-	}
+	SetWidthHeight();
+	//for (int i = 0; i < bulletList.size(); i++) {
+	//	bulletList.at(i)->Render();
+	//}
 }

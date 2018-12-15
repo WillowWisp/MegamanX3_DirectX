@@ -9,21 +9,24 @@ BulletsManager::BulletsManager()
 
 BulletsManager::~BulletsManager()
 {
+	for (int i = 0; i < bulletsList.size(); i++) {
+		delete bulletsList[i];
+	}
 }
 
 void BulletsManager::CreateBullet(Bullet* bullet) {
-	BulletsManager::bulletsList.push_back(bullet);
+	bulletsList.push_back(bullet);
 }
 
 void BulletsManager::UpdateBullets() {
 	for (int i = 0; i < bulletsList.size(); i++) {
-		if (BulletsManager::bulletsList[i]->isDestroyed) {
-			delete BulletsManager::bulletsList[i];
-			BulletsManager::bulletsList.erase(bulletsList.begin() + i);
+		if (bulletsList[i]->isDestroyed) {
+			delete bulletsList[i];
+			bulletsList.erase(bulletsList.begin() + i);
 			i--;
 		}
 		else {
-			BulletsManager::bulletsList[i]->Update();
+			bulletsList[i]->Update();
 		}
 	}
 }

@@ -38,6 +38,8 @@
 #define SHOOTING_ANIMATION_DELAY 10
 #define TAKING_DMG_ANIMATION_TIME 20
 #define INVULNERABLE_TIME 35
+#define HEALING_TIME 20
+#define MEGAMAN_MAX_HP 20
 
 class Megaman :
 	public MObject
@@ -67,6 +69,7 @@ public:
 	bool shooting;
 	bool isVulnerable;
 	bool isControllable;
+	bool isHealing;
 
 	int shootingAnimDelay;
 	int energy_t;
@@ -87,6 +90,7 @@ public:
 	void SetSignedMoveX();
 	void SetUnsignedMoveX();
 	void ForcedAnimation();
+	void Heal(int healAmount);
 
 	void OnCollision(MObject *otherObj, char* sideCollided);
 

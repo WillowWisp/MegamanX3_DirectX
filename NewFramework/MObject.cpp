@@ -106,6 +106,7 @@ void MObject::SetUnsignedMoveX() {
 
 MObject::~MObject()
 {
+	delete anim;
 }
 
 void MObject::OnCollision(MObject *otherObj, char* sideCollided) {
