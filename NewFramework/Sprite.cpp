@@ -9,7 +9,9 @@ Sprite::Sprite()
 Sprite::~Sprite()
 {
 	//delete anim;
-	texture->Release();
+	if (texture != NULL) {
+		texture->Release();
+	}
 }
 
 Sprite::Sprite(const char* _filePath, RECT _sourceRect, int _width, int _height, D3DCOLOR _colorKey) {

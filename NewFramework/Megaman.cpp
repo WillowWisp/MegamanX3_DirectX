@@ -137,7 +137,7 @@ void Megaman::SetState(int newState)
 		forcedAnim_t = 0;
 		movex = -3;
 		movey = -7;
-		HP -= 2;
+		//HP -= 2;
 		break;
 	default:
 		SetAnimState(7, 10, ANIM_DELAY);
@@ -210,6 +210,16 @@ void Megaman::Heal(int healAmount) {
 	forcedAnim_t = 0;
 	movex = 0;
 	movey = 0;
+}
+
+void Megaman::TakeDmg(int damage) {
+	if (!isVulnerable)
+		return;
+	HP -= damage;
+	if (HP <= 0) {
+		//RIP
+	}
+	SetState(STATE_TAKING_DAMAGE);
 }
 
 void Megaman::Update()

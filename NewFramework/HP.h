@@ -24,6 +24,7 @@ public:
 
 	void SetState(int newState);
 	void Update();
+	void Render();
 	void OnCollision(MObject *otherObj, char* sideCollided);
 	void Disappear(); //Forced disappearing
 };

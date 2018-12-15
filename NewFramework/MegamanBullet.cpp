@@ -4,6 +4,7 @@
 
 MegamanBullet::MegamanBullet()
 {
+	tag = (char*)"megamanBullet";
 }
 
 
@@ -97,6 +98,7 @@ void MegamanBullet::SetState(int newState) {
 	}
 	else if (state == MBULLET_STATE_VANISHING) {
 		movex = 0;
+		dmg = 0;
 		switch (chargedLevel)
 		{
 		case 0:
@@ -113,6 +115,10 @@ void MegamanBullet::SetState(int newState) {
 			break;
 		}
 	}
+}
+
+void MegamanBullet::OnCollision(MObject *otherObj, char* sideCollided) {
+
 }
 
 void MegamanBullet::Update() {
@@ -135,20 +141,24 @@ void MegamanBullet::Update() {
 	}
 	state_t++;
 
-	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex * dirRight, y + movey);
+	MObject::Update();
+}
+
+void MegamanBullet::Render() {
+	D3DXVECTOR2 translation = D3DXVECTOR2(x, y);
 	D3DXVECTOR2 translate = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
 	D3DXVECTOR2 combined = translation + translate;
 
 	D3DXVECTOR2 scale = D3DXVECTOR2(2 * dirRight, 2);
 	D3DXMatrixTransformation2D(&matrix, NULL, 0, &scale, NULL,
 		NULL, &combined);
-
-	MObject::Update();
+	MObject::Render();
 }
 
 void MegamanBullet::Vanish() {
 	if (StateChanged(MBULLET_STATE_VANISHING))
 		SetState(MBULLET_STATE_VANISHING);
+
 	//movex = 0;
 }
 

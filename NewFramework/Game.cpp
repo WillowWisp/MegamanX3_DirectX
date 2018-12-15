@@ -269,6 +269,9 @@ void CheckCollision() {
 }
 
 void CheckCollisionEnemy() {
+	if (enemy->isDestroyed)
+		return;
+
 	collisionList.clear();
 	map->GetQuadtree()->GetObjectsCollidableWith(enemy, collisionList);
 
@@ -326,6 +329,97 @@ void CheckCollisionItems() {
 	}
 }
 
+void CheckCollisionBullets() {
+	for (auto bullet : BulletsManager::EnemyBulletsList) {
+		collisionList.clear();
+		map->GetQuadtree()->GetObjectsCollidableWith(bullet, collisionList);
+
+		for (size_t i = 0; i < collisionList.size(); i++) {
+			bullet->MoveXYToCorner();
+			collisionList.at(i)->MoveXYToCorner();
+			char* isCollided = Collision::IsCollided(bullet, collisionList.at(i));
+			bullet->MoveXYToCenter();
+			collisionList.at(i)->MoveXYToCenter();
+
+			if (isCollided != (char*)"none") {
+				bullet->OnCollision(collisionList.at(i), isCollided);
+			}
+		}
+
+		//char* isCollided = Collision::IsIntersect(bullet, megaman);
+
+		//if (isCollided != (char*)"none") {
+		//	if (!bullet->isDestroyed)
+		//		megaman->Heal(hp->heal);
+		//	hp->OnCollision(megaman, isCollided);
+		//	//megaman->OnCollision(hp, (char*)"X");
+		//}
+
+		bullet->MoveXYToCorner();
+		megaman->MoveXYToCorner();
+		char* isCollided = Collision::IsCollided(bullet, megaman);
+		bullet->MoveXYToCenter();
+		megaman->MoveXYToCenter();
+
+		if (isCollided != (char*)"none") {
+			bullet->OnCollision(megaman, isCollided);
+			megaman->TakeDmg(bullet->dmg);
+		}
+
+	}
+
+	if (enemy->isDestroyed) //Temp
+		return;
+
+	for (auto bullet : BulletsManager::MegamanBulletsList) {
+		//collisionList.clear();
+		//map->GetQuadtree()->GetObjectsCollidableWith(bullet, collisionList);
+
+		//for (size_t i = 0; i < collisionList.size(); i++) {
+		//	bullet->MoveXYToCorner();
+		//	collisionList.at(i)->MoveXYToCorner();
+		//	char* isCollided = Collision::IsCollided(bullet, collisionList.at(i));
+		//	bullet->MoveXYToCenter();
+		//	collisionList.at(i)->MoveXYToCenter();
+
+		//	if (isCollided != (char*)"none") {
+		//		bullet->OnCollision(collisionList.at(i), isCollided);
+		//	}
+		//}
+
+		bullet->MoveXYToCorner();
+		bullet->SetSignedMoveX();
+		enemy->MoveXYToCorner();
+		char* isCollided = Collision::IsCollided(bullet, enemy);
+		bullet->MoveXYToCenter();
+		bullet->SetUnsignedMoveX();
+		enemy->MoveXYToCenter();
+
+		if (isCollided != (char*)"none") {
+			enemy->TakeDmg(bullet->dmg);
+			if (!enemy->isDestroyed) {
+				bullet->Vanish();
+			}
+			else {
+				//map->GetQuadtree()->Remove(enemy);
+			}
+		}
+		else {
+			char* isCollided = Collision::IsIntersect(bullet, enemy);
+
+			if (isCollided != (char*)"none") {
+				enemy->TakeDmg(bullet->dmg);
+				if (!enemy->isDestroyed) {
+					bullet->Vanish();
+				}
+				else {
+					//map->GetQuadtree()->Remove(enemy);
+				}
+			}
+		}
+	}
+}
+
 //Xử lý Init
 void Start() {
 	//background = Graphics::LoadSurface((char*)"myBackground.bmp");
@@ -343,7 +437,7 @@ void Start() {
 
 	//map = new GameMap((char*)"Resources/test.tmx");
 	map = new GameMap((char*)"Resources/test7.tmx");
-	map->GetQuadtree()->Insert(enemy);
+	//map->GetQuadtree()->Insert(enemy);
 
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
@@ -422,9 +516,14 @@ void Update() {
 	UpdateCameraWorldMap();
 	//megaman->SetWidthHeight();
 
-	map->GetQuadtree()->Remove(enemy);
-	enemy->Updates();
-	map->GetQuadtree()->Insert(enemy);
+	if (!enemy->isDestroyed) {
+		//map->GetQuadtree()->Remove(enemy);
+		enemy->Updates();
+		//map->GetQuadtree()->Insert(enemy);
+	}
+
+	BulletsManager::UpdateBullets();
+	ItemsManager::UpdateItems();
 
 	if (Input::KeyDown(DIK_C)) {
 		ItemsManager::DropItem(new HP(megaman->x + 50, megaman->y, 0));
@@ -432,13 +531,15 @@ void Update() {
 
 	/*megaman->Update();*/
 	
-
-	int count = 0;
-	map->GetQuadtree()->Debug(count);
-	GAMELOG("rand: %d", Random::RandInt(1, 3));
+	if (Input::KeyDown(DIK_M)) {
+		int count = 0;
+		map->GetQuadtree()->Debug(count);
+		GAMELOG("count: %d", count);
+	}
 
 	CheckCollisionEnemy();
 	CheckCollisionItems();
+	CheckCollisionBullets();
 	CheckCollision();
 }
 
@@ -452,14 +553,17 @@ void Render() {
 
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map->Draw();
-	enemy->Render();
-	BulletsManager::UpdateBullets();
-	ItemsManager::UpdateItems();
+	if (!enemy->isDestroyed) {
+		enemy->Render();
+	}
+	//BulletsManager::UpdateBullets();
+	ItemsManager::RenderItems();
+	BulletsManager::RenderBullets();
 
 
 	megaman->Update();
 	megaman->Render();
-	//GAMELOG("bullet count: %d", BulletsManager::bulletsList.size());
+	//GAMELOG("bullet count: %d", BulletsManager::MegamanBulletsList.size());
 
 	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
 

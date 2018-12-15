@@ -91,6 +91,7 @@ public:
 	void SetUnsignedMoveX();
 	void ForcedAnimation();
 	void Heal(int healAmount);
+	void TakeDmg(int damage);
 
 	void OnCollision(MObject *otherObj, char* sideCollided);
 

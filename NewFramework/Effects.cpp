@@ -34,4 +34,5 @@ void Effects::DrawMegamanEnergy(D3DXMATRIX matrix, int x, int y, int level) {
 	Effects::megamanEnergy->y = y;
 
 	Effects::megamanEnergy->Update();
+	Effects::megamanEnergy->Render();
 }

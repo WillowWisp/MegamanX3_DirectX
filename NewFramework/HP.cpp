@@ -13,7 +13,7 @@ HP::HP(int _x, int _y, int _level) {
 	level = _level;
 	//isUsed = false;
 	movex = 0;
-	movey = ITEM_DROP_SPEED;
+	movey = 0;
 	tag = (char*)"hpItem";
 	
 	if (level == 0) {
@@ -114,23 +114,40 @@ void HP::SetState(int newState) {
 void HP::Update() {
 	if (isDisappeared)
 		return;
-	if (state == HP_STATE_IDLE && state_t >= HP_IDLE_ANIM_TIME) {
+	if (state == HP_STATE_DROPPING) {
+		movey += 1;
+	}
+	else if (state == HP_STATE_IDLE && state_t >= HP_IDLE_ANIM_TIME) {
 		SetState(HP_STATE_DISAPPEARING);
 	}
-	else if (state == HP_STATE_DISAPPEARING && state_t >= HP_DISAPPEARING_ANIM_TIME) {
-		Disappear();
-		return;
+	else if (state == HP_STATE_DISAPPEARING) {
+		if (state_t >= HP_DISAPPEARING_ANIM_TIME) {
+			Disappear();
+			return;
+		}
+		else {
+			if (state_t % 3 == 0) {
+				color = D3DCOLOR_ARGB(0, 255, 255, 255);
+			}
+			else {
+				color = D3DCOLOR_ARGB(180, 255, 255, 255);
+			}
+		}
 	}
 	state_t++;
 
-	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex * dirRight, y + movey);
+	MObject::Update();
+}
+
+void HP::Render() {
+	D3DXVECTOR2 translation = D3DXVECTOR2(x, y);
 	D3DXVECTOR2 translate = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
 	D3DXVECTOR2 combined = translation + translate;
 	D3DXVECTOR2 scale = D3DXVECTOR2(2, 2);
 	D3DXMatrixTransformation2D(&matrix, NULL, 0, &scale, NULL,
 		NULL, &combined);
 
-	MObject::Update();
+	MObject::Render();
 }
 
 void HP::Disappear() {

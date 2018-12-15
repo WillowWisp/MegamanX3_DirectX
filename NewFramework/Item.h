@@ -16,5 +16,7 @@ public:
 	~Item();
 
 	void Drop();
+	virtual void Update() = 0;
+	virtual void Render() = 0;
 };
 

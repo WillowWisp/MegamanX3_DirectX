@@ -144,7 +144,7 @@ void Quadtree::Remove(MObject *object) {
 		for (int i = 0; i < objectList.size(); i++) {
 			if (objectList.at(i) == object) {
 				objectList.erase(objectList.begin() + i);
-				break;
+				//break;
 			}
 		}
 	}

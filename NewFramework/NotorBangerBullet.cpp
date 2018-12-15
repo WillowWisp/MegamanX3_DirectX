@@ -4,6 +4,8 @@
 
 NotorBangerBullet::NotorBangerBullet()
 {
+	tag = (char*)"enemyBullet";
+	dmg = 2;
 }
 
 
@@ -16,13 +18,17 @@ NotorBangerBullet::NotorBangerBullet(int _x, int _y, int _dirRight) {
 	y = _y;
 	dirRight = _dirRight;
 
+	tag = (char*)"enemyBullet";
+	dmg = 2;
+
 	anim = new Animation();
 	anim->sprite[0] = new Sprite((char*)"sprites/notor_banger/bullet/0.png");
 }
 
 void NotorBangerBullet::OnCollision(MObject *otherObj, char* sideCollided) {
-	if (otherObj->tag == (char*)"static" || otherObj->tag == (char*)"player") {
+	if (otherObj->tag == (char*)"static" || otherObj->tag == (char*)"megaman") {
 		//Tự hủy
+		isDestroyed = true;
 	}
 }
 

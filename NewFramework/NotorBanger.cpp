@@ -7,12 +7,14 @@ NotorBanger::NotorBanger(MObject* _player)
 	player = _player;
 
 	tag = (char*)"enemy";
+	HP = 3;
 	x = 500;
 	y = 500;
 	movex = 0;
 	movey = 10;
 	dirUp = 1;
 	dirRight = -1;
+	isDestroyed = false;
 
 	delta_t = 0;
 
@@ -32,12 +34,14 @@ NotorBanger::~NotorBanger()
 void NotorBanger::Shoot45() {
 	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint.x, firePoint.y, dirRight);
 	//bulletList.push_back(bullet);
+	BulletsManager::CreateBullet(bullet);
 	bullet->Fly45();
 }
 
 void NotorBanger::Shoot90() {
 	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint.x, firePoint.y, dirRight);
 	//bulletList.push_back(bullet);
+	BulletsManager::CreateBullet(bullet);
 	bullet->Fly90();
 }
 
@@ -196,4 +200,17 @@ void NotorBanger::Render() {
 	//for (int i = 0; i < bulletList.size(); i++) {
 	//	bulletList.at(i)->Render();
 	//}
+}
+
+void NotorBanger::TakeDmg(int damage) {
+	HP -= damage;
+	if (HP <= 0) {
+		Destroyed();
+		return;
+	}
+}
+
+void NotorBanger::Destroyed() {
+	isDestroyed = true;
+	ItemsManager::DropHPItem(x, y);
 }

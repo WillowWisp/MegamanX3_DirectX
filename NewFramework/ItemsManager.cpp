@@ -18,6 +18,10 @@ void ItemsManager::DropItem(HP* item) {
 	HPItemsList.push_back(item);
 }
 
+void ItemsManager::DropHPItem(int x, int y) {
+	HPItemsList.push_back(new HP(x, y));
+}
+
 void ItemsManager::UpdateItems() {
 	for (int i = 0; i < HPItemsList.size(); i++) {
 		if (HPItemsList[i]->isDisappeared) {
@@ -28,5 +32,12 @@ void ItemsManager::UpdateItems() {
 		else {
 			HPItemsList[i]->Update();
 		}
+	}
+	//GAMELOG("HP: %d", HPItemsList.size());
+}
+
+void ItemsManager::RenderItems() {
+	for (int i = 0; i < HPItemsList.size(); i++) {
+		HPItemsList[i]->Render();
 	}
 }
