@@ -257,7 +257,7 @@ void Start() {
 	megaman = new Megaman();
 
 	enemy = new NotorBanger(megaman, 100, 300);
-	headGunner = new HeadGunner(megaman, 300, 500, -1);
+	headGunner = new HeadGunner(megaman, 300, 400, 1);
 
 
 	map = new GameMap((char*)"Resources/test.tmx");
@@ -344,6 +344,8 @@ void Update() {
 	headGunner->Update();
 	CheckCollision();
 	CheckCollisionEnemy();
+
+	//GAMELOG("khoang cach: %d", abs(headGunner->x - megaman->x));
 }
 
 //Hàm này để render lên màn hình
@@ -360,7 +362,7 @@ void Render() {
 	BulletsManager::UpdateBullets();
 	enemy->Render();
 	headGunner->Render();
-	GAMELOG("bullet count: %d", BulletsManager::bulletsList.size());
+	//GAMELOG("bullet count: %d", BulletsManager::bulletsList.size());
 
 	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
 

@@ -29,7 +29,12 @@ HeadGunner::~HeadGunner()
 
 void HeadGunner::ShootMissile() {
 	HeadGunnerMissile* missile = new HeadGunnerMissile(player, firePoint, dirRight);
-	missileList.push_back(missile);
+	bulletList.push_back(missile);
+}
+
+void HeadGunner::ShootCannonball() {
+	HeadGunnerCannonball* cannonball = new HeadGunnerCannonball(player, firePoint, dirRight);
+	bulletList.push_back(cannonball);
 }
 
 void HeadGunner::OnCollision(MObject *otherObj, char* sideCollided) {
@@ -90,14 +95,26 @@ void HeadGunner::Update() {
 		firePoint = D3DXVECTOR2(x + dirRight * 25, y - 10);
 		ShootMissile();
 	}
-	if (delta_t == 170) {
+	if (delta_t == 180) {
 		SetState(STATE_SHOOT_CANON);
+		firePoint = D3DXVECTOR2(x, y - 40);
+		ShootCannonball();
 	}
-	if (delta_t >= 200)
+	if (delta_t == 220) {
+		SetState(STATE_SHOOT_CANON);
+		firePoint = D3DXVECTOR2(x, y - 40);
+		ShootCannonball();
+	}
+	if (delta_t == 260) {
+		SetState(STATE_SHOOT_CANON);
+		firePoint = D3DXVECTOR2(x, y - 40);
+		ShootCannonball();
+	}
+	if (delta_t >= 300)
 		delta_t = 0;
 
-	for (int i = 0; i < missileList.size(); i++) {
-		missileList.at(i)->Update();
+	for (int i = 0; i < bulletList.size(); i++) {
+		bulletList.at(i)->Update();
 	}
 }
 
@@ -113,7 +130,7 @@ void HeadGunner::Render() {
 	y += movey;
 	anim->AnimateWithoutLoop(matrix);
 
-	for (int i = 0; i < missileList.size(); i++) {
-		missileList.at(i)->Render();
+	for (int i = 0; i < bulletList.size(); i++) {
+		bulletList.at(i)->Render();
 	}
 }

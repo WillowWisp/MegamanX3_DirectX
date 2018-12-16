@@ -149,6 +149,9 @@
     <ClCompile Include="HeadGunnerMissile.cpp">
       <Filter>Framework\Characters\HeadGunner</Filter>
     </ClCompile>
+    <ClCompile Include="HeadGunnerCannonball.cpp">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -305,6 +308,9 @@
       <Filter>Framework\Characters\HeadGunner</Filter>
     </ClInclude>
     <ClInclude Include="HeadGunnerMissile.h">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunnerCannonball.h">
       <Filter>Framework\Characters\HeadGunner</Filter>
     </ClInclude>
   </ItemGroup>

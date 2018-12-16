@@ -2,6 +2,7 @@
 
 #include "MObject.h"
 #include "HeadGunnerMissile.h"
+#include "HeadGunnerCannonball.h"
 #include <vector>
 
 #define ANIM_DELAY 2
@@ -18,11 +19,12 @@ class HeadGunner : public MObject
 	MObject* player;
 	D3DXVECTOR2 firePoint;
 
-	std::vector<HeadGunnerMissile*> missileList;
+	std::vector<Bullet*> bulletList;
 
 	void SetState(int newState);
 
 	void ShootMissile();
+	void ShootCannonball();
 public:
 	HeadGunner(MObject* _player, int _x, int _y, int _dirRight);
 	~HeadGunner();

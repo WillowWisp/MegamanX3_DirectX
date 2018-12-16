@@ -41,7 +41,7 @@ void HeadGunnerMissile::Render() {
 	D3DXVECTOR2 combined = translation + shift;
 
 	D3DXVECTOR2 scale = D3DXVECTOR2(1 * dirRight, 1);
-	D3DXMatrixTransformation2D(&matrix, NULL, 0, NULL, NULL,
+	D3DXMatrixTransformation2D(&matrix, NULL, 0, &scale, NULL,
 		NULL, &combined);
 	x += movex;
 	y += movey;

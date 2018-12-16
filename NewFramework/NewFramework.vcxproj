@@ -36,6 +36,7 @@
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="HeadGunner.h" />
+    <ClInclude Include="HeadGunnerCannonball.h" />
     <ClInclude Include="HeadGunnerMissile.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MapReader\base64.h" />
@@ -90,6 +91,7 @@
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="HeadGunner.cpp" />
+    <ClCompile Include="HeadGunnerCannonball.cpp" />
     <ClCompile Include="HeadGunnerMissile.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="MapReader\base64.cpp" />
