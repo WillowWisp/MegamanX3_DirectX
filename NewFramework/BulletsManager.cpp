@@ -39,6 +39,7 @@ void BulletsManager::UpdateBullets() {
 	}
 	for (int i = 0; i < EnemyBulletsList.size(); i++) {
 		if (EnemyBulletsList.at(i)->isDestroyed) {
+			Effects::CreateExplosion(EnemyBulletsList[i]->x, EnemyBulletsList[i]->y);
 			delete EnemyBulletsList.at(i);
 			EnemyBulletsList.erase(EnemyBulletsList.begin() + i);
 			i--;

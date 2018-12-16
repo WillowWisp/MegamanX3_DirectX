@@ -66,5 +66,5 @@ Animation::~Animation()
 	for (int i = 0; i < totalFrameCount; i++) {
 		delete sprite[i];
 	}
-	delete sprite;
+	delete[] sprite;
 }

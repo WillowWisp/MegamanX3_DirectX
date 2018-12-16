@@ -44,6 +44,12 @@ void NotorBangerBullet::Fly90() {
 
 void NotorBangerBullet::Update() {
 	movey += 1;
+
+	if (state_t > BULLET_EXIST_TIME) {
+		//Thoi gian gioi han ton tai cua dan
+		isDestroyed = true;
+	}
+	state_t++;
 }
 
 void NotorBangerBullet::Render() {

@@ -33,8 +33,8 @@ Sun* sun;
 Sun* sun2;
 Megaman* megaman;
 
-NotorBanger* enemy;
-HeadGunner* headGunner;
+//NotorBanger* enemy;
+//HeadGunner* headGunner;
 
 GameMap *map;
 
@@ -270,35 +270,36 @@ void CheckCollision() {
 }
 
 void CheckCollisionEnemy() {
-	if (enemy->isDestroyed)
-		return;
+	//if (enemy->isDestroyed)
+	//	return;
+	for (auto enemy : EnemiesManager::enemiesList) {
+		collisionList.clear();
+		map->GetQuadtree()->GetObjectsCollidableWith(enemy, collisionList);
 
-	collisionList.clear();
-	map->GetQuadtree()->GetObjectsCollidableWith(enemy, collisionList);
+		for (size_t i = 0; i < collisionList.size(); i++) {
+			enemy->MoveXYToCorner();
+			collisionList.at(i)->MoveXYToCorner();
+			char* isCollided = Collision::IsCollided(enemy, collisionList.at(i));
+			enemy->MoveXYToCenter();
+			collisionList.at(i)->MoveXYToCenter();
 
-	for (size_t i = 0; i < collisionList.size(); i++) {
-		enemy->MoveXYToCorner();
-		collisionList.at(i)->MoveXYToCorner();
-		char* isCollided = Collision::IsCollided(enemy, collisionList.at(i));
-		enemy->MoveXYToCenter();
-		collisionList.at(i)->MoveXYToCenter();
+			if (isCollided != (char*)"none") {
+				enemy->OnCollision(collisionList.at(i), isCollided);
+			}
+		}
+
+		//Check collision with Megaman
+		//enemy->MoveXYToCorner();
+		//megaman->MoveXYToCorner();
+		//char* isCollided = Collision::IsCollided(enemy, megaman);
+		//enemy->MoveXYToCenter();
+		//megaman->MoveXYToCenter();
+		char* isCollided = Collision::IsIntersect(enemy, megaman);
 
 		if (isCollided != (char*)"none") {
-			enemy->OnCollision(collisionList.at(i), isCollided);
+			enemy->OnCollision(megaman, isCollided);
+			megaman->OnCollision(enemy, (char*)"X");
 		}
-	}
-
-	//Check collision with Megaman
-	//enemy->MoveXYToCorner();
-	//megaman->MoveXYToCorner();
-	//char* isCollided = Collision::IsCollided(enemy, megaman);
-	//enemy->MoveXYToCenter();
-	//megaman->MoveXYToCenter();
-	char* isCollided = Collision::IsIntersect(enemy, megaman);
-
-	if (isCollided != (char*)"none") {
-		enemy->OnCollision(megaman, isCollided);
-		megaman->OnCollision(enemy, (char*)"X");
 	}
 }
 
@@ -369,9 +370,6 @@ void CheckCollisionBullets() {
 
 	}
 
-	if (enemy->isDestroyed) //Temp
-		return;
-
 	for (auto bullet : BulletsManager::MegamanBulletsList) {
 		//collisionList.clear();
 		//map->GetQuadtree()->GetObjectsCollidableWith(bullet, collisionList);
@@ -388,25 +386,15 @@ void CheckCollisionBullets() {
 		//	}
 		//}
 
-		bullet->MoveXYToCorner();
-		bullet->SetSignedMoveX();
-		enemy->MoveXYToCorner();
-		char* isCollided = Collision::IsCollided(bullet, enemy);
-		bullet->MoveXYToCenter();
-		bullet->SetUnsignedMoveX();
-		enemy->MoveXYToCenter();
+		for (auto enemy : EnemiesManager::enemiesList) {
 
-		if (isCollided != (char*)"none") {
-			enemy->TakeDmg(bullet->dmg);
-			if (!enemy->isDestroyed) {
-				bullet->Vanish();
-			}
-			else {
-				//map->GetQuadtree()->Remove(enemy);
-			}
-		}
-		else {
-			char* isCollided = Collision::IsIntersect(bullet, enemy);
+			bullet->MoveXYToCorner();
+			bullet->SetSignedMoveX();
+			enemy->MoveXYToCorner();
+			char* isCollided = Collision::IsCollided(bullet, enemy);
+			bullet->MoveXYToCenter();
+			bullet->SetUnsignedMoveX();
+			enemy->MoveXYToCenter();
 
 			if (isCollided != (char*)"none") {
 				enemy->TakeDmg(bullet->dmg);
@@ -415,6 +403,19 @@ void CheckCollisionBullets() {
 				}
 				else {
 					//map->GetQuadtree()->Remove(enemy);
+				}
+			}
+			else {
+				char* isCollided = Collision::IsIntersect(bullet, enemy);
+
+				if (isCollided != (char*)"none") {
+					enemy->TakeDmg(bullet->dmg);
+					if (!enemy->isDestroyed) {
+						bullet->Vanish();
+					}
+					else {
+						//map->GetQuadtree()->Remove(enemy);
+					}
 				}
 			}
 		}
@@ -431,14 +432,16 @@ void Start() {
 	megaman = new Megaman();
 	Random::Init();
 
-	enemy = new NotorBanger(megaman, 100, 300);
-	headGunner = new HeadGunner(megaman, 300, 400, 1);
+	/*enemy = new NotorBanger(megaman, 950, 500);
+	headGunner = new HeadGunner(megaman, 300, 400, 1);*/
+	EnemiesManager::SpawnEnemy(megaman, 950, 500, TYPE_NOTOR_BANGER);
+	EnemiesManager::SpawnEnemy(megaman, 1200, 600, TYPE_HEAD_GUNNER, -1);
 
 	//hp = new HP(500, 500, 0);
 	ItemsManager::DropItem(new HP(500, 500, 0));
 
 
-	map = new GameMap((char*)"Resources/test.tmx");
+	map = new GameMap((char*)"Resources/map.tmx");
 	//map = new GameMap((char*)"Resources/BlastHornetLarge.tmx");
 
 	
@@ -518,17 +521,22 @@ void Update() {
 	UpdateCameraWorldMap();
 	//megaman->SetWidthHeight();
 
-	if (!enemy->isDestroyed) {
-		//map->GetQuadtree()->Remove(enemy);
-		enemy->Update();
-		//map->GetQuadtree()->Insert(enemy);
-	}
+	//if (!enemy->isDestroyed) {
+	//	//map->GetQuadtree()->Remove(enemy);
+	//	enemy->Update();
+	//	//map->GetQuadtree()->Insert(enemy);
+	//}
+	EnemiesManager::UpdateEnemies();
 
 	BulletsManager::UpdateBullets();
 	ItemsManager::UpdateItems();
 
 	if (Input::KeyDown(DIK_C)) {
 		ItemsManager::DropItem(new HP(megaman->x + 50, megaman->y, 0));
+	}
+	if (Input::KeyDown(DIK_E)) {
+		EnemiesManager::SpawnEnemy(megaman, megaman->x - 100, megaman->y - 50);
+		GAMELOG("enemies: %d", EnemiesManager::enemiesList.size());
 	}
 
 	/*megaman->Update();*/
@@ -539,8 +547,8 @@ void Update() {
 		GAMELOG("count: %d", count);
 	}
 
-	enemy->Update();
-	headGunner->Update();
+	//enemy->Update();
+	//headGunner->Update();
 	CheckCollisionEnemy();
 	CheckCollisionItems();
 	CheckCollisionBullets();
@@ -560,13 +568,17 @@ void Render() {
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map->Draw();
   
-	if (!enemy->isDestroyed) {
-		enemy->Render();
-	}
-	headGunner->Render();
+	//if (!enemy->isDestroyed) {
+	//	enemy->Render();
+	//}
+	//headGunner->Render();
+
+	EnemiesManager::RenderEnemies();
 	//BulletsManager::UpdateBullets();
 	ItemsManager::RenderItems();
 	BulletsManager::RenderBullets();
+	Effects::RenderEffects();
+	//GAMELOG("mbullets: %d", BulletsManager::MegamanBulletsList.size());
 
 
 

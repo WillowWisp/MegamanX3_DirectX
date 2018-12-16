@@ -18,7 +18,7 @@ class MegamanBullet :
 {
 private:
 	int chargedLevel;
-	int state_t;
+	//int state_t;
 public:
 
 	MegamanBullet();
