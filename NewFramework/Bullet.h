@@ -12,5 +12,6 @@ public:
 
 	Bullet(int _x, int _y); //x,y tương đương vị trí của nòng súng
 	virtual void Update() = 0;
+	virtual void Render();
 };
 

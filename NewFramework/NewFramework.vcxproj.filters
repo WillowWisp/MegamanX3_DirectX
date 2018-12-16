@@ -143,6 +143,15 @@
     <ClCompile Include="dxutil.cpp">
       <Filter>Framework\SoundLibs</Filter>
     </ClCompile>
+    <ClCompile Include="HeadGunner.cpp">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadGunnerMissile.cpp">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadGunnerCannonball.cpp">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -295,6 +304,15 @@
     <ClInclude Include="dxutil.h">
       <Filter>Framework\SoundLibs</Filter>
     </ClInclude>
+    <ClInclude Include="HeadGunner.h">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunnerMissile.h">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunnerCannonball.h">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -323,6 +341,9 @@
     </Filter>
     <Filter Include="Framework\SoundLibs">
       <UniqueIdentifier>{1c342ebe-5edc-4dc5-b8db-a133d487cc7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters\HeadGunner">
+      <UniqueIdentifier>{6e65e538-4696-44e8-ae3b-e82b95cec4ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

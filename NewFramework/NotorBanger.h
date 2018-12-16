@@ -29,10 +29,10 @@ class NotorBanger : public MObject
 	void Shoot45();
 	void Shoot90();
 public:
-	NotorBanger(MObject* _player);
+	NotorBanger(MObject* _player, int _x, int _y);
 	~NotorBanger();
 
-	void Updates();
+	void Update();
 	void Render();
 	void OnCollision(MObject *otherObj, char* sideCollided);
 };

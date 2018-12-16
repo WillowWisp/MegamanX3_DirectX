@@ -2,13 +2,13 @@
 
 
 
-NotorBanger::NotorBanger(MObject* _player)
+NotorBanger::NotorBanger(MObject* _player, int _x, int _y)
 {
 	player = _player;
 
 	tag = (char*)"enemy";
-	x = 300;
-	y = 750;
+	x = _x;
+	y = _y;
 	movex = 0;
 	movey = 10;
 	dirUp = 1;
@@ -30,13 +30,13 @@ NotorBanger::~NotorBanger()
 }
 
 void NotorBanger::Shoot45() {
-	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint.x, firePoint.y, dirRight);
+	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint, dirRight);
 	bulletList.push_back(bullet);
 	bullet->Fly45();
 }
 
 void NotorBanger::Shoot90() {
-	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint.x, firePoint.y, dirRight);
+	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint, dirRight);
 	bulletList.push_back(bullet);
 	bullet->Fly90();
 }
@@ -88,7 +88,7 @@ void NotorBanger::SetState(int newState) {
 	}
 }
 
-void NotorBanger::Updates() {
+void NotorBanger::Update() {
 	delta_t++;
 
 	//Quyết định hướng & góc bắn

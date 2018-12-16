@@ -34,6 +34,7 @@ Sun* sun2;
 Megaman* megaman;
 
 NotorBanger* enemy;
+HeadGunner* headGunner;
 
 GameMap *map;
 
@@ -255,11 +256,12 @@ void Start() {
 	debugDraw = new DebugDraw();
 	megaman = new Megaman();
 
-	enemy = new NotorBanger(megaman);
+	enemy = new NotorBanger(megaman, 100, 300);
+	headGunner = new HeadGunner(megaman, 300, 400, 1);
 
 
-	//map = new GameMap((char*)"Resources/test.tmx");
-	map = new GameMap((char*)"Resources/BlastHornetLarge.tmx");
+	map = new GameMap((char*)"Resources/test.tmx");
+	//map = new GameMap((char*)"Resources/BlastHornetLarge.tmx");
 
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
@@ -338,9 +340,12 @@ void Update() {
 	UpdateCameraWorldMap();
 	megaman->SetWidthHeight();
 
-	enemy->Updates();
+	enemy->Update();
+	headGunner->Update();
 	CheckCollision();
 	CheckCollisionEnemy();
+
+	//GAMELOG("khoang cach: %d", abs(headGunner->x - megaman->x));
 }
 
 //Hàm này để render lên màn hình
@@ -356,7 +361,8 @@ void Render() {
 	megaman->Update();
 	BulletsManager::UpdateBullets();
 	enemy->Render();
-	GAMELOG("bullet count: %d", BulletsManager::bulletsList.size());
+	headGunner->Render();
+	//GAMELOG("bullet count: %d", BulletsManager::bulletsList.size());
 
 	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
 
