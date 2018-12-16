@@ -2,14 +2,14 @@
 
 
 
-NotorBanger::NotorBanger(MObject* _player)
+NotorBanger::NotorBanger(MObject* _player, int _x, int _y)
 {
 	player = _player;
 
 	tag = (char*)"enemy";
 	HP = 3;
-	x = 500;
-	y = 500;
+	x = _x;
+	y = _y;
 	movex = 0;
 	movey = 10;
 	dirUp = 1;
@@ -32,16 +32,18 @@ NotorBanger::~NotorBanger()
 }
 
 void NotorBanger::Shoot45() {
-	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint.x, firePoint.y, dirRight);
+
+	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint, dirRight);
 	//bulletList.push_back(bullet);
-	BulletsManager::CreateBullet(bullet);
+  BulletsManager::CreateBullet(bullet);
 	bullet->Fly45();
 }
 
 void NotorBanger::Shoot90() {
-	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint.x, firePoint.y, dirRight);
+
+	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint, dirRight);
 	//bulletList.push_back(bullet);
-	BulletsManager::CreateBullet(bullet);
+  BulletsManager::CreateBullet(bullet);
 	bullet->Fly90();
 }
 
@@ -92,21 +94,7 @@ void NotorBanger::SetState(int newState) {
 	}
 }
 
-void NotorBanger::Updates() {
-	if (Input::KeyDown(DIK_I)) {
-		y -= 5;
-	}
-	if (Input::KeyDown(DIK_K)) {
-		y += 5;
-	}
-	if (Input::KeyDown(DIK_J)) {
-		x -= 5;
-	}
-	if (Input::KeyDown(DIK_L)) {
-		x += 5;
-	}
-	//return;
-
+void NotorBanger::Update() {
 	delta_t++;
 
 	//Quyết định hướng & góc bắn

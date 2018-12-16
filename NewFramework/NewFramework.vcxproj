@@ -27,6 +27,7 @@
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="dsutil.h" />
+    <ClInclude Include="dxaudio.h" />
     <ClInclude Include="dxutil.h" />
     <ClInclude Include="Effects.h" />
     <ClInclude Include="Game.h" />
@@ -35,6 +36,9 @@
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="HP.h" />
+    <ClInclude Include="HeadGunner.h" />
+    <ClInclude Include="HeadGunnerCannonball.h" />
+    <ClInclude Include="HeadGunnerMissile.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemsManager.h" />
@@ -72,7 +76,6 @@
     <ClInclude Include="MObject.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Sun.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
@@ -83,6 +86,7 @@
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="dsutil.cpp" />
+    <ClCompile Include="dxaudio.cpp" />
     <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -91,6 +95,9 @@
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="HP.cpp" />
+    <ClCompile Include="HeadGunner.cpp" />
+    <ClCompile Include="HeadGunnerCannonball.cpp" />
+    <ClCompile Include="HeadGunnerMissile.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemsManager.cpp" />
@@ -125,12 +132,10 @@
     <ClCompile Include="MObject.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Sun.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MapReader\Tmx.h.in" />
-    <None Include="Resources\test5.tmx" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

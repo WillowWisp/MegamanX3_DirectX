@@ -34,6 +34,7 @@ Sun* sun2;
 Megaman* megaman;
 
 NotorBanger* enemy;
+HeadGunner* headGunner;
 
 GameMap *map;
 
@@ -430,14 +431,15 @@ void Start() {
 	megaman = new Megaman();
 	Random::Init();
 
-	enemy = new NotorBanger(megaman);
+	enemy = new NotorBanger(megaman, 100, 300);
+	headGunner = new HeadGunner(megaman, 300, 400, 1);
 
 	//hp = new HP(500, 500, 0);
 	ItemsManager::DropItem(new HP(500, 500, 0));
 
-	//map = new GameMap((char*)"Resources/test.tmx");
-	map = new GameMap((char*)"Resources/test7.tmx");
-	//map->GetQuadtree()->Insert(enemy);
+
+	map = new GameMap((char*)"Resources/test.tmx");
+	//map = new GameMap((char*)"Resources/BlastHornetLarge.tmx");
 
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
@@ -537,10 +539,14 @@ void Update() {
 		GAMELOG("count: %d", count);
 	}
 
+	enemy->Update();
+	headGunner->Update();
 	CheckCollisionEnemy();
 	CheckCollisionItems();
 	CheckCollisionBullets();
 	CheckCollision();
+
+	//GAMELOG("khoang cach: %d", abs(headGunner->x - megaman->x));
 }
 
 //Hàm này để render lên màn hình
@@ -553,12 +559,14 @@ void Render() {
 
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map->Draw();
+  
 	if (!enemy->isDestroyed) {
 		enemy->Render();
 	}
 	//BulletsManager::UpdateBullets();
 	ItemsManager::RenderItems();
 	BulletsManager::RenderBullets();
+
 
 
 	megaman->Update();

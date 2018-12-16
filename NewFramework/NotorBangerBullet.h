@@ -8,7 +8,7 @@ public:
 	NotorBangerBullet();
 	~NotorBangerBullet();
 
-	NotorBangerBullet(int _x, int _y, int _dirRight);
+	NotorBangerBullet(D3DXVECTOR2 _firePoint, int _dirRight);
 
 	void Fly45();
 	void Fly90();

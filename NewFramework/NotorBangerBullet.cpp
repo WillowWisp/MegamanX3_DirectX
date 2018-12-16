@@ -13,9 +13,9 @@ NotorBangerBullet::~NotorBangerBullet()
 {
 }
 
-NotorBangerBullet::NotorBangerBullet(int _x, int _y, int _dirRight) {
-	x = _x;
-	y = _y;
+NotorBangerBullet::NotorBangerBullet(D3DXVECTOR2 _firePoint, int _dirRight) {
+	x = _firePoint.x;
+	y = _firePoint.y;
 	dirRight = _dirRight;
 
 	tag = (char*)"enemyBullet";
