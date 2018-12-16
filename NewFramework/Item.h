@@ -13,7 +13,7 @@ public:
 
 
 	Item();
-	~Item();
+	virtual ~Item();
 
 	void Drop();
 	virtual void Update() = 0;

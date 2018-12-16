@@ -5,7 +5,7 @@
 #include <vector>
 #include <cmath>
 #include "BulletsManager.h"
-#include "ItemsManager.h"
+#include "Enemy.h"
 
 #define ANIM_DELAY 2
 
@@ -20,21 +20,19 @@
 #define STATE_90_SHOOT 8
 
 
-class NotorBanger : public MObject
+class NotorBanger : public Enemy
 {
 	MObject* player; //Target
 
-	std::vector<NotorBangerBullet*> bulletList;
+	//std::vector<NotorBangerBullet*> bulletList;
 	char* angle; //Góc bắn
 	D3DXVECTOR2 firePoint; //Điểm nhả đạn
-	int HP;
 
 	void SetState(int newState);
 
 	void Shoot45();
 	void Shoot90();
 public:
-	bool isDestroyed;
 
 	NotorBanger(MObject* _player);
 	NotorBanger(MObject* _player, int _x, int _y);
@@ -43,7 +41,5 @@ public:
 	void Update();
 	void Render();
 	void OnCollision(MObject *otherObj, char* sideCollided);
-	void TakeDmg(int damage);
-	void Destroyed();
 };
 

@@ -3,6 +3,7 @@
 #include <vector>
 #include "Bullet.h"
 #include "MegamanBullet.h"
+#include "Effects.h"
 
 class BulletsManager
 {

@@ -184,6 +184,12 @@ void Megaman::ForcedAnimation() {
 			movey += 1;
 			if (y + movey - 1 + height / 2 > curGroundY)
 				movey = 0;
+			if (HitWall()) {
+				if (x - width / 2 <= curLeftWallX)
+					x = curLeftWallX + width / 2 + 2;
+				else if (x + width / 2 >= curRightWallX)
+					x = curRightWallX - width / 2 - 2;
+			}
 		}
 	}
 	else if (isHealing) {
@@ -694,13 +700,17 @@ void Megaman::Update()
 		GAMELOG("ceil %d", curCeilY);
 	}
 
+	if (Input::KeyDown(DIK_T)) {
+		GAMELOG("x: %d, y: %d", x, y);
+	}
+
 	if (energy_t > -1 && energy_t <= SHOOTING_ANIMATION_DELAY) {
 		color = D3DCOLOR_ARGB(255, 255, 255, 255);
 		Effects::CreateMegamanEnergy();
 	}
 	else {
 		if (energy_t % 3 == 0) {
-			color = D3DCOLOR_ARGB(255, 50, 150, 255);
+			color = D3DCOLOR_ARGB(255, 50, 120, 255);
 		}
 		else {
 			color = D3DCOLOR_ARGB(255, 255, 255, 255);
