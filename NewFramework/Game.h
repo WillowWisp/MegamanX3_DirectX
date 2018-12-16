@@ -17,6 +17,7 @@
 #include "Megaman.h"
 #include "NotorBanger.h"
 #include "HeadGunner.h"
+#include "Helit.h"
 #include "Camera.h"
 #include "GameLog.h"
 #include "DebugDraw.h"

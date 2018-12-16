@@ -35,6 +35,7 @@ Megaman* megaman;
 
 NotorBanger* enemy;
 HeadGunner* headGunner;
+Helit* helit;
 
 GameMap *map;
 
@@ -258,6 +259,7 @@ void Start() {
 
 	enemy = new NotorBanger(megaman, 100, 300);
 	headGunner = new HeadGunner(megaman, 300, 400, 1);
+	helit = new Helit(megaman, 700, 350, 450, 300, 1);
 
 
 	map = new GameMap((char*)"Resources/test.tmx");
@@ -342,6 +344,7 @@ void Update() {
 
 	enemy->Update();
 	headGunner->Update();
+	helit->Update();
 	CheckCollision();
 	CheckCollisionEnemy();
 
@@ -362,6 +365,7 @@ void Render() {
 	BulletsManager::UpdateBullets();
 	enemy->Render();
 	headGunner->Render();
+	helit->Render();
 	//GAMELOG("bullet count: %d", BulletsManager::bulletsList.size());
 
 	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
