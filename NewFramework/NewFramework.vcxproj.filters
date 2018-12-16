@@ -1,117 +1,360 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="BulletsManager.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="DebugDraw.cpp" />
-    <ClCompile Include="DemoScene.cpp" />
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="dsutil.cpp" />
-    <ClCompile Include="dxutil.cpp" />
-    <ClCompile Include="Effects.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameGlobal.cpp" />
-    <ClCompile Include="GameLog.cpp" />
-    <ClCompile Include="GameMap.cpp" />
-    <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="MapReader\base64.cpp" />
-    <ClCompile Include="MapReader\miniz.c" />
-    <ClCompile Include="MapReader\tinyxml2.cpp" />
-    <ClCompile Include="MapReader\TmxEllipse.cpp" />
-    <ClCompile Include="MapReader\TmxImage.cpp" />
-    <ClCompile Include="MapReader\TmxImageLayer.cpp" />
-    <ClCompile Include="MapReader\TmxLayer.cpp" />
-    <ClCompile Include="MapReader\TmxMap.cpp" />
-    <ClCompile Include="MapReader\TmxObject.cpp" />
-    <ClCompile Include="MapReader\TmxObjectGroup.cpp" />
-    <ClCompile Include="MapReader\TmxPolygon.cpp" />
-    <ClCompile Include="MapReader\TmxPolyline.cpp" />
-    <ClCompile Include="MapReader\TmxPropertySet.cpp" />
-    <ClCompile Include="MapReader\TmxTerrain.cpp" />
-    <ClCompile Include="MapReader\TmxTerrainArray.cpp" />
-    <ClCompile Include="MapReader\TmxTile.cpp" />
-    <ClCompile Include="MapReader\TmxTileLayer.cpp" />
-    <ClCompile Include="MapReader\TmxTileOffset.cpp" />
-    <ClCompile Include="MapReader\TmxTileset.cpp" />
-    <ClCompile Include="MapReader\TmxUtil.cpp" />
-    <ClCompile Include="MegamanBullet.cpp" />
-    <ClCompile Include="NotorBanger.cpp" />
-    <ClCompile Include="NotorBangerBullet.cpp" />
-    <ClCompile Include="Quadtree.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Megaman.cpp" />
-    <ClCompile Include="MObject.cpp" />
-    <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Sun.cpp" />
+    <ClCompile Include="Megaman.cpp">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="MegamanBullet.cpp">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBanger.cpp">
+      <Filter>Framework\Characters\NotorBanger</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBangerBullet.cpp">
+      <Filter>Framework\Characters\NotorBanger</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletsManager.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemsManager.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoScene.cpp">
+      <Filter>Framework\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="dsutil.cpp">
+      <Filter>Framework\SoundLibs</Filter>
+    </ClCompile>
+    <ClCompile Include="dxutil.cpp">
+      <Filter>Framework\SoundLibs</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugDraw.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameGlobal.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="HP.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="MObject.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Sun.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\base64.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLog.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\miniz.c">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\tinyxml2.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxEllipse.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxImage.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxImageLayer.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxLayer.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxMap.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxObject.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxObjectGroup.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxPolygon.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxPolyline.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxPropertySet.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTerrain.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTerrainArray.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTile.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTileLayer.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTileOffset.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTileset.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxUtil.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
     <ClCompile Include="winmain.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="HP.cpp" />
-    <ClCompile Include="Random.cpp" />
-    <ClCompile Include="ItemsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bullet.h" />
-    <ClInclude Include="BulletsManager.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Collision.h" />
-    <ClInclude Include="DebugDraw.h" />
-    <ClInclude Include="DemoScene.h" />
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="dsutil.h" />
-    <ClInclude Include="dxutil.h" />
-    <ClInclude Include="Effects.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameGlobal.h" />
-    <ClInclude Include="GameLog.h" />
-    <ClInclude Include="GameMap.h" />
-    <ClInclude Include="Graphics.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="MapReader\base64.h" />
-    <ClInclude Include="MapReader\tinyxml2.h" />
-    <ClInclude Include="MapReader\TmxEllipse.h" />
-    <ClInclude Include="MapReader\TmxImage.h" />
-    <ClInclude Include="MapReader\TmxImageLayer.h" />
-    <ClInclude Include="MapReader\TmxLayer.h" />
-    <ClInclude Include="MapReader\TmxMap.h" />
-    <ClInclude Include="MapReader\TmxMapTile.h" />
-    <ClInclude Include="MapReader\TmxObject.h" />
-    <ClInclude Include="MapReader\TmxObjectGroup.h" />
-    <ClInclude Include="MapReader\TmxPoint.h" />
-    <ClInclude Include="MapReader\TmxPolygon.h" />
-    <ClInclude Include="MapReader\TmxPolyline.h" />
-    <ClInclude Include="MapReader\TmxPropertySet.h" />
-    <ClInclude Include="MapReader\TmxTerrain.h" />
-    <ClInclude Include="MapReader\TmxTerrainArray.h" />
-    <ClInclude Include="MapReader\TmxTile.h" />
-    <ClInclude Include="MapReader\TmxTileLayer.h" />
-    <ClInclude Include="MapReader\TmxTileOffset.h" />
-    <ClInclude Include="MapReader\TmxTileset.h" />
-    <ClInclude Include="MapReader\TmxUtil.h" />
-    <ClInclude Include="MapReader\zconf.h" />
-    <ClInclude Include="MapReader\zlib.h" />
-    <ClInclude Include="MegamanBullet.h" />
-    <ClInclude Include="NotorBanger.h" />
-    <ClInclude Include="NotorBangerBullet.h" />
-    <ClInclude Include="Quadtree.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Megaman.h" />
-    <ClInclude Include="MObject.h" />
-    <ClInclude Include="Sound.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Sun.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="HP.h" />
-    <ClInclude Include="Random.h" />
-    <ClInclude Include="ItemsManager.h" />
+    <ClInclude Include="Megaman.h">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="MegamanBullet.h">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="NotorBanger.h">
+      <Filter>Framework\Characters\NotorBanger</Filter>
+    </ClInclude>
+    <ClInclude Include="NotorBangerBullet.h">
+      <Filter>Framework\Characters\NotorBanger</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletsManager.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemsManager.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoScene.h">
+      <Filter>Framework\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="dsutil.h">
+      <Filter>Framework\SoundLibs</Filter>
+    </ClInclude>
+    <ClInclude Include="dxutil.h">
+      <Filter>Framework\SoundLibs</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugDraw.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameGlobal.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="HP.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="MObject.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Sun.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\base64.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLog.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\tinyxml2.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxEllipse.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxImage.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxImageLayer.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxLayer.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxMap.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxMapTile.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxObject.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxObjectGroup.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxPoint.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxPolygon.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxPolyline.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxPropertySet.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTerrain.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTerrainArray.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTile.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTileLayer.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTileOffset.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTileset.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxUtil.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\zconf.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\zlib.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MapReader\Tmx.h.in" />
-    <None Include="Resources\test5.tmx" />
+    <None Include="Resources\test5.tmx">
+      <Filter>Framework\MapReader</Filter>
+    </None>
+    <None Include="MapReader\Tmx.h.in">
+      <Filter>Framework\MapReader</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{db27e260-0790-4c37-a404-85a4e4f89e9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters">
+      <UniqueIdentifier>{d3d894a8-544e-4faa-8541-8ac4a144eabb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters\Megaman">
+      <UniqueIdentifier>{cd968ebb-743e-42ec-95f6-e0a62c5e6fea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters\NotorBanger">
+      <UniqueIdentifier>{3d9180bf-8438-4332-9a40-5ae2735efbdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameControllers">
+      <UniqueIdentifier>{f78b994d-e9b5-4d93-8b92-57fa3502d742}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scenes">
+      <UniqueIdentifier>{c6b6febf-8879-432e-96b9-a1f5b9dd45e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\SoundLibs">
+      <UniqueIdentifier>{9e3623a8-b026-4fa3-b7d6-8111701d9935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameComponents">
+      <UniqueIdentifier>{64b15f5b-8664-46b5-9b24-0166ebaea655}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\MapReader">
+      <UniqueIdentifier>{1bc4fda8-ba16-4201-994a-9e55c45981ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
