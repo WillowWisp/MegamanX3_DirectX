@@ -520,7 +520,7 @@ void Update() {
 
 	if (!enemy->isDestroyed) {
 		//map->GetQuadtree()->Remove(enemy);
-		enemy->Updates();
+		enemy->Update();
 		//map->GetQuadtree()->Insert(enemy);
 	}
 
@@ -563,6 +563,7 @@ void Render() {
 	if (!enemy->isDestroyed) {
 		enemy->Render();
 	}
+	headGunner->Render();
 	//BulletsManager::UpdateBullets();
 	ItemsManager::RenderItems();
 	BulletsManager::RenderBullets();
