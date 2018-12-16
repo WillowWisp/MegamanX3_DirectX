@@ -224,18 +224,18 @@ void Megaman::TakeDmg(int damage) {
 
 void Megaman::Update()
 {
-	if (Input::KeyDown(DIK_S)) {
-		movey = 3;
-	}
-	else if (Input::KeyDown(DIK_W)) {
-		movey = -3;
-	}
-	if (Input::KeyDown(DIK_D)) {
-		movex = 3;
-	}
-	else if (Input::KeyDown(DIK_A)) {
-		movex = -3;
-	}
+	//if (Input::KeyDown(DIK_S)) {
+	//	movey = 3;
+	//}
+	//else if (Input::KeyDown(DIK_W)) {
+	//	movey = -3;
+	//}
+	//if (Input::KeyDown(DIK_D)) {
+	//	movex = 3;
+	//}
+	//else if (Input::KeyDown(DIK_A)) {
+	//	movex = -3;
+	//}
 
 	if (!isControllable) {
 		ForcedAnimation();
@@ -276,6 +276,7 @@ void Megaman::Update()
 		}
 
 		energy_t = -1;
+		//color = D3DCOLOR_ARGB(255, 255, 255, 255);
 	}
 	
 	//Check if megaman is moving
@@ -693,7 +694,7 @@ void Megaman::Update()
 		GAMELOG("ceil %d", curCeilY);
 	}
 
-	if (energy_t <= SHOOTING_ANIMATION_DELAY) {
+	if (energy_t > -1 && energy_t <= SHOOTING_ANIMATION_DELAY) {
 		color = D3DCOLOR_ARGB(255, 255, 255, 255);
 		Effects::CreateMegamanEnergy();
 	}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="156" height="65" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="74">
  <tileset firstgid="1" name="BlastHornetLarge" tilewidth="64" tileheight="64" tilecount="10140" columns="156">
-  <image source="BlastHornetLarge.png" width="10000" height="4200"/>
+  <image source="Resources\BlastHornetLarge.png" width="10000" height="4200"/>
  </tileset>
  <layer id="5" name="Tile Layer 1" width="156" height="65">
   <data encoding="csv">
