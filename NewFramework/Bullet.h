@@ -4,14 +4,16 @@ class Bullet :
 	public MObject
 {
 protected:
-	int dmg;
+	
 public:
+	int dmg;
 	bool isDestroyed;
 	Bullet();
 	~Bullet();
 
 	Bullet(int _x, int _y); //x,y tương đương vị trí của nòng súng
 	virtual void Update() = 0;
-	virtual void Render();
+	virtual void Render() = 0;
+	virtual void OnCollision(MObject *otherObj, char* sideCollided) = 0;
 };
 

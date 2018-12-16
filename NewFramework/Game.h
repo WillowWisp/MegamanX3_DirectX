@@ -21,6 +21,9 @@
 #include "GameLog.h"
 #include "DebugDraw.h"
 #include "BulletsManager.h"
+#include "ItemsManager.h"
+#include "Random.h"
+#include "HP.h"
 
 #define UPDATE_RATE 10
 

@@ -1,7 +1,7 @@
 #include "GameGlobal.h"
 
-int GameGlobal::wndWidth = 640;
-int GameGlobal::wndHeight = 480;
+int GameGlobal::wndWidth = 800;
+int GameGlobal::wndHeight = 600;
 
 LPDIRECT3D9 GameGlobal::d3d = NULL;
 LPDIRECT3DDEVICE9 GameGlobal::d3ddev = NULL;

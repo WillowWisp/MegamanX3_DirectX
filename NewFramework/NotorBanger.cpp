@@ -7,12 +7,14 @@ NotorBanger::NotorBanger(MObject* _player, int _x, int _y)
 	player = _player;
 
 	tag = (char*)"enemy";
+	HP = 3;
 	x = _x;
 	y = _y;
 	movex = 0;
 	movey = 10;
 	dirUp = 1;
 	dirRight = -1;
+	isDestroyed = false;
 
 	delta_t = 0;
 
@@ -30,14 +32,18 @@ NotorBanger::~NotorBanger()
 }
 
 void NotorBanger::Shoot45() {
+
 	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint, dirRight);
-	bulletList.push_back(bullet);
+	//bulletList.push_back(bullet);
+  BulletsManager::CreateBullet(bullet);
 	bullet->Fly45();
 }
 
 void NotorBanger::Shoot90() {
+
 	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint, dirRight);
-	bulletList.push_back(bullet);
+	//bulletList.push_back(bullet);
+  BulletsManager::CreateBullet(bullet);
 	bullet->Fly90();
 }
 
@@ -162,13 +168,13 @@ void NotorBanger::Update() {
 		movey = movey + 1;
 	}
 
-	for (int i = 0; i < bulletList.size(); i++) {
-		bulletList.at(i)->Update();
-	}
+	//for (int i = 0; i < bulletList.size(); i++) {
+	//	bulletList.at(i)->Update();
+	//}
 }
 
 void NotorBanger::Render() {
-	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex, y + movey);
+	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex * dirRight, y + movey);
 	D3DXVECTOR2 shift = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
 	D3DXVECTOR2 combined = translation + shift;
 
@@ -178,8 +184,21 @@ void NotorBanger::Render() {
 	x += movex;
 	y += movey;
 	anim->AnimateWithoutLoop(matrix);
+	SetWidthHeight();
+	//for (int i = 0; i < bulletList.size(); i++) {
+	//	bulletList.at(i)->Render();
+	//}
+}
 
-	for (int i = 0; i < bulletList.size(); i++) {
-		bulletList.at(i)->Render();
+void NotorBanger::TakeDmg(int damage) {
+	HP -= damage;
+	if (HP <= 0) {
+		Destroyed();
+		return;
 	}
+}
+
+void NotorBanger::Destroyed() {
+	isDestroyed = true;
+	ItemsManager::DropHPItem(x, y);
 }

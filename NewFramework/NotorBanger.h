@@ -1,8 +1,11 @@
 ﻿#pragma once
 #include "MObject.h"
 #include "NotorBangerBullet.h"
+#include "Input.h"
 #include <vector>
 #include <cmath>
+#include "BulletsManager.h"
+#include "ItemsManager.h"
 
 #define ANIM_DELAY 2
 
@@ -16,6 +19,7 @@
 #define STATE_45_SHOOT 7
 #define STATE_90_SHOOT 8
 
+
 class NotorBanger : public MObject
 {
 	MObject* player; //Target
@@ -23,17 +27,23 @@ class NotorBanger : public MObject
 	std::vector<NotorBangerBullet*> bulletList;
 	char* angle; //Góc bắn
 	D3DXVECTOR2 firePoint; //Điểm nhả đạn
+	int HP;
 
 	void SetState(int newState);
 
 	void Shoot45();
 	void Shoot90();
 public:
+	bool isDestroyed;
+
+	NotorBanger(MObject* _player);
 	NotorBanger(MObject* _player, int _x, int _y);
 	~NotorBanger();
 
 	void Update();
 	void Render();
 	void OnCollision(MObject *otherObj, char* sideCollided);
+	void TakeDmg(int damage);
+	void Destroyed();
 };
 

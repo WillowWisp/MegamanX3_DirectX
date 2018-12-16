@@ -4,6 +4,7 @@
 
 Bullet::Bullet()
 {
+	tag = (char*)"bullet";
 }
 
 
