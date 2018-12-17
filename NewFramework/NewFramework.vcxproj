@@ -73,6 +73,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Megaman.h" />
     <ClInclude Include="MObject.h" />
+    <ClInclude Include="Shurikein.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>
@@ -128,6 +129,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Megaman.cpp" />
     <ClCompile Include="MObject.cpp" />
+    <ClCompile Include="Shurikein.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="winmain.cpp" />

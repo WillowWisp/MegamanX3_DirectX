@@ -36,6 +36,7 @@ Megaman* megaman;
 NotorBanger* enemy;
 HeadGunner* headGunner;
 Helit* helit;
+Shurikein* shurikein;
 
 GameMap *map;
 
@@ -247,6 +248,23 @@ void CheckCollisionEnemy() {
 		}
 	}
 }
+//Tam thoi
+void CheckCollisionShurikein() {
+	collisionList.clear();
+	map->GetQuadtree()->GetObjectsCollidableWith(shurikein, collisionList);
+
+	for (size_t i = 0; i < collisionList.size(); i++) {
+		shurikein->MoveXYToCorner();
+		collisionList.at(i)->MoveXYToCorner();
+		char* isCollided = Collision::IsCollided(shurikein, collisionList.at(i));
+		shurikein->MoveXYToCenter();
+		collisionList.at(i)->MoveXYToCenter();
+
+		if (isCollided != (char*)"none") {
+			shurikein->OnCollision(collisionList.at(i), isCollided);
+		}
+	}
+}
 
 //Xử lý Init
 void Start() {
@@ -260,11 +278,12 @@ void Start() {
 	enemy = new NotorBanger(megaman, 100, 300);
 	headGunner = new HeadGunner(megaman, 300, 400, 1);
 	helit = new Helit(megaman, 700, 350, 450, 300, 1);
+	shurikein = new Shurikein(megaman, 500, 330, -1);
 
 
-	map = new GameMap((char*)"Resources/test.tmx");
+	//map = new GameMap((char*)"Resources/test.tmx");
 	//map = new GameMap((char*)"Resources/BlastHornetLarge.tmx");
-
+	map = new GameMap((char*)"Resources/shurikein_chamber.tmx");
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
 	//GameGlobal::camera->position = D3DXVECTOR3(0,0,0);
@@ -342,11 +361,13 @@ void Update() {
 	UpdateCameraWorldMap();
 	megaman->SetWidthHeight();
 
-	enemy->Update();
-	headGunner->Update();
-	helit->Update();
+	//enemy->Update();
+	//headGunner->Update();
+	//helit->Update();
+	shurikein->Update();
 	CheckCollision();
 	CheckCollisionEnemy();
+	CheckCollisionShurikein();
 
 	//GAMELOG("khoang cach: %d", abs(headGunner->x - megaman->x));
 }
@@ -363,9 +384,10 @@ void Render() {
 	map->Draw();
 	megaman->Update();
 	BulletsManager::UpdateBullets();
-	enemy->Render();
-	headGunner->Render();
-	helit->Render();
+	//enemy->Render();
+	//headGunner->Render();
+	//helit->Render();
+	shurikein->Render();
 	//GAMELOG("bullet count: %d", BulletsManager::bulletsList.size());
 
 	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);

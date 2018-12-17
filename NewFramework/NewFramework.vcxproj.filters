@@ -161,6 +161,9 @@
     <ClCompile Include="HelitBullet.cpp">
       <Filter>Framework\Characters\Helit</Filter>
     </ClCompile>
+    <ClCompile Include="Shurikein.cpp">
+      <Filter>Framework\Characters\Shurikein</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -331,6 +334,9 @@
     <ClInclude Include="HelitBullet.h">
       <Filter>Framework\Characters\Helit</Filter>
     </ClInclude>
+    <ClInclude Include="Shurikein.h">
+      <Filter>Framework\Characters\Shurikein</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -365,6 +371,9 @@
     </Filter>
     <Filter Include="Framework\Characters\Helit">
       <UniqueIdentifier>{016d01c4-9d6d-4aa5-8329-ca276caee2cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters\Shurikein">
+      <UniqueIdentifier>{32439c7c-740d-4044-8e34-d1d4e0296763}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

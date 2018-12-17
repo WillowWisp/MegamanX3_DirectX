@@ -4,8 +4,8 @@ Megaman::Megaman()
 {
 	//x = (LEFTWALL_X + RIGHTWALL_X) / 2;
 	/*x = LEFTWALL_X + 100;*/
-	x = 100;
-	y = 400;
+	x = 200;
+	y = 200;
 	//x = 0;
 	//y = 0;
 	isHitGround = false;
