@@ -567,12 +567,10 @@ void Render() {
 
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map->Draw();
-  
 	//if (!enemy->isDestroyed) {
 	//	enemy->Render();
 	//}
 	//headGunner->Render();
-
 	EnemiesManager::RenderEnemies();
 	//BulletsManager::UpdateBullets();
 	ItemsManager::RenderItems();

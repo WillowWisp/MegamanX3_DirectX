@@ -186,6 +186,18 @@
     </ClInclude>
     <ClInclude Include="HeadGunnerMissile.h">
       <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClCompile>
+    <ClCompile Include="Helit.cpp">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClCompile>
+    <ClCompile Include="HelitWing.cpp">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClCompile>
+    <ClCompile Include="HelitBullet.cpp">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
     </ClInclude>
     <ClInclude Include="NotorBanger.h">
       <Filter>Framework\Characters\NotorBanger</Filter>
@@ -349,6 +361,15 @@
     <ClInclude Include="Effects.h">
       <Filter>Framework\GameControllers</Filter>
     </ClInclude>
+    <ClInclude Include="Helit.h">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClInclude>
+    <ClInclude Include="HelitWing.h">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClInclude>
+    <ClInclude Include="HelitBullet.h">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -383,6 +404,9 @@
     </Filter>
     <Filter Include="Framework\Debug">
       <UniqueIdentifier>{59fc6559-ab3a-41ba-aa00-aadf676c6829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters\Helit">
+      <UniqueIdentifier>{016d01c4-9d6d-4aa5-8329-ca276caee2cb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

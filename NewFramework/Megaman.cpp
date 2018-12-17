@@ -5,7 +5,6 @@ Megaman::Megaman()
 	x = 700;
 	y = 500;
 	tag = (char*)"megaman";
-  
 	curGroundY = 1000000;
 	curCeilY = -1000000;
 	curLeftWallX = -1000000;

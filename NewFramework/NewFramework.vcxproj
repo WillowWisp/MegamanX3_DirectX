@@ -41,6 +41,9 @@
     <ClInclude Include="HeadGunner.h" />
     <ClInclude Include="HeadGunnerCannonball.h" />
     <ClInclude Include="HeadGunnerMissile.h" />
+    <ClInclude Include="Helit.h" />
+    <ClInclude Include="HelitBullet.h" />
+    <ClInclude Include="HelitWing.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemsManager.h" />
@@ -102,6 +105,9 @@
     <ClCompile Include="HeadGunner.cpp" />
     <ClCompile Include="HeadGunnerCannonball.cpp" />
     <ClCompile Include="HeadGunnerMissile.cpp" />
+    <ClCompile Include="Helit.cpp" />
+    <ClCompile Include="HelitBullet.cpp" />
+    <ClCompile Include="HelitWing.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemsManager.cpp" />
