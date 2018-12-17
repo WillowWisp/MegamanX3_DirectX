@@ -18,6 +18,7 @@
 //#define STATE_JUMPING_N_SHOOTING 8
 #define STATE_WALL_SLIDING 9
 #define STATE_WALL_KICKING 10
+#define STATE_TAKING_DAMAGE 11
 #define ANIM_DELAY 1
 #define MEGAMAN_SPEED 5
 #define DASH_SPEED 13
@@ -35,6 +36,10 @@
 #define CHARGED_SHOT_LV1_TIME 15
 #define CHARGED_SHOT_LV2_TIME 40
 #define SHOOTING_ANIMATION_DELAY 10
+#define TAKING_DMG_ANIMATION_TIME 20
+#define INVULNERABLE_TIME 35
+#define HEALING_TIME 20
+#define MEGAMAN_MAX_HP 20
 
 class Megaman :
 	public MObject
@@ -45,9 +50,6 @@ public:
 	~Megaman();
 
 	//variables to manage megaman's shitton amount of states
-	bool isHitGround;
-	bool isHitWallLeft;
-	bool isHitWallRight;
 	int curGroundY;
 	int curCeilY;
 	int curLeftWallX;
@@ -64,20 +66,32 @@ public:
 	bool inMidAir;
 	bool wallJump;
 	bool dashKick;
-	int energy_t;
-	int shootingAnimDelay;
 	bool shooting;
+	bool isVulnerable;
+	bool isControllable;
+	bool isHealing;
+
+	int shootingAnimDelay;
+	int energy_t;
+	int invulnerable_t;
+	int forcedAnim_t;
+
+	int HP;
 
 	//
 	//void SetWidthHeight();
 	void SetState(int);
 	void Update();
+	void Render();
 	bool HitGround();
 	bool HitCeil();
 	bool HitWall();
 	bool CloseToWall();
-	//void SetSignedMoveX();
-	//void SetUnsignedMoveX();
+	void SetSignedMoveX();
+	void SetUnsignedMoveX();
+	void ForcedAnimation();
+	void Heal(int healAmount);
+	void TakeDmg(int damage);
 
 	void OnCollision(MObject *otherObj, char* sideCollided);
 

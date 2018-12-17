@@ -24,7 +24,7 @@ void Animation::NextFrame(int newframe)
 	}
 }
 
-void Animation::Animate(D3DXMATRIX _matrix, D3DCOLOR _color)
+void Animation::Animate(D3DXMATRIX _matrix, D3DCOLOR _color, D3DXVECTOR3 _center)
 {
 	if (animcount > animdelay) {
 		animcount = 0;
@@ -34,7 +34,7 @@ void Animation::Animate(D3DXMATRIX _matrix, D3DCOLOR _color)
 		animcount++;
 	}
 
-	sprite[curframe]->Draw(_matrix, _color);
+	sprite[curframe]->Draw(_matrix, _color, _center);
 }
 
 void Animation::NextFrameWithoutLoop(int newframe) {
@@ -63,5 +63,8 @@ void Animation::ChangeAnimFrames(int begin, int end) {
 
 Animation::~Animation()
 {
-	delete sprite;
+	for (int i = 0; i < totalFrameCount; i++) {
+		delete sprite[i];
+	}
+	delete[] sprite;
 }

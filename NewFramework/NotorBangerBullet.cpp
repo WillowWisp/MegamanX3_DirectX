@@ -4,6 +4,8 @@
 
 NotorBangerBullet::NotorBangerBullet()
 {
+	tag = (char*)"enemyBullet";
+	dmg = 2;
 }
 
 
@@ -16,13 +18,17 @@ NotorBangerBullet::NotorBangerBullet(D3DXVECTOR2 _firePoint, int _dirRight) {
 	y = _firePoint.y;
 	dirRight = _dirRight;
 
+	tag = (char*)"enemyBullet";
+	dmg = 2;
+
 	anim = new Animation();
 	anim->sprite[0] = new Sprite((char*)"sprites/notor_banger/bullet/0.png");
 }
 
 void NotorBangerBullet::OnCollision(MObject *otherObj, char* sideCollided) {
-	if (otherObj->tag == (char*)"static" || otherObj->tag == (char*)"player") {
+	if (otherObj->tag == (char*)"static" || otherObj->tag == (char*)"megaman") {
 		//Tự hủy
+		isDestroyed = true;
 	}
 }
 
@@ -38,6 +44,12 @@ void NotorBangerBullet::Fly90() {
 
 void NotorBangerBullet::Update() {
 	movey += 1;
+
+	if (state_t > BULLET_EXIST_TIME) {
+		//Thoi gian gioi han ton tai cua dan
+		isDestroyed = true;
+	}
+	state_t++;
 }
 
 void NotorBangerBullet::Render() {

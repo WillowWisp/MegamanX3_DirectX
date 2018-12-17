@@ -1,8 +1,11 @@
-#include "HeadGunnerMissile.h"
+﻿#include "HeadGunnerMissile.h"
 
 
 HeadGunnerMissile::HeadGunnerMissile(MObject* _target, D3DXVECTOR2 _firePoint, int _dirRight)
 {
+	tag = (char*)"enemyBullet";
+	dmg = 5;
+
 	target = _target;
 	x = _firePoint.x;
 	y = _firePoint.y;
@@ -23,7 +26,10 @@ HeadGunnerMissile::~HeadGunnerMissile()
 }
 
 void HeadGunnerMissile::OnCollision(MObject *otherObj, char* sideCollided) {
-
+	if (otherObj->tag == (char*)"static" || otherObj->tag == (char*)"megaman") {
+		//Tự hủy
+		isDestroyed = true;
+	}
 }
 
 void HeadGunnerMissile::Update() {
@@ -33,6 +39,12 @@ void HeadGunnerMissile::Update() {
 		movey = 1;
 	else
 		movey = 0;
+
+	if (state_t > BULLET_EXIST_TIME) {
+		//Thoi gian gioi han ton tai cua dan
+		isDestroyed = true;
+	}
+	state_t++;
 }
 
 void HeadGunnerMissile::Render() {
