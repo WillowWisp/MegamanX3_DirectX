@@ -21,7 +21,7 @@ void EnemiesManager::SpawnEnemy(Enemy* enemy) {
 void EnemiesManager::SpawnEnemy(MObject* player, int x, int y, int type, int dirRight) {
 	if (type == TYPE_RANDOM) {
 	//Spawn random enemy
-		type = Random::RandInt(0, 2);
+		type = Random::RandInt(0, 3);
 	}
 
 	switch (type) {
@@ -30,6 +30,9 @@ void EnemiesManager::SpawnEnemy(MObject* player, int x, int y, int type, int dir
 		break;
 	case TYPE_HEAD_GUNNER:
 		enemiesList.push_back(new HeadGunner(player, x, y, dirRight));
+		break;
+	case TYPE_HELIT:
+		enemiesList.push_back(new Helit(player, x, y, dirRight));
 		break;
 	default:
 		break;

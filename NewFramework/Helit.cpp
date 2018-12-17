@@ -1,6 +1,6 @@
 ﻿#include "Helit.h"
 
-Helit::Helit(MObject* _player, int _x, int _y, int _minHeight, int _maxHeight, int _dirRight)
+Helit::Helit(MObject* _player, int _x, int _y, int _dirRight, int _minHeight, int _maxHeight)
 {
 	player = _player;
 	x = _x;
@@ -12,10 +12,18 @@ Helit::Helit(MObject* _player, int _x, int _y, int _minHeight, int _maxHeight, i
 	movey = 0;
 
 	flyUp = 1;
-	maxHeight = _maxHeight;
-	minHeight = _minHeight;
+	if (_minHeight != -100000 && _maxHeight != -100000) {
+		maxHeight = _maxHeight;
+		minHeight = _minHeight;
+	}
+	else {
+		maxHeight = y - 50;
+		minHeight = y + 50;
+	}
 
 	bulletLeft = 2;
+
+	HP = 4;
 
 	delta_t = 0;
 
@@ -31,13 +39,15 @@ Helit::Helit(MObject* _player, int _x, int _y, int _minHeight, int _maxHeight, i
 
 Helit::~Helit()
 {
+	delete wing;
 }
 
 void Helit::Shoot() {
 	bulletLeft--;
 	firePoint = D3DXVECTOR2(x + 5 * dirRight, y + 20);
 	HelitBullet* bullet = new HelitBullet(firePoint, dirRight);
-	bulletList.push_back(bullet);
+	//bulletList.push_back(bullet);
+	BulletsManager::CreateBullet(bullet);
 }
 
 void Helit::SetState(int newState) {
@@ -114,9 +124,9 @@ void Helit::Update() {
 
 	wing->Update();
 
-	for (auto bullet : bulletList) {
-		bullet->Update();
-	}
+	//for (auto bullet : bulletList) {
+	//	bullet->Update();
+	//}
 }
 
 void Helit::Render() {
@@ -133,7 +143,7 @@ void Helit::Render() {
 
 	wing->Render();
 
-	for (auto bullet : bulletList) {
-		bullet->Render();
-	}
+	//for (auto bullet : bulletList) {
+	//	bullet->Render();
+	//}
 }

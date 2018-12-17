@@ -4,12 +4,14 @@
 #include "HelitWing.h"
 #include "HelitBullet.h"
 #include <vector>
+#include "Enemy.h"
+#include "BulletsManager.h"
 
 #define STATE_IDLE 0
 #define STATE_SHOOT 1
 #define STATE_FLY_AWAY 2
 
-class Helit : MObject
+class Helit : public Enemy
 {
 	HelitWing* wing; //Chứa hình ảnh cánh quạt riêng
 
@@ -18,7 +20,7 @@ class Helit : MObject
 	int minHeight;
 	int maxHeight;
 
-	std::vector<HelitBullet*> bulletList;
+	//std::vector<HelitBullet*> bulletList;
 	D3DXVECTOR2 firePoint; //Điểm nhả đạn
 	int bulletLeft;
 
@@ -29,7 +31,7 @@ class Helit : MObject
 
 	void Shoot();
 public:
-	Helit(MObject* _player, int _x, int _y, int _minHeight, int _maxHeight, int _dirRight);
+	Helit(MObject* _player, int _x, int _y, int _dirRight = 1, int _minHeight = -100000, int _maxHeight = -100000);
 	~Helit();
 
 	void Update();

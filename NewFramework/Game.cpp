@@ -436,6 +436,11 @@ void Start() {
 	headGunner = new HeadGunner(megaman, 300, 400, 1);*/
 	EnemiesManager::SpawnEnemy(megaman, 950, 500, TYPE_NOTOR_BANGER);
 	EnemiesManager::SpawnEnemy(megaman, 1200, 600, TYPE_HEAD_GUNNER, -1);
+	EnemiesManager::SpawnEnemy(megaman, 500, 750, TYPE_HELIT, 1);
+	EnemiesManager::SpawnEnemy(megaman, 1433, 800, TYPE_HEAD_GUNNER, -1);
+	EnemiesManager::SpawnEnemy(megaman, 2078, 822, TYPE_RANDOM);
+	EnemiesManager::SpawnEnemy(megaman, 2045, 300, TYPE_HELIT, -1);
+	EnemiesManager::SpawnEnemy(megaman, 2643, 700, TYPE_RANDOM);
 
 	//hp = new HP(500, 500, 0);
 	ItemsManager::DropItem(new HP(500, 500, 0));

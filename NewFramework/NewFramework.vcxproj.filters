@@ -2,12 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="winmain.cpp" />
-    <ClCompile Include="Megaman.cpp">
-      <Filter>Framework\Characters\Megaman</Filter>
-    </ClCompile>
-    <ClCompile Include="MegamanBullet.cpp">
-      <Filter>Framework\Characters\Megaman</Filter>
-    </ClCompile>
     <ClCompile Include="HeadGunner.cpp">
       <Filter>Framework\Characters\HeadGunner</Filter>
     </ClCompile>
@@ -17,6 +11,21 @@
     <ClCompile Include="HeadGunnerMissile.cpp">
       <Filter>Framework\Characters\HeadGunner</Filter>
     </ClCompile>
+    <ClCompile Include="Megaman.cpp">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="MegamanBullet.cpp">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="Helit.cpp">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClCompile>
+    <ClCompile Include="HelitBullet.cpp">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClCompile>
+    <ClCompile Include="HelitWing.cpp">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClCompile>
     <ClCompile Include="NotorBanger.cpp">
       <Filter>Framework\Characters\NotorBanger</Filter>
     </ClCompile>
@@ -24,6 +33,9 @@
       <Filter>Framework\Characters\NotorBanger</Filter>
     </ClCompile>
     <ClCompile Include="BulletsManager.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemiesManager.cpp">
       <Filter>Framework\GameControllers</Filter>
     </ClCompile>
     <ClCompile Include="ItemsManager.cpp">
@@ -54,6 +66,12 @@
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -161,23 +179,8 @@
     <ClCompile Include="MapReader\TmxUtil.cpp">
       <Filter>Framework\MapReader</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Framework\GameComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemiesManager.cpp">
-      <Filter>Framework\GameControllers</Filter>
-    </ClCompile>
-    <ClCompile Include="Effects.cpp">
-      <Filter>Framework\GameControllers</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Megaman.h">
-      <Filter>Framework\Characters\Megaman</Filter>
-    </ClInclude>
-    <ClInclude Include="MegamanBullet.h">
-      <Filter>Framework\Characters\Megaman</Filter>
-    </ClInclude>
     <ClInclude Include="HeadGunner.h">
       <Filter>Framework\Characters\HeadGunner</Filter>
     </ClInclude>
@@ -186,18 +189,21 @@
     </ClInclude>
     <ClInclude Include="HeadGunnerMissile.h">
       <Filter>Framework\Characters\HeadGunner</Filter>
-    </ClCompile>
-    <ClCompile Include="Helit.cpp">
+    </ClInclude>
+    <ClInclude Include="Megaman.h">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="MegamanBullet.h">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="Helit.h">
       <Filter>Framework\Characters\Helit</Filter>
-    </ClCompile>
-    <ClCompile Include="HelitWing.cpp">
+    </ClInclude>
+    <ClInclude Include="HelitBullet.h">
       <Filter>Framework\Characters\Helit</Filter>
-    </ClCompile>
-    <ClCompile Include="HelitBullet.cpp">
+    </ClInclude>
+    <ClInclude Include="HelitWing.h">
       <Filter>Framework\Characters\Helit</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     </ClInclude>
     <ClInclude Include="NotorBanger.h">
       <Filter>Framework\Characters\NotorBanger</Filter>
@@ -206,6 +212,9 @@
       <Filter>Framework\Characters\NotorBanger</Filter>
     </ClInclude>
     <ClInclude Include="BulletsManager.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemiesManager.h">
       <Filter>Framework\GameControllers</Filter>
     </ClInclude>
     <ClInclude Include="ItemsManager.h">
@@ -236,6 +245,12 @@
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -352,61 +367,43 @@
     <ClInclude Include="MapReader\zlib.h">
       <Filter>Framework\MapReader</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Framework\GameComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemiesManager.h">
-      <Filter>Framework\GameControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects.h">
-      <Filter>Framework\GameControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="Helit.h">
-      <Filter>Framework\Characters\Helit</Filter>
-    </ClInclude>
-    <ClInclude Include="HelitWing.h">
-      <Filter>Framework\Characters\Helit</Filter>
-    </ClInclude>
-    <ClInclude Include="HelitBullet.h">
-      <Filter>Framework\Characters\Helit</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
-      <UniqueIdentifier>{e7f5f802-0f9c-4ba5-b173-11ef35fc6c47}</UniqueIdentifier>
+      <UniqueIdentifier>{275b56b7-e15d-485f-bba6-3157653836fc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Characters">
-      <UniqueIdentifier>{02ba892c-87b1-4f56-b129-d688326ff4ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Characters\Megaman">
-      <UniqueIdentifier>{c8804b78-10f4-4587-83bc-f1e347422117}</UniqueIdentifier>
+      <UniqueIdentifier>{fc2b663f-1a5f-47b6-b269-8b7f6102718b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Characters\HeadGunner">
-      <UniqueIdentifier>{eb7beba0-d703-42fe-b89d-39278d192f62}</UniqueIdentifier>
+      <UniqueIdentifier>{fbce1d2c-b90c-4c89-a4b0-3e76141ae9e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Characters\NotorBanger">
-      <UniqueIdentifier>{3d55e155-1b4e-459f-be40-72122f6b1c0b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\GameControllers">
-      <UniqueIdentifier>{7d503ebd-6285-4e8f-9d92-f58ad6cae41c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Scenes">
-      <UniqueIdentifier>{c4eaf2f1-e703-47c6-9fb6-7a072f77b283}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\SoundLibs">
-      <UniqueIdentifier>{3df5f4ee-baf4-46c4-a36e-351c4adaa23f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\GameComponents">
-      <UniqueIdentifier>{7e96e6c1-4e02-4827-bb96-097ce745e21a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\MapReader">
-      <UniqueIdentifier>{4dac3567-c283-4d42-9906-ac2c237ab01a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Debug">
-      <UniqueIdentifier>{59fc6559-ab3a-41ba-aa00-aadf676c6829}</UniqueIdentifier>
+    <Filter Include="Framework\Characters\Megaman">
+      <UniqueIdentifier>{22e777fc-a81e-43fe-8b44-d589da26e4a3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Characters\Helit">
-      <UniqueIdentifier>{016d01c4-9d6d-4aa5-8329-ca276caee2cb}</UniqueIdentifier>
+      <UniqueIdentifier>{0d2e078c-7a44-42db-b837-9ca1a174aff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters\NotorBanger">
+      <UniqueIdentifier>{58e84a11-d441-483e-8536-58b36601aaf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameControllers">
+      <UniqueIdentifier>{43c73667-f643-431d-807d-357b6e3e3231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameComponents">
+      <UniqueIdentifier>{d0d1fbc0-c5af-4df8-8b07-859e0a5b38ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\SoundLibs">
+      <UniqueIdentifier>{ad3d0c3b-7b31-4d9d-884a-7c12431c2877}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scenes">
+      <UniqueIdentifier>{a9522bc8-6904-4044-96e3-2700461d127d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Debug">
+      <UniqueIdentifier>{23175af9-eef8-40ec-80e5-832b37d75fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\MapReader">
+      <UniqueIdentifier>{6c6f0562-f3e0-415f-ab70-bf00da04d6c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
