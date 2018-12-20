@@ -196,7 +196,7 @@ void Camera::TransitionToBossRoom() {
 		return;
 	}
 	else {
-		position.x += 3;
+		position.x += TRANSITION_SPEED;
 	}
 }
 

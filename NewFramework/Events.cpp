@@ -44,7 +44,7 @@ void Events::OpenDoor(int doorId) {
 	}
 	else if (doorsList[doorId]->anim->curframe == 17) {
 		//force megaman move
-		if (megaman->x - megaman->width > doorsList[doorId]->x + doorsList[doorId]->width / 2) {
+		if (megaman->x - megaman->width / 2 > doorsList[doorId]->x + doorsList[doorId]->width) {
 			doorsList[doorId]->anim->ChangeAnimFrames(18, 34);
 			doorsList[doorId]->anim->curframe = 18;
 			doorsList[doorId]->anim->animcount = 0;
@@ -54,8 +54,13 @@ void Events::OpenDoor(int doorId) {
 		}
 		else {
 			//doorsList[doorId]->anim->curframe = 17;
+			if (megaman->movex == 0) {
+				GameGlobal::camera->isTransition = true;
+				GameGlobal::camera->SetNextTransition_i(megaman->GetRect());
+				GameGlobal::camera->TransitionToBossRoom();
+			}
 			doorsList[doorId]->anim->animcount = 0;
-			megaman->movex = 3;
+			megaman->movex = 2;
 			//megaman->movey = 0;
 			if (megaman->state != STATE_RUNNING && megaman->state != STATE_RUNNING_N_SHOOTING) {
 				megaman->anim->animcount = 0;

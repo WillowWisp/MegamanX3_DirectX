@@ -5,6 +5,7 @@
 #include "MObject.h"
 #include "Megaman.h"
 #include "GameLog.h"
+#include "GameGlobal.h"
 
 class Events
 {

@@ -287,9 +287,9 @@ void CheckCollision() {
 				}
 				else {
 					Events::OpenDoor(i);
-					GameGlobal::camera->isTransition = true;
-					GameGlobal::camera->SetNextTransition_i(megaman->GetRect());
-					GameGlobal::camera->TransitionToBossRoom();
+					//GameGlobal::camera->isTransition = true;
+					//GameGlobal::camera->SetNextTransition_i(megaman->GetRect());
+					//GameGlobal::camera->TransitionToBossRoom();
 				}
 
 				break;
