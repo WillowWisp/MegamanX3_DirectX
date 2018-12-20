@@ -46,22 +46,48 @@ void GameMap::LoadMap(char* filePath)
 	for (int i = 0; i < map->GetNumObjectGroups(); i++)
 	{
 		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "cameraBorder") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//Lấy ObjectGroup # lấy layer
+				//ObjectGroup chứa những object (object của phần mềm Tiled)
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
 
-		for (int j = 0; j < objectGroup->GetNumObjects(); j++)
-		{
-			//Lấy ObjectGroup # lấy layer
-			//ObjectGroup chứa những object (object của phần mềm Tiled)
-			Tmx::Object *object = objectGroup->GetObjects().at(j);
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
 
-			MObject *mObject = new MObject();
-			mObject->tag = (char*)"static";
-			mObject->x = object->GetX() + object->GetWidth() / 2;
-			mObject->y = object->GetY() + object->GetHeight() / 2;
-			mObject->width = object->GetWidth();
-			mObject->height = object->GetHeight();
-			//mObject->Tag = Entity::EntityTypes::Static;
+				//MObject *mObject = new MObject();
+				//mObject->tag = (char*)"static";
+				//mObject->x = object->GetX() + object->GetWidth() / 2;
+				//mObject->y = object->GetY() + object->GetHeight() / 2;
+				//mObject->width = object->GetWidth();
+				//mObject->height = object->GetHeight();
+				////mObject->Tag = Entity::EntityTypes::Static;
 
-			quadtree->Insert(mObject);
+				/*quadtree->Insert(mObject);*/
+				cameraBorders.push_back(rect);
+			}
+		} 
+		else {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//Lấy ObjectGroup # lấy layer
+				//ObjectGroup chứa những object (object của phần mềm Tiled)
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				MObject *mObject = new MObject();
+				mObject->tag = (char*)"static";
+				mObject->x = object->GetX() + object->GetWidth() / 2;
+				mObject->y = object->GetY() + object->GetHeight() / 2;
+				mObject->width = object->GetWidth();
+				mObject->height = object->GetHeight();
+				//mObject->Tag = Entity::EntityTypes::Static;
+
+				quadtree->Insert(mObject);
+			}
 		}
 	}
 }

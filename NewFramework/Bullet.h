@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "MObject.h"
+#include "Effects.h"
 
 #define BULLET_EXIST_TIME 300
 

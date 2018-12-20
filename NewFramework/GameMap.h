@@ -26,6 +26,8 @@ class GameMap
 
 	void LoadMap(char* filePath);
 public:
+	std::vector<RECT> cameraBorders;
+
 	GameMap();
 	~GameMap();
 

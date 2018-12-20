@@ -27,6 +27,7 @@
 #include "Random.h"
 #include "HP.h"
 #include "Effects.h"
+#include "UI.h"
 
 #define UPDATE_RATE 10
 

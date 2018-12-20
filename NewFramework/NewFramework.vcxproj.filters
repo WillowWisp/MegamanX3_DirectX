@@ -68,9 +68,6 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="Effects.cpp">
-      <Filter>Framework\GameComponents</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
@@ -179,6 +176,12 @@
     <ClCompile Include="MapReader\TmxUtil.cpp">
       <Filter>Framework\MapReader</Filter>
     </ClCompile>
+    <ClCompile Include="Effects.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadGunner.h">
@@ -245,9 +248,6 @@
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
-      <Filter>Framework\GameComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
@@ -366,6 +366,12 @@
     </ClInclude>
     <ClInclude Include="MapReader\zlib.h">
       <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Framework\GameControllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

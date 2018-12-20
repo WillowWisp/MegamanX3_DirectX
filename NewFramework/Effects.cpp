@@ -3,6 +3,7 @@
 
 MObject* Effects::megamanEnergy = NULL;
 std::vector<MObject*> Effects::explosionList;
+std::vector<MObject*> Effects::smokeList;
 
 Effects::Effects()
 {
@@ -14,6 +15,9 @@ Effects::~Effects()
 	delete megamanEnergy;
 	for (int i = 0; i < explosionList.size(); i++) {
 		delete explosionList[i];
+	}
+	for (int i = 0; i < smokeList.size(); i++) {
+		delete smokeList[i];
 	}
 }
 
@@ -76,9 +80,49 @@ void Effects::DrawExplosions() {
 	}
 }
 
+void Effects::CreateSmoke(int x, int y, int movey) {
+	MObject* smoke = new MObject();
+	smoke->anim = new Animation(6, 0, 5, 1);
+	char s[50];
+	for (int i = 0; i < 6; i++) {
+		sprintf_s(s, "sprites/effects/smoke/%d.png", i);
+		smoke->anim->sprite[i] = new Sprite(s);
+	}
+	smoke->x = x;
+	smoke->y = y;
+	smoke->movey = movey;
+	smokeList.push_back(smoke);
+}
+
+void Effects::DrawSmokes() {
+	for (int i = 0; i < smokeList.size(); i++) {
+		if (smokeList[i]->anim->curframe == smokeList[i]->anim->endframe
+			&& smokeList[i]->anim->animcount > smokeList[i]->anim->animdelay) {
+			delete smokeList[i];
+			smokeList.erase(smokeList.begin() + i);
+			i--;
+		}
+		else {
+			smokeList[i]->y += smokeList[i]->movey;
+			D3DXVECTOR2 translation = D3DXVECTOR2(smokeList[i]->x, smokeList[i]->y);
+			D3DXVECTOR2 translate = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
+			D3DXVECTOR2 combined = translation + translate;
+
+			D3DXVECTOR2 scale = D3DXVECTOR2(2, 2);
+			//center = D3DXVECTOR3(width / 2, height / 2, 0);
+			D3DXMatrixTransformation2D(&(smokeList[i]->matrix), NULL, 0, &scale, NULL,
+				NULL, &combined);
+			smokeList[i]->Render();
+		}
+	}
+}
+
 void Effects::RenderEffects() {
 	if (explosionList.size() > 0) {
 		Effects::DrawExplosions();
 		/*GAMELOG("explosions: %d", explosionList.size());*/
+	}
+	if (smokeList.size() > 0) {
+		Effects::DrawSmokes();
 	}
 }

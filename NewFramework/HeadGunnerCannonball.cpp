@@ -20,6 +20,8 @@ HeadGunnerCannonball::HeadGunnerCannonball(MObject* _target, D3DXVECTOR2 _firePo
 
 	anim = new Animation(); 
 	anim->sprite[0] = new Sprite((char*)"sprites/head_gunner/bullet/0.png");
+
+	Effects::CreateSmoke(x, y);
 }
 
 
