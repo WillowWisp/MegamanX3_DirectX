@@ -182,6 +182,9 @@
     <ClCompile Include="UI.cpp">
       <Filter>Framework\GameControllers</Filter>
     </ClCompile>
+    <ClCompile Include="Events.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadGunner.h">
@@ -371,6 +374,9 @@
       <Filter>Framework\GameControllers</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Events.h">
       <Filter>Framework\GameControllers</Filter>
     </ClInclude>
   </ItemGroup>

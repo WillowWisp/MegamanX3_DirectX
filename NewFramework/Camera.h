@@ -8,6 +8,7 @@
 #define TRANSITION_SPEED 5
 #define TRANSITION_HORIZONTALLY 0
 #define TRANSITION_VERTICALLY 1
+#define OUTER_CAMERA_ZONE 200
 
 class Camera
 {
@@ -23,10 +24,12 @@ public:
 
 	Camera(int width, int height);
 
-	RECT GetBound(); //l?y RECT khung camera
+	RECT GetBound(); //lay RECT khung camera
+	void SetNextTransition_i(RECT playerRect); //set i cho RECT tiep theo (dung cho boss room)
 	bool IsContain(RECT container, RECT rect);
 	bool IsIntersect(RECT rect1, RECT rect2);
 	bool IsInbetween(RECT containerLeft, RECT containerRight, RECT rect);
 	void Reposition(RECT playerRect);
 	void Transition(RECT playerRect, int dir);
+	void TransitionToBossRoom();
 };

@@ -172,3 +172,31 @@ void Camera::Transition(RECT playerRect, int dir) {
 	}
 }
 
+void Camera::SetNextTransition_i(RECT playerRect) {
+	for (int i = 0; i < cameraBorders.size() - 1; i++) {
+		if (IsContain(cameraBorders[i], playerRect)) {
+			transition_i = i + 1;
+			break;
+		}
+	}
+}
+
+void Camera::TransitionToBossRoom() {
+	if (isTransition == false)
+		return;
+
+	RECT bound = GetBound();
+	RECT destRect = cameraBorders[transition_i];
+
+
+	if (bound.left >= destRect.left) {
+		isTransition = false;
+		cameraBorders.erase(cameraBorders.begin() + transition_i - 1);
+		transition_i = -1;
+		return;
+	}
+	else {
+		position.x += 3;
+	}
+}
+

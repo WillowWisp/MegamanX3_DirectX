@@ -144,6 +144,8 @@ void DrawBorders() {
 }
 
 void CheckCollision() {
+	if (Events::isOpeningDoor)
+		return;
 	collisionList.clear();
 	map->GetQuadtree()->GetObjectsCollidableWith(megaman, collisionList);
 	//int count = 0;
@@ -265,6 +267,36 @@ void CheckCollision() {
 	////megaman->isHitWallLeft = collideLeft;
 	////megaman->isHitWallRight = collideRight;
 
+	if (!Events::isOpeningDoor || !Events::isFightingBoss) {
+		for (int i = 0; i < Events::doorsList.size(); i++) {
+			if (Events::isOpeningDoor)
+				break;
+
+			megaman->MoveXYToCorner();
+			Events::doorsList[i]->MoveXYToCorner();
+			megaman->SetSignedMoveX();
+			char* isCollided = Collision::IsCollided(megaman, Events::doorsList[i]);
+			megaman->MoveXYToCenter();
+			Events::doorsList[i]->MoveXYToCenter();
+			megaman->SetUnsignedMoveX();
+			if (isCollided != (char*)"none") {
+				if (Events::isFightingBoss
+					|| Events::doorsList[i]->anim->curframe != 0)
+				{
+
+				}
+				else {
+					Events::OpenDoor(i);
+					GameGlobal::camera->isTransition = true;
+					GameGlobal::camera->SetNextTransition_i(megaman->GetRect());
+					GameGlobal::camera->TransitionToBossRoom();
+				}
+
+				break;
+			}
+		}
+	}
+
 	if (!isCollideStatic) {
 		/*megaman->isHitGround = false;
 		megaman->isHitWallRight = false;
@@ -279,6 +311,16 @@ void CheckCollision() {
 	megaman->curCeilY = max(megaman->curCeilY, newCeilY);
 	megaman->curLeftWallX = max(megaman->curLeftWallX, newLeftWallX);
 	megaman->curRightWallX = min(megaman->curRightWallX, newRightWallX);
+
+	if (Events::isFightingBoss) {
+		//megaman->curLeftWallX = Events::doorsList[Events::openingDoorId]->x 
+		//						+ Events::doorsList[Events::openingDoorId]->width + 5;
+		if (Events::openingDoorId + 1 < Events::doorsList.size()) {
+			//lock boss room
+			megaman->curRightWallX = Events::doorsList[Events::openingDoorId + 1]->x
+				- Events::doorsList[Events::openingDoorId + 1]->width - 5;
+		}
+	}
 
 	//GAMELOG("%d", megaman->isHitGround);
 }
@@ -452,24 +494,24 @@ void Start() {
 	megaman = new Megaman();
 	Random::Init();
 	UI::InitHPBar();
+	Events::megaman = megaman;
 
 	/*enemy = new NotorBanger(megaman, 950, 500);
 	headGunner = new HeadGunner(megaman, 300, 400, 1);*/
-	EnemiesManager::SpawnEnemy(megaman, 950, 500, TYPE_NOTOR_BANGER);
-	EnemiesManager::SpawnEnemy(megaman, 1200, 600, TYPE_HEAD_GUNNER, -1);
-	EnemiesManager::SpawnEnemy(megaman, 500, 750, TYPE_HELIT, 1);
-	EnemiesManager::SpawnEnemy(megaman, 1433, 800, TYPE_HEAD_GUNNER, -1);
-	EnemiesManager::SpawnEnemy(megaman, 2078, 822, TYPE_RANDOM);
-	EnemiesManager::SpawnEnemy(megaman, 2045, 300, TYPE_HELIT, -1);
-	EnemiesManager::SpawnEnemy(megaman, 2643, 700, TYPE_RANDOM);
-	EnemiesManager::SpawnEnemy(megaman, megaman->x + 200, megaman->y, TYPE_HEAD_GUNNER, -1);
+	//EnemiesManager::SpawnEnemy(megaman, 950, 500, TYPE_NOTOR_BANGER);
+	//EnemiesManager::SpawnEnemy(megaman, 1200, 600, TYPE_HEAD_GUNNER, -1);
+	//EnemiesManager::SpawnEnemy(megaman, 500, 750, TYPE_HELIT, 1);
+	//EnemiesManager::SpawnEnemy(megaman, 1433, 800, TYPE_HEAD_GUNNER, -1);
+	//EnemiesManager::SpawnEnemy(megaman, 2078, 822, TYPE_RANDOM);
+	//EnemiesManager::SpawnEnemy(megaman, 2045, 300, TYPE_HELIT, -1);
+	//EnemiesManager::SpawnEnemy(megaman, 2643, 700, TYPE_RANDOM);
+	//EnemiesManager::SpawnEnemy(megaman, megaman->x + 200, megaman->y, TYPE_HEAD_GUNNER, -1);
 
 	//hp = new HP(500, 500, 0);
 	ItemsManager::DropItem(new HP(500, 500, 0));
 
 
 	map = new GameMap((char*)"Resources/map_big.tmx");
-	//map = new GameMap((char*)"Resources/BlastHornetLarge.tmx");
 
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
@@ -483,73 +525,13 @@ void Start() {
 //Hàm này để xử lý logic mỗi frame
 void UpdateCameraWorldMap()
 {
-	//if (GameGlobal::camera->isTransition) {
-	//	//GameGlobal::camera->Transition();
-	//	GameGlobal::camera->Reposition(megaman->GetRect());
-	//	return;
-	//}
-
-	////if (GameGlobal::camera->cameraBorders.size() != map->cameraBorders.size()) {
-	////	RECT object = GameGlobal::camera->cameraBorders[0];
-
-	////	MObject *mObject = new MObject();
-	////	mObject->tag = (char*)"static";
-
-	////	mObject->x = object->GetX() + object->GetWidth() / 2;
-	////	mObject->y = object->GetY() + object->GetHeight() / 2;
-	////	mObject->width = object->GetWidth();
-	////	mObject->height = object->GetHeight();
-	////}
-
-	////khi megaman di chuyen qua window width /2 thi bat dau di chuyen camera ngang qua
-	//if (megaman->x > GameGlobal::camera->position.x)
-	//	GameGlobal::camera->position = D3DXVECTOR3(megaman->x, GameGlobal::camera->position.y, 0);
-	////khi vi tri megaman nho hon vi tri camera (nghia la da di sat mep ben trai map)
-	//if ((megaman->x < GameGlobal::camera->position.x))
-	//	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
-	////khi vi tri megaman toi vi tri tan cung cua map
-	//if ((megaman->x + GameGlobal::wndWidth / 2 >= map->GetWidth()))
-	//	GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth() - GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
-	////khi vi tri megaman nhay cao hon vi tri window height / 2 thi bat dau di chuyen camera doc len
-	//if (megaman->y < GameGlobal::camera->position.y)
-	//	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, megaman->y, 0);
-	////khi vi tri megaman rot xuong ( chua rot toi tan cung cua map)
-	//if (megaman->y >= GameGlobal::camera->position.y&&GameGlobal::camera->position.y != (map->GetHeight() - GameGlobal::wndHeight / 2))
-	//	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, megaman->y, 0);
-	////khi rot toi vi tri tan cung cua map (nhung chua di het map ngang)
-	//if (megaman->x >= GameGlobal::camera->position.x&&megaman->y >= GameGlobal::camera->position.y&&GameGlobal::camera->position.y >= (map->GetHeight() - GameGlobal::wndHeight / 2) &&
-	//	(GameGlobal::camera->position.x + GameGlobal::wndWidth / 2) != map->GetWidth())
-	//	GameGlobal::camera->position = D3DXVECTOR3(megaman->x, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
-	
-
-	/*if (GameGlobal::camera->GetBound().left < 0)
-	{
-		//vi position cua camera ma chinh giua camera
-		//luc nay o vi tri goc ben trai cua the gioi thuc
-		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->width / 2, GameGlobal::camera->position.y, 0);
+	if (!Events::isOpeningDoor) {
+		GameGlobal::camera->Reposition(megaman->GetRect());
+		EnemiesManager::SpawnEnemiesNearCamera(megaman);
 	}
-
-	if (GameGlobal::camera->GetBound().right > map->GetWidth())
-	{
-		//luc nay cham goc ben phai cua the gioi thuc
-		GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth() - GameGlobal::camera->width / 2,
-			GameGlobal::camera->position.y, 0);
+	else {
+		GameGlobal::camera->TransitionToBossRoom();
 	}
-
-	if (GameGlobal::camera->GetBound().top < 0)
-	{
-		//luc nay cham goc tren the gioi thuc
-		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, GameGlobal::camera->height / 2, 0);
-	}
-
-	if (GameGlobal::camera->GetBound().bottom > map->GetHeight())
-	{
-		//luc nay cham day cua the gioi thuc
-		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x,
-			map->GetHeight() - GameGlobal::camera->height / 2, 0);
-	}*/
-
-	GameGlobal::camera->Reposition(megaman->GetRect());
 }
 
 void Update() {
@@ -574,6 +556,11 @@ void Update() {
 	//	enemy->Update();
 	//	//map->GetQuadtree()->Insert(enemy);
 	//}
+
+	if (Events::isOpeningDoor) {
+		Events::OpenDoor(Events::openingDoorId);
+	}
+
 	EnemiesManager::UpdateEnemies();
 
 	BulletsManager::UpdateBullets();
@@ -582,8 +569,14 @@ void Update() {
 	if (Input::KeyDown(DIK_C)) {
 		ItemsManager::DropItem(new HP(megaman->x + 50, megaman->y, 0));
 	}
+	if (Input::KeyDown(DIK_B)) {
+		Events::isFightingBoss = false;
+	}
+	if (Input::KeyDown(DIK_N)) {
+		Events::isFightingBoss = true;
+	}
 	if (Input::KeyDown(DIK_E)) {
-		EnemiesManager::SpawnEnemy(megaman, megaman->x - 100, megaman->y - 50);
+		//EnemiesManager::SpawnEnemy(megaman, megaman->x - 100, megaman->y - 50);
 		GAMELOG("enemies: %d", EnemiesManager::enemiesList.size());
 	}
 
@@ -607,7 +600,7 @@ void Update() {
 
 //Hàm này để render lên màn hình
 void Render() {
-	GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
+	//GameGlobal::d3ddev->StretchRect(background, NULL, GameGlobal::backbuffer, NULL, D3DTEXF_NONE);
 
 	//start sprite handler
 	//spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
@@ -615,18 +608,13 @@ void Render() {
 
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map->Draw();
-	//if (!enemy->isDestroyed) {
-	//	enemy->Render();
-	//}
-	//headGunner->Render();
+	Events::RenderEvents();
+
 	EnemiesManager::RenderEnemies();
-	//BulletsManager::UpdateBullets();
 	ItemsManager::RenderItems();
 	BulletsManager::RenderBullets();
 	Effects::RenderEffects();
 	//GAMELOG("mbullets: %d", BulletsManager::MegamanBulletsList.size());
-
-
 
 	megaman->Update();
 	megaman->Render();
@@ -634,7 +622,7 @@ void Render() {
 
 	UI::RenderUI();
 
-	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
+	//debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
 
 	DrawBorders();
 	DrawQuadtree(map->GetQuadtree());
