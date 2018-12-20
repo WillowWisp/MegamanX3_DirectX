@@ -32,6 +32,7 @@
     <ClInclude Include="Effects.h" />
     <ClInclude Include="EnemiesManager.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Events.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="GameLog.h" />
@@ -97,6 +98,7 @@
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="EnemiesManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Events.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameGlobal.cpp" />
     <ClCompile Include="GameLog.cpp" />

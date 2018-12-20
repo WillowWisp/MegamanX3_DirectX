@@ -7,6 +7,7 @@ class Enemy :
 protected:
 	int HP;
 public:
+	int id;
 	bool isDestroyed;
 
 	Enemy();

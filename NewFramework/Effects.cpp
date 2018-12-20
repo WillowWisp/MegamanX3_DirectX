@@ -31,6 +31,11 @@ void Effects::CreateMegamanEnergy() {
 	}
 }
 
+void Effects::ResetMegamanEnergy() {
+	megamanEnergy->anim->ChangeAnimFrames(0, 10);
+	megamanEnergy->state = 0;
+}
+
 void Effects::DrawMegamanEnergy(D3DXMATRIX matrix, int x, int y, int level) {
 	if (level == 2 && Effects::megamanEnergy->state == 0) {
 		Effects::megamanEnergy->anim->ChangeAnimFrames(11, 21);

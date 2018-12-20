@@ -71,6 +71,96 @@ void GameMap::LoadMap(char* filePath)
 				cameraBorders.push_back(rect);
 			}
 		} 
+		else if (objectGroup->GetName() == "notorBanger") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++) {
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				EnemiesManager::enemySpawnSpots.push_back(rect);
+				EnemiesManager::enemyTypeAtSpot.push_back(0); // 0 == Notor Banger Type Id 
+				EnemiesManager::enemyIsSpawnedAtSpot.push_back(false);
+				EnemiesManager::enemyDirAtSpot.push_back(-1);
+			}
+		}
+		else if (objectGroup->GetName() == "headGunnerRight") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++) {
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				EnemiesManager::enemySpawnSpots.push_back(rect);
+				EnemiesManager::enemyTypeAtSpot.push_back(1); // 1 == Head Gunner Type Id 
+				EnemiesManager::enemyIsSpawnedAtSpot.push_back(false);
+				EnemiesManager::enemyDirAtSpot.push_back(1);
+			}
+		}
+		else if (objectGroup->GetName() == "headGunnerLeft") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++) {
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				EnemiesManager::enemySpawnSpots.push_back(rect);
+				EnemiesManager::enemyTypeAtSpot.push_back(1); // 1 == Head Gunner Type Id 
+				EnemiesManager::enemyIsSpawnedAtSpot.push_back(false);
+				EnemiesManager::enemyDirAtSpot.push_back(-1);
+			}
+		}
+		else if (objectGroup->GetName() == "helitRight") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++) {
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				EnemiesManager::enemySpawnSpots.push_back(rect);
+				EnemiesManager::enemyTypeAtSpot.push_back(2); // 2 == Helit Type Id 
+				EnemiesManager::enemyIsSpawnedAtSpot.push_back(false);
+				EnemiesManager::enemyDirAtSpot.push_back(1);
+			}
+		}
+		else if (objectGroup->GetName() == "helitLeft") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++) {
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				EnemiesManager::enemySpawnSpots.push_back(rect);
+				EnemiesManager::enemyTypeAtSpot.push_back(2); // 2 == Helit Type Id 
+				EnemiesManager::enemyIsSpawnedAtSpot.push_back(false);
+				EnemiesManager::enemyDirAtSpot.push_back(-1);
+			}
+		}
+		else if (objectGroup->GetName() == "door") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//Lấy ObjectGroup # lấy layer
+				//ObjectGroup chứa những object (object của phần mềm Tiled)
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				Events::CreateDoor(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+			}
+		}
 		else {
 			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
 			{

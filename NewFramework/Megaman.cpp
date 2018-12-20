@@ -10,6 +10,8 @@ Megaman::Megaman()
 	//y = 850;
 	//x = 12811;
 	//y = 3900;
+	//x = 4500;
+	//y = 2300;
 	tag = (char*)"megaman";
 	curGroundY = 1000000;
 	curCeilY = -1000000;
@@ -55,6 +57,8 @@ Megaman::Megaman()
 	//SetState(STATE_IDLE);
 	SetState(STATE_FALLING);
 	SetWidthHeight();
+
+	Effects::CreateMegamanEnergy();
 }
 
 
@@ -731,7 +735,8 @@ void Megaman::Update()
 
 	if (energy_t > -1 && energy_t <= SHOOTING_ANIMATION_DELAY) {
 		color = D3DCOLOR_ARGB(255, 255, 255, 255);
-		Effects::CreateMegamanEnergy();
+		/*Effects::CreateMegamanEnergy();*/
+		Effects::ResetMegamanEnergy();
 	}
 	else {
 		if (energy_t % 3 == 0) {

@@ -14,6 +14,7 @@ public:
 	Effects();
 	~Effects();
 	static void CreateMegamanEnergy();
+	static void ResetMegamanEnergy();
 	static void DrawMegamanEnergy(D3DXMATRIX matrix, int x, int y, int level);
 	static void CreateExplosion(int x, int y);
 	static void DrawExplosions();
