@@ -6,6 +6,7 @@
 #include "Effects.h"
 #include "BulletsManager.h"
 #include "MegamanBullet.h"
+#include "UI.h"
 
 #define STATE_IDLE 0
 #define STATE_RUNNING 1
@@ -27,7 +28,7 @@
 #define WALL_JUMP_SPEED 20
 #define WALL_DASH_JUMP_SPEED 5
 #define WALL_DASH_BOUNCE_SPEED 10
-#define GRAVITY -0.25 
+#define GRAVITY -0.25
 #define KICK_ANTI_FORCE 5
 #define WALL_SLIDE_SPEED -7
 #define GROUND_Y 390
@@ -39,7 +40,9 @@
 #define TAKING_DMG_ANIMATION_TIME 20
 #define INVULNERABLE_TIME 35
 #define HEALING_TIME 20
-#define MEGAMAN_MAX_HP 20
+#define MEGAMAN_MAX_HP 16
+#define HIT_GROUND_MARGIN 4
+#define HIT_CEIL_MARGIN 4
 
 class Megaman :
 	public MObject

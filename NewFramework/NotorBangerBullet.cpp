@@ -23,6 +23,8 @@ NotorBangerBullet::NotorBangerBullet(D3DXVECTOR2 _firePoint, int _dirRight) {
 
 	anim = new Animation();
 	anim->sprite[0] = new Sprite((char*)"sprites/notor_banger/bullet/0.png");
+
+	Effects::CreateSmoke(x, y);
 }
 
 void NotorBangerBullet::OnCollision(MObject *otherObj, char* sideCollided) {

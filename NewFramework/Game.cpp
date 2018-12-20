@@ -85,6 +85,20 @@ void DrawCollidable()
 	debugDraw->setColor(oldColor);
 }
 
+void DrawCameraRegion()
+{
+	D3DCOLOR oldColor = debugDraw->getColor();
+
+	debugDraw->setColor(D3DCOLOR_XRGB(255, 0, 0));
+
+	for (auto child : GameGlobal::camera->cameraBorders)
+	{
+		debugDraw->DrawRect(child, GameGlobal::camera);
+	}
+
+	debugDraw->setColor(oldColor);
+}
+
 void DrawBorders() {
 	//DRAW WALL AND GROUND
 
@@ -298,7 +312,13 @@ void CheckCollisionEnemy() {
 
 		if (isCollided != (char*)"none") {
 			enemy->OnCollision(megaman, isCollided);
-			megaman->OnCollision(enemy, (char*)"X");
+			//megaman->OnCollision(enemy, (char*)"X");
+			if (enemy->tag == "boss") {
+				megaman->TakeDmg(4);
+			}
+			else {
+				megaman->TakeDmg(2);
+			}
 		}
 	}
 }
@@ -431,6 +451,7 @@ void Start() {
 	debugDraw = new DebugDraw();
 	megaman = new Megaman();
 	Random::Init();
+	UI::InitHPBar();
 
 	/*enemy = new NotorBanger(megaman, 950, 500);
 	headGunner = new HeadGunner(megaman, 300, 400, 1);*/
@@ -441,17 +462,19 @@ void Start() {
 	EnemiesManager::SpawnEnemy(megaman, 2078, 822, TYPE_RANDOM);
 	EnemiesManager::SpawnEnemy(megaman, 2045, 300, TYPE_HELIT, -1);
 	EnemiesManager::SpawnEnemy(megaman, 2643, 700, TYPE_RANDOM);
+	EnemiesManager::SpawnEnemy(megaman, megaman->x + 200, megaman->y, TYPE_HEAD_GUNNER, -1);
 
 	//hp = new HP(500, 500, 0);
 	ItemsManager::DropItem(new HP(500, 500, 0));
 
 
-	map = new GameMap((char*)"Resources/map.tmx");
+	map = new GameMap((char*)"Resources/map_big.tmx");
 	//map = new GameMap((char*)"Resources/BlastHornetLarge.tmx");
 
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
 	//GameGlobal::camera->position = D3DXVECTOR3(0,0,0);
+	GameGlobal::camera->cameraBorders = map->cameraBorders;
 	
 	map->SetCamera(GameGlobal::camera);
 	megaman->SetCamera(GameGlobal::camera);
@@ -460,25 +483,43 @@ void Start() {
 //Hàm này để xử lý logic mỗi frame
 void UpdateCameraWorldMap()
 {
-	//khi megaman di chuyen qua window width /2 thi bat dau di chuyen camera ngang qua
-	if (megaman->x > GameGlobal::camera->position.x)
-		GameGlobal::camera->position = D3DXVECTOR3(megaman->x, GameGlobal::camera->position.y, 0);
-	//khi vi tri megaman nho hon vi tri camera (nghia la da di sat mep ben trai map)
-	if ((megaman->x < GameGlobal::camera->position.x))
-		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
-	//khi vi tri megaman toi vi tri tan cung cua map
-	if ((megaman->x + GameGlobal::wndWidth / 2 >= map->GetWidth()))
-		GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth() - GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
-	//khi vi tri megaman nhay cao hon vi tri window height / 2 thi bat dau di chuyen camera doc len
-	if (megaman->y < GameGlobal::camera->position.y)
-		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, megaman->y, 0);
-	//khi vi tri megaman rot xuong ( chua rot toi tan cung cua map)
-	if (megaman->y >= GameGlobal::camera->position.y&&GameGlobal::camera->position.y != (map->GetHeight() - GameGlobal::wndHeight / 2))
-		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, megaman->y, 0);
-	//khi rot toi vi tri tan cung cua map (nhung chua di het map ngang)
-	if (megaman->x >= GameGlobal::camera->position.x&&megaman->y >= GameGlobal::camera->position.y&&GameGlobal::camera->position.y >= (map->GetHeight() - GameGlobal::wndHeight / 2) &&
-		(GameGlobal::camera->position.x + GameGlobal::wndWidth / 2) != map->GetWidth())
-		GameGlobal::camera->position = D3DXVECTOR3(megaman->x, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	//if (GameGlobal::camera->isTransition) {
+	//	//GameGlobal::camera->Transition();
+	//	GameGlobal::camera->Reposition(megaman->GetRect());
+	//	return;
+	//}
+
+	////if (GameGlobal::camera->cameraBorders.size() != map->cameraBorders.size()) {
+	////	RECT object = GameGlobal::camera->cameraBorders[0];
+
+	////	MObject *mObject = new MObject();
+	////	mObject->tag = (char*)"static";
+
+	////	mObject->x = object->GetX() + object->GetWidth() / 2;
+	////	mObject->y = object->GetY() + object->GetHeight() / 2;
+	////	mObject->width = object->GetWidth();
+	////	mObject->height = object->GetHeight();
+	////}
+
+	////khi megaman di chuyen qua window width /2 thi bat dau di chuyen camera ngang qua
+	//if (megaman->x > GameGlobal::camera->position.x)
+	//	GameGlobal::camera->position = D3DXVECTOR3(megaman->x, GameGlobal::camera->position.y, 0);
+	////khi vi tri megaman nho hon vi tri camera (nghia la da di sat mep ben trai map)
+	//if ((megaman->x < GameGlobal::camera->position.x))
+	//	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	////khi vi tri megaman toi vi tri tan cung cua map
+	//if ((megaman->x + GameGlobal::wndWidth / 2 >= map->GetWidth()))
+	//	GameGlobal::camera->position = D3DXVECTOR3(map->GetWidth() - GameGlobal::wndWidth / 2, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
+	////khi vi tri megaman nhay cao hon vi tri window height / 2 thi bat dau di chuyen camera doc len
+	//if (megaman->y < GameGlobal::camera->position.y)
+	//	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, megaman->y, 0);
+	////khi vi tri megaman rot xuong ( chua rot toi tan cung cua map)
+	//if (megaman->y >= GameGlobal::camera->position.y&&GameGlobal::camera->position.y != (map->GetHeight() - GameGlobal::wndHeight / 2))
+	//	GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x, megaman->y, 0);
+	////khi rot toi vi tri tan cung cua map (nhung chua di het map ngang)
+	//if (megaman->x >= GameGlobal::camera->position.x&&megaman->y >= GameGlobal::camera->position.y&&GameGlobal::camera->position.y >= (map->GetHeight() - GameGlobal::wndHeight / 2) &&
+	//	(GameGlobal::camera->position.x + GameGlobal::wndWidth / 2) != map->GetWidth())
+	//	GameGlobal::camera->position = D3DXVECTOR3(megaman->x, map->GetHeight() - GameGlobal::wndHeight / 2, 0);
 	
 
 	/*if (GameGlobal::camera->GetBound().left < 0)
@@ -507,6 +548,8 @@ void UpdateCameraWorldMap()
 		GameGlobal::camera->position = D3DXVECTOR3(GameGlobal::camera->position.x,
 			map->GetHeight() - GameGlobal::camera->height / 2, 0);
 	}*/
+
+	GameGlobal::camera->Reposition(megaman->GetRect());
 }
 
 void Update() {
@@ -589,11 +632,14 @@ void Render() {
 	megaman->Render();
 	//GAMELOG("bullet count: %d", BulletsManager::MegamanBulletsList.size());
 
+	UI::RenderUI();
+
 	debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
 
 	DrawBorders();
 	DrawQuadtree(map->GetQuadtree());
 	DrawCollidable();
+	DrawCameraRegion();
 
 	GameGlobal::mSpriteHandler->End();
 

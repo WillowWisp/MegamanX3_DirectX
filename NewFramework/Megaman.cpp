@@ -2,8 +2,14 @@
 
 Megaman::Megaman()
 {
-	x = 700;
-	y = 500;
+	x = 133;
+	y = 1800;
+	//x = 1400;
+	//y = 1800;
+	//x = 2956;
+	//y = 850;
+	//x = 12811;
+	//y = 3900;
 	tag = (char*)"megaman";
 	curGroundY = 1000000;
 	curCeilY = -1000000;
@@ -122,6 +128,7 @@ void Megaman::SetState(int newState)
 	case STATE_WALL_SLIDING:
 		SetAnimState(48, 50, ANIM_DELAY);
 		GAMELOG("sliding");
+		delta_t = 0;
 		//jumpAfterDash = false;
 		break;
 	case STATE_WALL_KICKING:
@@ -192,13 +199,15 @@ void Megaman::ForcedAnimation() {
 		}
 	}
 	else if (isHealing) {
-		if (forcedAnim_t > HEALING_TIME) {
+		//if (forcedAnim_t > HEALING_TIME) {
+		if (!UI::isIncreasingHP) {
 			isControllable = true;
 			forcedAnim_t = -1;
 			isHealing = false;
 		}
 		else {
 			anim->animcount--;
+			UI::ChangeHP(HP);
 		}
 	}
 	forcedAnim_t++;
@@ -215,14 +224,19 @@ void Megaman::Heal(int healAmount) {
 	forcedAnim_t = 0;
 	movex = 0;
 	movey = 0;
+	UI::isIncreasingHP = true;
+	UI::ChangeHP(HP);
+	UI::HPBar->delta_t = 0;
 }
 
 void Megaman::TakeDmg(int damage) {
-	if (!isVulnerable)
+	if (!isVulnerable || isHealing)
 		return;
 	HP -= damage;
+	UI::ChangeHP(HP);
 	if (HP <= 0) {
 		//RIP
+		HP = 0;
 	}
 	SetState(STATE_TAKING_DAMAGE);
 }
@@ -259,7 +273,7 @@ void Megaman::Update()
 			temp_dirRight = -1;
 		//Create Bullet here
 		BulletsManager::CreateBullet(new MegamanBullet(x + (dirRight * temp_dirRight * width / 2), 
-														y - (height / 5), dirRight * temp_dirRight, 
+														y - (height / 9), dirRight * temp_dirRight, 
 														0));
 	}
 	else if (shootHold && !Input::KeyDown(DIK_X)) {		//Shooting with energy
@@ -271,12 +285,12 @@ void Megaman::Update()
 		//Create Bullet here
 		if (energy_t >= CHARGED_SHOT_LV1_TIME && energy_t < CHARGED_SHOT_LV2_TIME) {
 			BulletsManager::CreateBullet(new MegamanBullet(x + (dirRight * temp_dirRight * width / 2), 
-															y - (height / 5), dirRight * temp_dirRight, 
+															y - (height / 9), dirRight * temp_dirRight, 
 															1));
 		}
 		else if (energy_t >= CHARGED_SHOT_LV2_TIME) {
 			BulletsManager::CreateBullet(new MegamanBullet(x + (dirRight * temp_dirRight * width / 2), 
-															y - (height / 5), dirRight * temp_dirRight, 
+															y - (height / 9), dirRight * temp_dirRight, 
 															2));
 		}
 
@@ -338,7 +352,8 @@ void Megaman::Update()
 
 
 	//Check states
-	if (state == STATE_WALL_SLIDING || (inMidAir && HitWall())) {									//CANCER
+	if (state == STATE_WALL_SLIDING 
+		|| (inMidAir && HitWall() && curGroundY > y + height / 2 + HIT_GROUND_MARGIN)) {					//CANCER
 		if (StateChanged(STATE_WALL_SLIDING))
 			SetState(STATE_WALL_SLIDING);
 
@@ -349,7 +364,7 @@ void Megaman::Update()
 			else {
 				anim->animdelay = 0;
 			}
-			y = curGroundY - (height / 2) + 2;
+			y = curGroundY - (height / 2) + HIT_GROUND_MARGIN;
 			movey = 0;
 			inMidAir = false;
 		}
@@ -381,6 +396,11 @@ void Megaman::Update()
 			}
 
 			movey = -WALL_SLIDE_SPEED;
+			if (delta_t % 2 == 0) {
+				Effects::CreateSmoke(x + dirRight * (width / 2), y + height / 2 - 5, 0);
+			}
+
+			delta_t++;
 
 			if (anim->curframe == anim->endframe) {
 				anim->animcount = anim->animdelay;
@@ -442,7 +462,6 @@ void Megaman::Update()
 			movey = -(JUMP_SPEED + delta_t * GRAVITY);
 			inMidAir = true;
 		}
-
 		else {
 
 			//if shooting key is pressed then change animation
@@ -475,6 +494,9 @@ void Megaman::Update()
 				delta_t++;
 				anim->animcount = 0;
 				movex = DASH_SPEED;
+				if (delta_t % 2 == 0) {
+					Effects::CreateSmoke(x - dirRight * (width / 4), y + height / 2 - 5, -3);
+				}
 			}
 		}
 	}
@@ -539,7 +561,7 @@ void Megaman::Update()
 					anim->animdelay = 0;
 					//anim->animcount = 1;
 				}
-				y = curGroundY - (height / 2) + 2;
+				y = curGroundY - (height / 2) + HIT_GROUND_MARGIN;
 				movey = 0;
 				inMidAir = false;
 				delta_t = 0;
@@ -671,7 +693,11 @@ void Megaman::Update()
 	}
 
 	if (HitCeil()) {
-		y = curCeilY + height / 2 + 2;
+		y = curCeilY + height / 2 + HIT_CEIL_MARGIN;
+	}
+
+	if (HitGround()) {
+		y = curGroundY - height / 2 + HIT_GROUND_MARGIN;
 	}
 
 
@@ -738,7 +764,7 @@ void Megaman::Render() {
 	D3DXVECTOR2 translate = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
 	D3DXVECTOR2 combined = translation + translate;
 
-	D3DXVECTOR2 scale = D3DXVECTOR2(2 * dirRight, 2);
+	D3DXVECTOR2 scale = D3DXVECTOR2(1 * dirRight, 1);
 	//center = D3DXVECTOR3(width / 2, height / 2, 0);
 	D3DXMatrixTransformation2D(&matrix, NULL, 0, &scale, NULL,
 		NULL, &combined);

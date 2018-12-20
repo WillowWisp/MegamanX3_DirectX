@@ -103,12 +103,12 @@ void NotorBanger::Update() {
 		//Nếu player đứng xa thì bắn góc 45 độ
 		if (abs(x - player->x) >= 150) {
 			angle = (char*)"45";
-			firePoint = D3DXVECTOR2(x + dirRight * 15, y - 20);
+			firePoint = D3DXVECTOR2(x + dirRight * 25, y - 35);
 		}
 		//Nếu player đứng gẫn thì bắn góc 90 độ
 		else {
 			angle = (char*)"90";
-			firePoint = D3DXVECTOR2(x - dirRight * 8, y - 20);
+			firePoint = D3DXVECTOR2(x - dirRight * 6, y - 45);
 		}
 	}
 

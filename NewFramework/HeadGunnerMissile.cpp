@@ -19,6 +19,8 @@ HeadGunnerMissile::HeadGunnerMissile(MObject* _target, D3DXVECTOR2 _firePoint, i
 		sprintf_s(s, "sprites/head_gunner/missile/%d.png", i);
 		anim->sprite[i] = new Sprite(s);
 	}
+
+	Effects::CreateSmoke(x, y);
 }
 
 HeadGunnerMissile::~HeadGunnerMissile()
@@ -44,6 +46,11 @@ void HeadGunnerMissile::Update() {
 		//Thoi gian gioi han ton tai cua dan
 		isDestroyed = true;
 	}
+
+	if (state_t % 8 == 0) {
+		Effects::CreateSmoke(x, y, 0);
+	}
+
 	state_t++;
 }
 
