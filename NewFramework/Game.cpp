@@ -200,6 +200,9 @@ void CheckCollision() {
 						megaman->curGroundY = collisionList.at(i)->y - collisionList.at(i)->height / 2;
 						megaman->y = megaman->curGroundY - megaman->height / 2;
 						//megaman->delta_t = 0;
+						if (collisionList.at(i)->tag == (char*)"elevator") {
+							MovingObjects::elevator->Start();
+						}
 					}
 					else if (isCollided == (char*)"bottom") {
 						megaman->curCeilY = collisionList.at(i)->y + collisionList.at(i)->height / 2;
@@ -245,9 +248,9 @@ void CheckCollision() {
 						megaman->movex = 0;
 					}
 				}
-				if (collisionList.at(i)->tag == (char*)"elevator") {
+				/*if (collisionList.at(i)->tag == (char*)"elevator") {
 					MovingObjects::elevator->Start();
-				}
+				}*/
 			}
 			else {
 				megaman->OnCollision(collisionList.at(i), (char*)isCollided);
