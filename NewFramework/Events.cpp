@@ -44,7 +44,8 @@ void Events::OpenDoor(int doorId) {
 	}
 	else if (doorsList[doorId]->anim->curframe == 17) {
 		//force megaman move
-		if (megaman->x - megaman->width / 2 > doorsList[doorId]->x + doorsList[doorId]->width) {
+		//if (megaman->x - megaman->width / 2 > doorsList[doorId]->x + doorsList[doorId]->width) {
+		if (megaman->movex != 0 && !GameGlobal::camera->isTransition) {
 			doorsList[doorId]->anim->ChangeAnimFrames(18, 34);
 			doorsList[doorId]->anim->curframe = 18;
 			doorsList[doorId]->anim->animcount = 0;
