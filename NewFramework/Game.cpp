@@ -186,7 +186,8 @@ void CheckCollision() {
 			//GAMELOG("ASD: %s", (char*)isCollided);
 			//Gọi đến hàm OnCollision trong MObject
 
-			if (collisionList.at(i)->tag == (char*)"static") {	// Cham tuong, dat,..
+			if (collisionList.at(i)->tag == (char*)"static"
+				|| collisionList.at(i)->tag == (char*)"elevator") {	// Cham tuong, dat,..
 
 				/*
 				//goi den ham xu ly collision cua Player va MObject
@@ -244,6 +245,9 @@ void CheckCollision() {
 						megaman->movex = 0;
 					}
 				}
+				if (collisionList.at(i)->tag == (char*)"elevator") {
+					MovingObjects::elevator->Start();
+				}
 			}
 			else {
 				megaman->OnCollision(collisionList.at(i), (char*)isCollided);
@@ -257,7 +261,8 @@ void CheckCollision() {
 				//megaman->y = megaman->curGroundY - megaman->height / 2 + 4;
 			}
 			else {
-				if (collisionList.at(i)->tag == (char*)"static") {
+				if (collisionList.at(i)->tag == (char*)"static"
+					|| collisionList.at(i)->tag == (char*)"elevator") {
 					if (GameGlobal::IsIntersectX(megaman->GetRect(), collisionList.at(i)->GetRect())
 						&& megaman->y <= collisionList.at(i)->y - collisionList.at(i)->height / 2) {
 						newGroundY = min(newGroundY, collisionList.at(i)->y - collisionList.at(i)->height / 2);
@@ -305,9 +310,56 @@ void CheckCollision() {
 	}
 	/*megaman->isHitGround = collideTop ? collideTop : megaman->isHitGround;*/
 
-	/*megaman->isHitGround = collideTop;*/
-	////megaman->isHitWallLeft = collideLeft;
-	////megaman->isHitWallRight = collideRight;
+	//if (MovingObjects::elevator != NULL) {
+	//	megaman->MoveXYToCorner();
+	//	MovingObjects::elevator->MoveXYToCorner();
+	//	megaman->SetSignedMoveX();
+	//	char* isCollided = Collision::IsCollided(megaman, MovingObjects::elevator);
+	//	megaman->MoveXYToCenter();
+	//	MovingObjects::elevator->MoveXYToCenter();
+	//	megaman->SetUnsignedMoveX();
+	//	if (isCollided != (char*)"none") {
+	//		if (isCollided == (char*)"top" || isCollided == (char*)"bottom") {
+	//			if (isCollided == (char*)"top") {
+	//				megaman->curGroundY = MovingObjects::elevator->y - MovingObjects::elevator->height / 2;
+	//				megaman->y = megaman->curGroundY - megaman->height / 2 - 4;
+	//				//megaman->delta_t = 0;
+	//				//MovingObjects::elevator->OnCollision(megaman, isCollided);
+	//				map->GetQuadtree()->Insert(MovingObjects::elevator);
+	//			}
+	//			else if (isCollided == (char*)"bottom") {
+	//				megaman->curCeilY = MovingObjects::elevator->y + MovingObjects::elevator->height / 2;
+	//				megaman->y = megaman->curCeilY + megaman->height / 2;
+	//			}
+	//			megaman->movey = 0;
+	//		}
+	//		else if (isCollided == (char*)"left" || isCollided == (char*)"right") {
+	//			if (isCollided == (char*)"left") {
+	//				megaman->curRightWallX = MovingObjects::elevator->x - MovingObjects::elevator->width / 2;
+	//				megaman->x = megaman->curRightWallX - megaman->width / 2;
+	//			}
+	//			else if (isCollided == (char*)"right") {
+	//				megaman->curLeftWallX = MovingObjects::elevator->x + MovingObjects::elevator->width / 2;
+	//				megaman->x = megaman->curLeftWallX + megaman->width / 2;
+	//			}
+	//			megaman->movex = 0;
+	//		}
+	//	}
+	//	else {
+	//		//char* sideCollided = Collision::IsIntersect(megaman, MovingObjects::elevator);
+	//		//if (sideCollided != (char*)"none") {
+	//		//	if (sideCollided == (char*)"top") {
+	//		//		megaman->curGroundY = MovingObjects::elevator->y - MovingObjects::elevator->height / 2 - 4 - 1;
+	//		//		megaman->y = megaman->curGroundY - megaman->height / 2;
+	//		//		//megaman->delta_t = 0;
+	//		//		MovingObjects::elevator->OnCollision(megaman, isCollided);
+	//		//	}
+	//		//}
+	//		if (MovingObjects::elevator->isStarted || MovingObjects::elevator->isSpawning) {
+	//			map->GetQuadtree()->Insert(MovingObjects::elevator);
+	//		}
+	//	}
+	//}
 
 	if (!Events::isOpeningDoor || !Events::isFightingBoss) {
 		for (int i = 0; i < Events::doorsList.size(); i++) {
@@ -558,9 +610,13 @@ void Start() {
 
 	//hp = new HP(500, 500, 0);
 	ItemsManager::DropItem(new HP(500, 500, 0));
-
+	MovingObjects::CreateElevator(1792, 2114, 1910, 900);
 
 	map = new GameMap((char*)"Resources/map_big.tmx");
+
+	MovingObjects::SetElevatorSizeAsMovingSize();
+	map->GetQuadtree()->Insert(MovingObjects::elevator);
+	MovingObjects::SetElevatorNormalSize();
 
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
@@ -610,6 +666,11 @@ void Update() {
 		Events::OpenDoor(Events::openingDoorId);
 	}
 
+	MovingObjects::UpdateMovingObjects();
+	//if (!MovingObjects::elevator->isSpawning) {
+	//	map->GetQuadtree()->Insert(MovingObjects::elevator);
+	//}
+
 	EnemiesManager::UpdateEnemies();
 
 	BulletsManager::UpdateBullets();
@@ -657,6 +718,7 @@ void Render() {
 
 	GameGlobal::mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map->Draw();
+
 	Events::RenderEvents();
 
 	EnemiesManager::RenderEnemies();
@@ -668,7 +730,7 @@ void Render() {
 	megaman->Update();
 	megaman->Render();
 	//GAMELOG("bullet count: %d", BulletsManager::MegamanBulletsList.size());
-
+	MovingObjects::RenderMovingObjects();
 	UI::RenderUI();
 
 	//debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);

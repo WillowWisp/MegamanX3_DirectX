@@ -228,7 +228,7 @@ void Quadtree::Debug(int &count) {
 	//D3DCOLOR oldColor = debugDraw->getColor();
 	debugDraw->setColor(D3DCOLOR_XRGB(255, 0, 255));
 	for (int i = 0; i < objectList.size(); i++) {
-		if (objectList.at(i)->tag == (char*)"enemy") {
+		if (objectList.at(i)->tag == (char*)"elevator") {
 			count++;
 			debugDraw->DrawRect(region, GameGlobal::camera);
 			//GAMELOG("rect: %d %d", region.left, region.top);

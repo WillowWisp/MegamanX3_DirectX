@@ -29,6 +29,7 @@
 #include "Effects.h"
 #include "UI.h"
 #include "Events.h"
+#include "MovingObjects.h"
 
 #define UPDATE_RATE 10
 

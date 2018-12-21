@@ -4,6 +4,8 @@ Megaman::Megaman()
 {
 	x = 133;
 	y = 1800;
+	//x = 1609;
+	//y = 1791;
 	//x = 1400;
 	//y = 1800;
 	//x = 2956;
@@ -16,6 +18,8 @@ Megaman::Megaman()
 	//y = 1911;
 	//x = 12616;
 	//y = 3869;
+	//x = 11572;
+	//y = 2318;
 	tag = (char*)"megaman";
 	curGroundY = 1000000;
 	curCeilY = -1000000;
@@ -197,7 +201,7 @@ void Megaman::ForcedAnimation() {
 			}
 			movex = -3;
 			movey += 1;
-			if (y + movey - 1 + height / 2 > curGroundY)
+			if (y + movey - HIT_GROUND_MARGIN - 1 + height / 2 >= curGroundY)
 				movey = 0;
 			if (HitWall()) {
 				if (x - width / 2 <= curLeftWallX)
