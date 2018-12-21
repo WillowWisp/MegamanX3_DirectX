@@ -2,16 +2,20 @@
 
 Megaman::Megaman()
 {
-	//x = 133;
-	//y = 1800;
+	x = 133;
+	y = 1800;
 	//x = 1400;
 	//y = 1800;
 	//x = 2956;
 	//y = 850;
 	//x = 12811;
 	//y = 3900;
-	x = 4500;
-	y = 2300;
+	//x = 4500;
+	//y = 2300;
+	//x = 5926;
+	//y = 1911;
+	//x = 12616;
+	//y = 3869;
 	tag = (char*)"megaman";
 	curGroundY = 1000000;
 	curCeilY = -1000000;
@@ -41,6 +45,7 @@ Megaman::Megaman()
 	isVulnerable = true;
 	isControllable = true;
 	isHealing = false;
+	isOnSlope = false;
 
 	HP = MEGAMAN_MAX_HP;
 
@@ -341,6 +346,7 @@ void Megaman::Update()
 
 
 	if (!HitGround() 
+		&&	!isOnSlope
 		&& state != STATE_JUMPING 
 		&& state != STATE_WALL_SLIDING
 		&& state != STATE_WALL_KICKING) {
@@ -349,9 +355,11 @@ void Megaman::Update()
 			SetState(STATE_FALLING);
 		//delta_t = 0;
 	}
-	else {
+	else if (isOnSlope && !HitGround() && !inMidAir) {
 		//if (StateChanged(STATE_IDLE))
 		//	SetState(STATE_IDLE);
+		y = curGroundY - height / 2 + HIT_GROUND_MARGIN;
+		//y++;
 	}
 
 

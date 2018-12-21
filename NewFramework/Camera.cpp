@@ -31,6 +31,19 @@ RECT Camera::GetBound() {
 	return bound;
 }
 
+RECT Camera::GetPlayerCameraBox(RECT playerRect) {
+	RECT cameraBox;
+
+	cameraBox.left = playerRect.left - PLAYER_CAMERA_BOX / 2 + (playerRect.right - playerRect.left) / 2;
+	cameraBox.right = cameraBox.left + PLAYER_CAMERA_BOX;
+	//cameraBox.top = playerRect.top - PLAYER_CAMERA_BOX / 2 + (playerRect.bottom - playerRect.top) / 2;
+	//cameraBox.bottom = cameraBox.top + PLAYER_CAMERA_BOX;
+	cameraBox.bottom = playerRect.bottom;
+	cameraBox.top = cameraBox.bottom - PLAYER_CAMERA_BOX;
+
+	return cameraBox;
+}
+
 bool Camera::IsContain(RECT container, RECT rect) {
 	if (rect.left >= container.left && rect.right <= container.right && rect.top >= container.top && rect.bottom <= container.bottom)
 	{
@@ -76,6 +89,10 @@ void Camera::Reposition(RECT playerRect) {
 			return;
 		}
 		else if (IsContain(cameraBorders[i], playerRect)) {
+			//RECT playerCameraBox = GetPlayerCameraBox(playerRect);
+			//position.x = playerCameraBox.left + (playerCameraBox.right - playerCameraBox.left) / 2;
+			//position.y = playerCameraBox.top + (playerCameraBox.bottom - playerCameraBox.top) / 2;
+
 			position.x = playerRect.left + (playerRect.right - playerRect.left) / 2;
 			position.y = playerRect.top + (playerRect.bottom - playerRect.top) / 2;
 

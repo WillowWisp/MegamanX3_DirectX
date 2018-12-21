@@ -30,6 +30,7 @@ class GameMap
 public:
 	std::vector<RECT> cameraBorders;
 	std::vector<RECT> events;
+	std::vector<RECT> slopes;
 
 	GameMap();
 	~GameMap();

@@ -154,6 +154,7 @@ void CheckCollision() {
 	int newLeftWallX = -1000000;
 	int newRightWallX = 1000000;
 	bool isCollideStatic = false;
+	bool isOnSlope = false;
 
 	//GAMELOG("movey: %d", megaman->movey);
 
@@ -161,6 +162,15 @@ void CheckCollision() {
 	//if (megaman->movey == 0) {
 	//	megaman->movey = 5;
 	//}
+	for (int i = 0; i < map->slopes.size(); i++) {
+		if ((GameGlobal::IsIntersect(megaman->GetRect(), map->slopes[i])
+			|| GameGlobal::IsContain(map->slopes[i], megaman->GetRect()))
+			&& (megaman->y + megaman->height / 2) < map->slopes[i].bottom)
+		{
+			isOnSlope = true;
+		}
+	}
+
 	for (size_t i = 0; i < collisionList.size(); i++)
 	{
 		megaman->MoveXYToCorner();
@@ -177,14 +187,13 @@ void CheckCollision() {
 			//Gọi đến hàm OnCollision trong MObject
 
 			if (collisionList.at(i)->tag == (char*)"static") {	// Cham tuong, dat,..
-				
+
 				/*
 				//goi den ham xu ly collision cua Player va MObject
 				mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
 				listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
 				}*/
 				isCollideStatic = true;
-
 				if (isCollided == (char*)"top" || isCollided == (char*)"bottom") {
 					if (isCollided == (char*)"top") {
 						megaman->curGroundY = collisionList.at(i)->y - collisionList.at(i)->height / 2;
@@ -198,7 +207,7 @@ void CheckCollision() {
 					megaman->movey = 0;
 				}
 				else if (isCollided == (char*)"left" || isCollided == (char*)"right") {
-					if (isCollided == (char*)"left") {
+					/*if (isCollided == (char*)"left") {
 						megaman->curRightWallX = collisionList.at(i)->x - collisionList.at(i)->width / 2;
 						megaman->x = megaman->curRightWallX - megaman->width / 2;
 					}
@@ -206,7 +215,34 @@ void CheckCollision() {
 						megaman->curLeftWallX = collisionList.at(i)->x + collisionList.at(i)->width / 2;
 						megaman->x = megaman->curLeftWallX + megaman->width / 2;
 					}
-					megaman->movex = 0;
+					megaman->movex = 0;*/
+
+					if (isOnSlope) {
+						megaman->curGroundY = collisionList.at(i)->y - collisionList.at(i)->height / 2;
+						megaman->y = megaman->curGroundY - megaman->height / 2 + 4;
+						megaman->movey = 0;
+
+						if (isCollided == (char*)"left") {
+							megaman->curRightWallX = collisionList.at(i)->x;
+							//megaman->x = megaman->curRightWallX - megaman->width / 2;
+						}
+						else if (isCollided == (char*)"right") {
+							megaman->curLeftWallX = collisionList.at(i)->x;
+							//megaman->x = megaman->curLeftWallX + megaman->width / 2;
+						}
+						//megaman->movex = 0;
+					}
+					else {
+						if (isCollided == (char*)"left") {
+							megaman->curRightWallX = collisionList.at(i)->x - collisionList.at(i)->width / 2;
+							megaman->x = megaman->curRightWallX - megaman->width / 2;
+						}
+						else if (isCollided == (char*)"right") {
+							megaman->curLeftWallX = collisionList.at(i)->x + collisionList.at(i)->width / 2;
+							megaman->x = megaman->curLeftWallX + megaman->width / 2;
+						}
+						megaman->movex = 0;
+					}
 				}
 			}
 			else {
@@ -217,25 +253,31 @@ void CheckCollision() {
 		}
 		else {
 			//count++;
-			if (collisionList.at(i)->tag == (char*)"static") {
-				if (GameGlobal::IsIntersectX(megaman->GetRect(), collisionList.at(i)->GetRect())
-					&& megaman->y <= collisionList.at(i)->y - collisionList.at(i)->height / 2) {
-					newGroundY = min(newGroundY, collisionList.at(i)->y - collisionList.at(i)->height / 2);
-				}
-				if (GameGlobal::IsIntersectX(megaman->GetRect(), collisionList.at(i)->GetRect())
-					&& megaman->y >= collisionList.at(i)->y + collisionList.at(i)->height / 2) {
-					newCeilY = max(newCeilY, collisionList.at(i)->y + collisionList.at(i)->height / 2);
-				}
-				if (GameGlobal::IsIntersectY(megaman->GetRect(), collisionList.at(i)->GetRect())
-					&& megaman->x <= collisionList.at(i)->x - collisionList.at(i)->width / 2) {
-					newRightWallX = min(newRightWallX, collisionList.at(i)->x - collisionList.at(i)->width / 2);
-				}
-				if (GameGlobal::IsIntersectY(megaman->GetRect(), collisionList.at(i)->GetRect())
-					&& megaman->x >= collisionList.at(i)->x + collisionList.at(i)->width / 2) {
-					newLeftWallX = max(newLeftWallX, collisionList.at(i)->x + collisionList.at(i)->width / 2);
+			if (false) {
+				//megaman->y = megaman->curGroundY - megaman->height / 2 + 4;
+			}
+			else {
+				if (collisionList.at(i)->tag == (char*)"static") {
+					if (GameGlobal::IsIntersectX(megaman->GetRect(), collisionList.at(i)->GetRect())
+						&& megaman->y <= collisionList.at(i)->y - collisionList.at(i)->height / 2) {
+						newGroundY = min(newGroundY, collisionList.at(i)->y - collisionList.at(i)->height / 2);
+					}
+					if (GameGlobal::IsIntersectX(megaman->GetRect(), collisionList.at(i)->GetRect())
+						&& megaman->y >= collisionList.at(i)->y + collisionList.at(i)->height / 2) {
+						newCeilY = max(newCeilY, collisionList.at(i)->y + collisionList.at(i)->height / 2);
+					}
+					if (GameGlobal::IsIntersectY(megaman->GetRect(), collisionList.at(i)->GetRect())
+						&& megaman->x <= collisionList.at(i)->x - collisionList.at(i)->width / 2) {
+						newRightWallX = min(newRightWallX, collisionList.at(i)->x - collisionList.at(i)->width / 2);
+					}
+					if (GameGlobal::IsIntersectY(megaman->GetRect(), collisionList.at(i)->GetRect())
+						&& megaman->x >= collisionList.at(i)->x + collisionList.at(i)->width / 2) {
+						newLeftWallX = max(newLeftWallX, collisionList.at(i)->x + collisionList.at(i)->width / 2);
+					}
 				}
 			}
 		}
+	
 
 		/*if (GameGlobal::IsIntersect(megaman->GetRect(), collisionList.at(i)->GetRect())) {
 			GAMELOG("ASD: %d", megaman->GetRect().left);
@@ -311,6 +353,13 @@ void CheckCollision() {
 	megaman->curCeilY = max(megaman->curCeilY, newCeilY);
 	megaman->curLeftWallX = max(megaman->curLeftWallX, newLeftWallX);
 	megaman->curRightWallX = min(megaman->curRightWallX, newRightWallX);
+
+	if (isOnSlope) {
+		megaman->curLeftWallX = -1000000;
+		megaman->curRightWallX = 1000000;
+	}
+
+	megaman->isOnSlope = isOnSlope;
 
 	if (Events::isFightingBoss) {
 		//megaman->curLeftWallX = Events::doorsList[Events::openingDoorId]->x 
@@ -623,11 +672,10 @@ void Render() {
 	UI::RenderUI();
 
 	//debugDraw->DrawRect(megaman->GetRect(), GameGlobal::camera);
-
-	DrawBorders();
-	DrawQuadtree(map->GetQuadtree());
-	DrawCollidable();
-	DrawCameraRegion();
+	//DrawBorders();
+	//DrawQuadtree(map->GetQuadtree());
+	//DrawCollidable();
+	//DrawCameraRegion();
 
 	GameGlobal::mSpriteHandler->End();
 
