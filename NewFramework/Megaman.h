@@ -73,6 +73,7 @@ public:
 	bool isVulnerable;
 	bool isControllable;
 	bool isHealing;
+	bool isOnSlope;
 
 	int shootingAnimDelay;
 	int energy_t;

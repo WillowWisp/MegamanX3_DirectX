@@ -57,6 +57,11 @@ void NotorBanger::OnCollision(MObject *otherObj, char* sideCollided) {
 			movey = 0;
 			y = otherObj->y - otherObj->height / 2 - height / 2;
 		}
+		if (sideCollided == "bottom") {
+			movex = 0;
+			movey = 0;
+			y = otherObj->y + otherObj->height / 2 + height / 2;
+		}
 	}
 }
 

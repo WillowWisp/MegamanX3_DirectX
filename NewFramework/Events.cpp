@@ -61,7 +61,12 @@ void Events::OpenDoor(int doorId) {
 				GameGlobal::camera->TransitionToBossRoom();
 			}
 			doorsList[doorId]->anim->animcount = 0;
-			megaman->movex = 2;
+			if (megaman->state == STATE_DASHING) {
+				megaman->movex = 3;
+			}
+			else {
+				megaman->movex = 2;
+			}
 			//megaman->movey = 0;
 			if (megaman->state != STATE_RUNNING && megaman->state != STATE_RUNNING_N_SHOOTING) {
 				megaman->anim->animcount = 0;

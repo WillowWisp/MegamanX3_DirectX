@@ -46,6 +46,10 @@ void EnemiesManager::SpawnEnemy(MObject* player, int x, int y, int type, int dir
 
 void EnemiesManager::SpawnEnemiesNearCamera(MObject* player) {
 	RECT cameraRect = GameGlobal::camera->GetBound();
+	//cameraRect.left -= 100;
+	//cameraRect.right += 100;
+	//cameraRect.top -= 100;
+	//cameraRect.bottom += 100;
 	RECT outerCameraRect; //a rect surrounding cameraRect, enemies spawn in this region
 	outerCameraRect.left = cameraRect.left - OUTER_CAMERA_ZONE;
 	outerCameraRect.right = cameraRect.right + OUTER_CAMERA_ZONE;

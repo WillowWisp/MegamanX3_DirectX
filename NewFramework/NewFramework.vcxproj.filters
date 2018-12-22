@@ -185,6 +185,10 @@
     <ClCompile Include="Events.cpp">
       <Filter>Framework\GameControllers</Filter>
     </ClCompile>
+    <ClCompile Include="Elevator.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingObjects.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadGunner.h">
@@ -379,6 +383,10 @@
     <ClInclude Include="Events.h">
       <Filter>Framework\GameControllers</Filter>
     </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingObjects.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

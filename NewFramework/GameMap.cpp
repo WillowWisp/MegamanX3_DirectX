@@ -161,6 +161,22 @@ void GameMap::LoadMap(char* filePath)
 				Events::CreateDoor(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
 			}
 		}
+		else if (objectGroup->GetName() == "slope") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//Lấy ObjectGroup # lấy layer
+				//ObjectGroup chứa những object (object của phần mềm Tiled)
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				slopes.push_back(rect);
+			}
+		}
 		else {
 			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
 			{
