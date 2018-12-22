@@ -2,8 +2,8 @@
 
 Megaman::Megaman()
 {
-	x = 133;
-	y = 1800;
+	//x = 133;
+	//y = 1800;
 	//x = 1609;
 	//y = 1791;
 	//x = 1400;
@@ -12,14 +12,14 @@ Megaman::Megaman()
 	//y = 850;
 	//x = 12811;
 	//y = 3900;
-	//x = 4500;
+	//x = 4900;
 	//y = 2300;
 	//x = 5926;
 	//y = 1911;
 	//x = 12616;
 	//y = 3869;
-	//x = 11572;
-	//y = 2318;
+	x = 11000;
+	y = 2318;
 	tag = (char*)"megaman";
 	curGroundY = 1000000;
 	curCeilY = -1000000;
@@ -709,7 +709,8 @@ void Megaman::Update()
 	}
 
 	if (HitCeil()) {
-		y = curCeilY + height / 2 + HIT_CEIL_MARGIN;
+		y = curCeilY + height / 2 - HIT_CEIL_MARGIN;
+		//SetState(STATE_FALLING);
 	}
 
 	if (HitGround()) {

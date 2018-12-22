@@ -6,6 +6,14 @@
 #include "Megaman.h"
 #include "GameLog.h"
 #include "GameGlobal.h"
+#include "EnemiesManager.h"
+
+#define BOSS_SHURIKEIN 0
+#define BOSS_BYTE 1
+#define BOSS_BLAST_HORNET 2
+#define BOSS_SHURIKEIN_DOOR 0
+#define BOSS_BYTE_DOOR 2
+#define BOSS_BLAST_HORNET_DOOR 5
 
 class Events
 {

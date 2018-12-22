@@ -6,6 +6,8 @@ std::vector<RECT> EnemiesManager::enemySpawnSpots;
 std::vector<int> EnemiesManager::enemyTypeAtSpot;
 std::vector<int> EnemiesManager::enemyDirAtSpot;
 std::vector<bool> EnemiesManager::enemyIsSpawnedAtSpot;
+Enemy* EnemiesManager::boss;
+bool EnemiesManager::isFightingBoss = false;
 
 EnemiesManager::EnemiesManager()
 {
@@ -17,6 +19,23 @@ EnemiesManager::~EnemiesManager()
 	for (int i = 0; i < enemiesList.size(); i++) {
 		delete enemiesList[i];
 	}
+	delete boss;
+}
+
+void EnemiesManager::SpawnBoss(Megaman* player, int bossID) {
+	switch (bossID)
+	{
+	case BOSS_SHURIKEIN:
+		break;
+	case BOSS_BYTE:
+		boss = new ByteBoss(player, 11580, 1900);
+		break;
+	case BOSS_BLAST_HORNET:
+		break;
+	default:
+		break;
+	}
+	isFightingBoss = true;
 }
 
 void EnemiesManager::SpawnEnemy(Enemy* enemy) {
@@ -94,38 +113,54 @@ void EnemiesManager::SpawnEnemiesNearCamera(MObject* player) {
 }
 
 void EnemiesManager::UpdateEnemies() {
-	RECT cameraRect = GameGlobal::camera->GetBound();
-	RECT outerCameraRect; //a rect surrounding cameraRect, enemies spawn in this region
-	outerCameraRect.left = cameraRect.left - OUTER_CAMERA_ZONE;
-	outerCameraRect.right = cameraRect.right + OUTER_CAMERA_ZONE;
-	outerCameraRect.top = cameraRect.top - OUTER_CAMERA_ZONE;
-	outerCameraRect.bottom = cameraRect.bottom + OUTER_CAMERA_ZONE;
+	if (!isFightingBoss) {	//Not in boss room
+		RECT cameraRect = GameGlobal::camera->GetBound();
+		RECT outerCameraRect; //a rect surrounding cameraRect, enemies spawn in this region
+		outerCameraRect.left = cameraRect.left - OUTER_CAMERA_ZONE;
+		outerCameraRect.right = cameraRect.right + OUTER_CAMERA_ZONE;
+		outerCameraRect.top = cameraRect.top - OUTER_CAMERA_ZONE;
+		outerCameraRect.bottom = cameraRect.bottom + OUTER_CAMERA_ZONE;
 
-	for (int i = 0; i < enemiesList.size(); i++) {
-		if (enemiesList[i]->isDestroyed) {
-			Effects::CreateExplosion(enemiesList[i]->x, enemiesList[i]->y);
-			enemyIsSpawnedAtSpot[enemiesList[i]->id] = false;
-			delete enemiesList[i];
-			enemiesList.erase(enemiesList.begin() + i);
-			i--;
+		for (int i = 0; i < enemiesList.size(); i++) {
+			if (enemiesList[i]->isDestroyed) {
+				Effects::CreateExplosion(enemiesList[i]->x, enemiesList[i]->y);
+				enemyIsSpawnedAtSpot[enemiesList[i]->id] = false;
+				delete enemiesList[i];
+				enemiesList.erase(enemiesList.begin() + i);
+				i--;
 
+			}
+			else if (!GameGlobal::IsContain(outerCameraRect, enemiesList[i]->GetRect())
+				&& !GameGlobal::IsIntersect(outerCameraRect, enemiesList[i]->GetRect()))
+			{
+				enemyIsSpawnedAtSpot[enemiesList[i]->id] = false;
+				delete enemiesList[i];
+				enemiesList.erase(enemiesList.begin() + i);
+				i--;
+			}
+			else {
+				enemiesList[i]->Update();
+			}
 		}
-		else if (!GameGlobal::IsContain(outerCameraRect, enemiesList[i]->GetRect())
-				&& !GameGlobal::IsIntersect(outerCameraRect, enemiesList[i]->GetRect())) 
-		{
-			enemyIsSpawnedAtSpot[enemiesList[i]->id] = false;
-			delete enemiesList[i];
-			enemiesList.erase(enemiesList.begin() + i);
-			i--;
-		}
+	}
+	else { //In boss room
+		if (boss->isDestroyed) {
+			isFightingBoss = false;
+			delete boss;
+		} 
 		else {
-			enemiesList[i]->Update();
+			boss->Update();
 		}
 	}
 }
 
 void EnemiesManager::RenderEnemies() {
-	for (int i = 0; i < enemiesList.size(); i++) {
-		enemiesList[i]->Render();
+	if (!isFightingBoss) {
+		for (int i = 0; i < enemiesList.size(); i++) {
+			enemiesList[i]->Render();
+		}
+	}
+	else {
+		boss->Render();
 	}
 }

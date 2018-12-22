@@ -188,7 +188,10 @@
     <ClCompile Include="Elevator.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="MovingObjects.cpp" />
+    <ClCompile Include="MovingObjects.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteBoss.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadGunner.h">
@@ -386,7 +389,10 @@
     <ClInclude Include="Elevator.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="MovingObjects.h" />
+    <ClInclude Include="MovingObjects.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteBoss.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

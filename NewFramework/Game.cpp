@@ -430,16 +430,54 @@ void CheckCollision() {
 }
 
 void CheckCollisionEnemy() {
-	//if (enemy->isDestroyed)
-	//	return;
-	for (auto enemy : EnemiesManager::enemiesList) {
+	if (!Events::isFightingBoss) {
+		for (auto enemy : EnemiesManager::enemiesList) {
+			collisionList.clear();
+			map->GetQuadtree()->GetObjectsCollidableWith(enemy, collisionList);
+
+			for (size_t i = 0; i < collisionList.size(); i++) {
+				enemy->MoveXYToCorner();
+				collisionList.at(i)->MoveXYToCorner();
+				char* isCollided = Collision::IsCollided(enemy, collisionList.at(i));
+				enemy->MoveXYToCenter();
+				collisionList.at(i)->MoveXYToCenter();
+
+				if (isCollided != (char*)"none") {
+					enemy->OnCollision(collisionList.at(i), isCollided);
+				}
+			}
+
+			//Check collision with Megaman
+			//enemy->MoveXYToCorner();
+			//megaman->MoveXYToCorner();
+			//char* isCollided = Collision::IsCollided(enemy, megaman);
+			//enemy->MoveXYToCenter();
+			//megaman->MoveXYToCenter();
+			char* isCollided = Collision::IsIntersect(enemy, megaman);
+
+			if (isCollided != (char*)"none") {
+				enemy->OnCollision(megaman, isCollided);
+				//megaman->OnCollision(enemy, (char*)"X");
+				if (enemy->tag == "boss") {
+					megaman->TakeDmg(4);
+				}
+				else {
+					megaman->TakeDmg(2);
+				}
+			}
+		}
+	}
+	else {
+		Enemy* enemy = EnemiesManager::boss;
 		collisionList.clear();
 		map->GetQuadtree()->GetObjectsCollidableWith(enemy, collisionList);
 
 		for (size_t i = 0; i < collisionList.size(); i++) {
 			enemy->MoveXYToCorner();
+			enemy->SetSignedMoveX();
 			collisionList.at(i)->MoveXYToCorner();
 			char* isCollided = Collision::IsCollided(enemy, collisionList.at(i));
+			enemy->SetUnsignedMoveX();
 			enemy->MoveXYToCenter();
 			collisionList.at(i)->MoveXYToCenter();
 
@@ -449,21 +487,22 @@ void CheckCollisionEnemy() {
 		}
 
 		//Check collision with Megaman
-		//enemy->MoveXYToCorner();
-		//megaman->MoveXYToCorner();
-		//char* isCollided = Collision::IsCollided(enemy, megaman);
-		//enemy->MoveXYToCenter();
-		//megaman->MoveXYToCenter();
-		char* isCollided = Collision::IsIntersect(enemy, megaman);
+		enemy->MoveXYToCorner();
+		enemy->SetSignedMoveX();
+		megaman->MoveXYToCorner();
+		char* isCollided = Collision::IsCollided(enemy, megaman);
+		enemy->MoveXYToCenter();
+		enemy->SetUnsignedMoveX();
+		megaman->MoveXYToCenter();
 
 		if (isCollided != (char*)"none") {
 			enemy->OnCollision(megaman, isCollided);
-			//megaman->OnCollision(enemy, (char*)"X");
-			if (enemy->tag == "boss") {
-				megaman->TakeDmg(4);
-			}
-			else {
-				megaman->TakeDmg(2);
+		}
+		else {
+			char* isCollided = Collision::IsIntersect(enemy, megaman);
+
+			if (isCollided != (char*)"none") {
+				enemy->OnCollision(megaman, isCollided);
 			}
 		}
 	}
@@ -598,6 +637,7 @@ void Start() {
 	megaman = new Megaman();
 	Random::Init();
 	UI::InitHPBar();
+	UI::InitBossHPBar();
 	Events::megaman = megaman;
 
 	/*enemy = new NotorBanger(megaman, 950, 500);
