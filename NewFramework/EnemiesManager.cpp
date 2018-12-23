@@ -146,7 +146,7 @@ void EnemiesManager::UpdateEnemies() {
 	else { //In boss room
 		if (boss->isDestroyed) {
 			isFightingBoss = false;
-			delete boss;
+			//delete boss;
 		} 
 		else {
 			boss->Update();

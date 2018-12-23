@@ -39,10 +39,10 @@ void UI::InitHPBar() {
 
 void UI::ChangeHP(int newHP) {
 	
-	if (newHP < 0 || newHP > 16) {
-		//max and min HP
-		return;
-	}
+	if (newHP < 0)
+		newHP = 0;
+	else if (newHP > 16)
+		newHP = 16;
 	int HP = HPBar->anim->curframe;
 	if (newHP == HP) {
 		isIncreasingHP = false;
@@ -83,11 +83,10 @@ void UI::InitBossHPBar() {
 }
 
 void UI::ChangeBossHP(int newHP) {
-
-	if (newHP < 0 || newHP > 32) {
-		//max and min HP
-		return;
-	}
+	if (newHP < 0)
+		newHP = 0;
+	else if (newHP > 32)
+		newHP = 32;
 	int BossHP = BossHPBar->anim->curframe;
 	if (newHP == BossHP) {
 		isIncreasingBossHP = false;

@@ -17,6 +17,9 @@
 #define BYTE_CHARGING_SPEED 5
 #define BYTE_STATE_TIME_IDLE 30
 #define BYTE_STATE_TIME_PREPARING 30
+#define BYTE_INVULNERABLE_TIME 20
+#define BYTE_PUNCH_FORCE 13
+#define BYTE_PUNCH_DAMAGE 3
 
 
 class ByteBoss :
@@ -24,6 +27,8 @@ class ByteBoss :
 {
 
 	Megaman* player;
+	int invulnerable_t;
+	bool isVulnerable;
 	int groundY;
 	int renderX;
 	int renderY;
@@ -35,6 +40,7 @@ public:
 	void SetState(int newState);
 	void SetRenderXY();
 	void AdjustPosition();
+	void TakeDmg(int damage);
 	void Update();
 	void Render();
 	void OnCollision(MObject *otherObj, char* sideCollided);

@@ -576,22 +576,46 @@ void CheckCollisionBullets() {
 	}
 
 	for (auto bullet : BulletsManager::MegamanBulletsList) {
-		//collisionList.clear();
-		//map->GetQuadtree()->GetObjectsCollidableWith(bullet, collisionList);
 
-		//for (size_t i = 0; i < collisionList.size(); i++) {
-		//	bullet->MoveXYToCorner();
-		//	collisionList.at(i)->MoveXYToCorner();
-		//	char* isCollided = Collision::IsCollided(bullet, collisionList.at(i));
-		//	bullet->MoveXYToCenter();
-		//	collisionList.at(i)->MoveXYToCenter();
+		if (!Events::isFightingBoss) {
+			for (auto enemy : EnemiesManager::enemiesList) {
 
-		//	if (isCollided != (char*)"none") {
-		//		bullet->OnCollision(collisionList.at(i), isCollided);
-		//	}
-		//}
+				bullet->MoveXYToCorner();
+				bullet->SetSignedMoveX();
+				enemy->MoveXYToCorner();
+				char* isCollided = Collision::IsCollided(bullet, enemy);
+				bullet->MoveXYToCenter();
+				bullet->SetUnsignedMoveX();
+				enemy->MoveXYToCenter();
 
-		for (auto enemy : EnemiesManager::enemiesList) {
+				if (isCollided != (char*)"none") {
+					enemy->TakeDmg(bullet->dmg);
+					//enemy->OnCollision(bullet, (char*)"X");
+					if (!enemy->isDestroyed) {
+						bullet->Vanish();
+					}
+					else {
+						//map->GetQuadtree()->Remove(enemy);
+					}
+				}
+				else {
+					char* isCollided = Collision::IsIntersect(bullet, enemy);
+
+					if (isCollided != (char*)"none") {
+						enemy->TakeDmg(bullet->dmg);
+						//enemy->OnCollision(bullet, (char*)"X");
+						if (!enemy->isDestroyed) {
+							bullet->Vanish();
+						}
+						else {
+							//map->GetQuadtree()->Remove(enemy);
+						}
+					}
+				}
+			}
+		}
+		else {
+			Enemy* enemy = EnemiesManager::boss;
 
 			bullet->MoveXYToCorner();
 			bullet->SetSignedMoveX();
@@ -602,7 +626,8 @@ void CheckCollisionBullets() {
 			enemy->MoveXYToCenter();
 
 			if (isCollided != (char*)"none") {
-				enemy->TakeDmg(bullet->dmg);
+				//enemy->TakeDmg(bullet->dmg);
+				enemy->OnCollision(bullet, (char*)"X");
 				if (!enemy->isDestroyed) {
 					bullet->Vanish();
 				}
@@ -614,7 +639,8 @@ void CheckCollisionBullets() {
 				char* isCollided = Collision::IsIntersect(bullet, enemy);
 
 				if (isCollided != (char*)"none") {
-					enemy->TakeDmg(bullet->dmg);
+					//enemy->TakeDmg(bullet->dmg);
+					enemy->OnCollision(bullet, (char*)"X");
 					if (!enemy->isDestroyed) {
 						bullet->Vanish();
 					}

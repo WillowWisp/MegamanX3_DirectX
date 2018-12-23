@@ -74,6 +74,8 @@ public:
 	bool isControllable;
 	bool isHealing;
 	bool isOnSlope;
+	bool isForcedAnimation;
+	bool isForcedMove;
 
 	int shootingAnimDelay;
 	int energy_t;
@@ -94,6 +96,7 @@ public:
 	void SetSignedMoveX();
 	void SetUnsignedMoveX();
 	void ForcedAnimation();
+	void ForcedMove(int _movex, int _movey);
 	void Heal(int healAmount);
 	void TakeDmg(int damage);
 

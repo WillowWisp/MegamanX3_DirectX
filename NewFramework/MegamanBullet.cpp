@@ -30,18 +30,22 @@ MegamanBullet::MegamanBullet(int _x, int _y, int _dirRight, int level)
 	case 0:
 		anim = new Animation(26, 0, 0, MBULLET_ANIM_DELAY - 1);
 		dmg = MBULLET_DMG_LVL0;
+		tag = (char*)"megamanBulletLvl0";
 		break;
 	case 1:
 		anim = new Animation(26, 4, 5, MBULLET_ANIM_DELAY - 1);
 		dmg = MBULLET_DMG_LVL1;
+		tag = (char*)"megamanBulletLvl1";
 		break;
 	case 2:
 		anim = new Animation(26, 14, 15, MBULLET_ANIM_DELAY - 1);
 		dmg = MBULLET_DMG_LVL2;
+		tag = (char*)"megamanBulletLvl2";
 		break;
 	default:
 		anim = new Animation(26, 0, 0, MBULLET_ANIM_DELAY - 1);
 		dmg = MBULLET_DMG_LVL0;
+		tag = (char*)"megamanBulletLvl0";
 		break;
 	}
 
@@ -99,6 +103,7 @@ void MegamanBullet::SetState(int newState) {
 	else if (state == MBULLET_STATE_VANISHING) {
 		movex = 0;
 		dmg = 0;
+		tag = (char*)"megamanBulletNoDmg";
 		switch (chargedLevel)
 		{
 		case 0:

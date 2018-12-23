@@ -23,6 +23,9 @@ ByteBoss::ByteBoss(Megaman* _player, int _x, int _y) {
 	dirUp = 1;
 	dirRight = -1;
 
+	invulnerable_t = -1;
+	isVulnerable = true;
+
 	delta_t = 0;
 	anim = new Animation(23, 0, 0, BYTE_ANIM_DELAY);
 	char s[50];
@@ -70,7 +73,7 @@ void ByteBoss::OnCollision(MObject *otherObj, char* sideCollided) {
 			}
 		}
 	}
-	else if (otherObj->tag == (char*)"megaman") {
+	else if (otherObj->tag == (char*)"megaman" && player->isVulnerable) {
 		if (state != BYTE_STATE_CHARGING_AT_PLAYER
 			&& state != BYTE_STATE_PUNCHING_TO_CEIL
 			&& state != BYTE_STATE_PUNCHING_TO_WALL)
@@ -78,9 +81,30 @@ void ByteBoss::OnCollision(MObject *otherObj, char* sideCollided) {
 			player->TakeDmg(3);
 		}
 		else {
-			player->TakeDmg(5);
+			if (state == BYTE_STATE_CHARGING_AT_PLAYER) {
+				SetState(BYTE_STATE_PUNCHING_TO_CEIL);
+			}
+			//else if (state == BYTE_STATE_PUNCHING_TO_CEIL) {
+			//	SetState(BYTE_STATE_PUNCHING_TO_WALL);
+			//}
+			player->TakeDmg(BYTE_PUNCH_DAMAGE);
 		}
 	}
+	else if (otherObj->tag == (char*)"megamanBulletLvl0"
+			|| otherObj->tag == (char*)"megamanBulletLvl1"
+			|| otherObj->tag == (char*)"megamanBulletLvl2") 
+	{
+		if (otherObj->tag == (char*)"megamanBulletLvl0") {
+			TakeDmg(1);
+		}
+		else if (otherObj->tag == (char*)"megamanBulletLvl1") {
+			TakeDmg(2);
+		}
+		else {
+			TakeDmg(5);
+		}
+	}
+
 }
 
 void ByteBoss::SetState(int newState) {
@@ -140,6 +164,17 @@ void ByteBoss::AdjustPosition() {
 void ByteBoss::SetRenderXY() {
 	renderX = x + (x + 184 / 2) - (x + width / 2);
 	renderY = y;
+}
+
+void ByteBoss::TakeDmg(int damage) {
+	if (!isVulnerable)
+		return;
+	HP -= damage;
+	UI::ChangeBossHP(HP);
+	if (HP <= 0) {
+		HP = 0;
+	}
+	isVulnerable = false;
 }
 
 void ByteBoss::Update() {
@@ -205,8 +240,60 @@ void ByteBoss::Update() {
 		}
 		AdjustPosition();
 	}
+	else if (state == BYTE_STATE_PUNCHING_TO_CEIL) {
+		if (anim->curframe == anim->endframe
+			&& anim->animcount >= anim->animdelay)
+		{
+			SetState(BYTE_STATE_PUNCHING_TO_WALL);
+			//player->TakeDmg(BYTE_PUNCH_DAMAGE);
+			player->ForcedMove(0, -BYTE_PUNCH_FORCE);
+			//x += 20 * (-dirRight);
+		}
+		else {
+			AdjustPosition();
+		}
+	}
+	else if (state == BYTE_STATE_PUNCHING_TO_WALL) {
+		if (anim->curframe == anim->endframe
+			&& anim->animcount >= anim->animdelay)
+		{
+			SetState(BYTE_STATE_IDLE);
+			player->isVulnerable = true;
+			player->TakeDmg(BYTE_PUNCH_DAMAGE);
+			player->dirRight = -dirRight;
+			if (player->HitGround()) {
+				player->y -= 10;
+			}
+			player->color = D3DCOLOR_ARGB(255, 255, 255, 255);
+			player->ForcedMove(BYTE_PUNCH_FORCE * dirRight, 0);
+			//x += 20 * (-dirRight);
+		}
+		else {
+			AdjustPosition();
+		}
+	}
+	else {
+		AdjustPosition();
+	}
 	//AdjustPosition();
 	delta_t++;
+
+	if (!isVulnerable) {
+		if (invulnerable_t > INVULNERABLE_TIME) {
+			isVulnerable = true;
+			invulnerable_t = -1;
+			//color = D3DCOLOR_ARGB(255, 255, 255, 255);
+			color = D3DCOLOR_COLORVALUE(0.0f, 1.0f, 1.0f, 1.0f);
+		}
+		else if (invulnerable_t % 3 == 0) {
+			color = D3DCOLOR_ARGB(255, 0, 255, 255);
+		}
+		else {
+			color = D3DCOLOR_ARGB(255, 255, 255, 255);
+		}
+		invulnerable_t++;
+	}
+
 	MObject::Update();
 }
 
