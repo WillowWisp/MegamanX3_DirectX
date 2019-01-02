@@ -107,6 +107,11 @@ void UI::ChangeBossHP(int newHP) {
 	}
 }
 
+void UI::DeleteBossHPBar() {
+	showBossHPBar = false;
+	delete BossHPBar;
+}
+
 void UI::UpdateUI() {
 	ChangeHP(curHP);
 }

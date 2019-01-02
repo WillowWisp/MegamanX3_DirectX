@@ -26,15 +26,18 @@ void EnemiesManager::SpawnBoss(Megaman* player, int bossID) {
 	switch (bossID)
 	{
 	case BOSS_SHURIKEIN:
+		boss = new ByteBoss(player, 5000, 2000);
 		break;
 	case BOSS_BYTE:
 		boss = new ByteBoss(player, 11580, 1900);
 		break;
 	case BOSS_BLAST_HORNET:
+		boss = new ByteBoss(player, 15750, 3500);
 		break;
 	default:
 		break;
 	}
+	UI::InitBossHPBar();
 	isFightingBoss = true;
 }
 
@@ -146,6 +149,7 @@ void EnemiesManager::UpdateEnemies() {
 	else { //In boss room
 		if (boss->isDestroyed) {
 			isFightingBoss = false;
+			Events::isFightingBoss = false;
 			//delete boss;
 		} 
 		else {

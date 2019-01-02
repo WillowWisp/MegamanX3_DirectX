@@ -22,6 +22,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletsManager.h" />
     <ClInclude Include="ByteBoss.h" />
+    <ClInclude Include="ByteMine.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DebugDraw.h" />
@@ -91,6 +92,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletsManager.cpp" />
     <ClCompile Include="ByteBoss.cpp" />
+    <ClCompile Include="ByteMine.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
