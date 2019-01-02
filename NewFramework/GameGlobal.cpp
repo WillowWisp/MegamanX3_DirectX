@@ -55,3 +55,14 @@ bool GameGlobal::IsContain(RECT container, RECT rect) {
 
 	return false;
 }
+
+int GameGlobal::easeInCirc(int currentTime, int startVal, int changeInVal, int duration) {
+	currentTime /= duration;
+	return -changeInVal * (sqrt(1 - currentTime * currentTime) - 1) + startVal;
+}
+
+int GameGlobal::easeOutCirc(int currentTime, int startVal, int changeInVal, int duration) {
+	currentTime /= duration;
+	currentTime--;
+	return changeInVal * sqrt(1 - currentTime * currentTime) + startVal;
+}
