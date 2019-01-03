@@ -57,7 +57,7 @@ void Helit::SetState(int newState) {
 	case STATE_IDLE:
 		SetAnimState(0, 0, ANIM_DELAY);
 		break;
-	case STATE_SHOOT:
+	case STATE_BH_SHOOT_CONE:
 		SetAnimState(1, 1, ANIM_DELAY);
 		break;
 	case STATE_FLY_AWAY:
@@ -92,8 +92,8 @@ void Helit::Update() {
 
 		if (player->y >= y - 5 && player->y <= y + 5) { //Nếu người chơi ngang độ cao vs Helit
 			if (x * dirRight < player->x * dirRight) { //và Helit quay mặt vô ng chơi
-				if (state != STATE_SHOOT) {
-					SetState(STATE_SHOOT);
+				if (state != STATE_BH_SHOOT_CONE) {
+					SetState(STATE_BH_SHOOT_CONE);
 					Shoot();
 					movey = 0;
 					delta_t = 0; //Sau khi bắn thì hoãn 1 thời gian rồi mới di chuyển tiếp
@@ -102,7 +102,7 @@ void Helit::Update() {
 		}
 	}
 
-	if (state == STATE_SHOOT) {
+	if (state == STATE_BH_SHOOT_CONE) {
 		if (delta_t >= 50) {
 			if (bulletLeft > 0)
 				SetState(STATE_IDLE);

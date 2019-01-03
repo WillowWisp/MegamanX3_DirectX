@@ -195,6 +195,15 @@
     <ClCompile Include="BlastHornet.cpp">
       <Filter>Framework\Characters\BlastHornet</Filter>
     </ClCompile>
+    <ClCompile Include="BlastHornetWing.cpp">
+      <Filter>Framework\Characters\BlastHornet</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniBee.cpp">
+      <Filter>Framework\Characters\BlastHornet</Filter>
+    </ClCompile>
+    <ClCompile Include="ChasingBee.cpp">
+      <Filter>Framework\Characters\BlastHornet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadGunner.h">
@@ -397,6 +406,15 @@
     </ClInclude>
     <ClInclude Include="ByteBoss.h" />
     <ClInclude Include="BlastHornet.h">
+      <Filter>Framework\Characters\BlastHornet</Filter>
+    </ClInclude>
+    <ClInclude Include="BlastHornetWing.h">
+      <Filter>Framework\Characters\BlastHornet</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniBee.h">
+      <Filter>Framework\Characters\BlastHornet</Filter>
+    </ClInclude>
+    <ClInclude Include="ChasingBee.h">
       <Filter>Framework\Characters\BlastHornet</Filter>
     </ClInclude>
   </ItemGroup>

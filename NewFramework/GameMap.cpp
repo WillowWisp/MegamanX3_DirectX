@@ -177,7 +177,7 @@ void GameMap::LoadMap(char* filePath)
 				slopes.push_back(rect);
 			}
 		}
-		else {
+		else if (objectGroup->GetName() == "static") {
 			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
 			{
 				//Lấy ObjectGroup # lấy layer
@@ -194,6 +194,19 @@ void GameMap::LoadMap(char* filePath)
 
 				quadtree->Insert(mObject);
 			}
+		}
+
+		//thêm else vô thì VS nhận sai định dạng??
+		if (objectGroup->GetName() == "blastHornetRegion") {
+			Tmx::Object *object = objectGroup->GetObjects().at(0);
+
+			RECT rect;
+			rect.left = object->GetX();
+			rect.right = rect.left + object->GetWidth();
+			rect.top = object->GetY();
+			rect.bottom = rect.top + object->GetHeight();
+
+			EnemiesManager::blastHornetRegion = rect;
 		}
 	}
 }

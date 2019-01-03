@@ -10,8 +10,6 @@
 class HelitWing : public MObject
 {
 	MObject* helit;
-	int offsetX;
-	int offsetY;
 public:
 	HelitWing();
 	HelitWing(MObject* _helit);

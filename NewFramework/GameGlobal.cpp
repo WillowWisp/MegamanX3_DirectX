@@ -56,12 +56,16 @@ bool GameGlobal::IsContain(RECT container, RECT rect) {
 	return false;
 }
 
-int GameGlobal::easeInCirc(int currentTime, int startVal, int changeInVal, int duration) {
+float GameGlobal::DistanceBetween(D3DXVECTOR2 point1, D3DXVECTOR2 point2) {
+	return sqrt((point2.x - point1.x)*(point2.x - point1.x) + (point2.y - point1.y)*(point2.y - point1.y));
+}
+
+int GameGlobal::EaseInCirc(int currentTime, int startVal, int changeInVal, int duration) {
 	currentTime /= duration;
 	return -changeInVal * (sqrt(1 - currentTime * currentTime) - 1) + startVal;
 }
 
-int GameGlobal::easeOutCirc(int currentTime, int startVal, int changeInVal, int duration) {
+int GameGlobal::EaseOutCirc(int currentTime, int startVal, int changeInVal, int duration) {
 	currentTime /= duration;
 	currentTime--;
 	return changeInVal * sqrt(1 - currentTime * currentTime) + startVal;

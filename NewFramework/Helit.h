@@ -8,7 +8,7 @@
 #include "BulletsManager.h"
 
 #define STATE_IDLE 0
-#define STATE_SHOOT 1
+#define STATE_BH_SHOOT_CONE 1
 #define STATE_FLY_AWAY 2
 
 class Helit : public Enemy

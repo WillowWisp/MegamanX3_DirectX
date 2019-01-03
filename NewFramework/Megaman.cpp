@@ -18,8 +18,15 @@ Megaman::Megaman()
 	//y = 1911;
 	//x = 12616;
 	//y = 3869;
-	x = 11000;
-	y = 2318;
+
+	//Boss byte
+	//x = 11000;
+	//y = 2318;
+
+	//Boss blast hornet
+	x = 15040;
+	y = 3885;
+
 	tag = (char*)"megaman";
 	curGroundY = 1000000;
 	curCeilY = -1000000;

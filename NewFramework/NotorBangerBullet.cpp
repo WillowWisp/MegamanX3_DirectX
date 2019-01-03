@@ -59,10 +59,10 @@ void NotorBangerBullet::Render() {
 	D3DXVECTOR2 shift = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
 	D3DXVECTOR2 combined = translation + shift;
 
-	D3DXVECTOR2 scale = D3DXVECTOR2(1 * dirRight, 1);
-	D3DXMatrixTransformation2D(&matrix, NULL, 0, NULL, NULL,
+	D3DXVECTOR2 scale = D3DXVECTOR2(-1 * dirRight, 1); //-1 do hình bị ngược
+	D3DXMatrixTransformation2D(&matrix, NULL, 0, &scale, NULL,
 		NULL, &combined);
 	x += movex;
 	y += movey;
-	anim->AnimateWithoutLoop(matrix);
+	anim->Animate(matrix);
 }

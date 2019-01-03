@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlastHornet.h" />
+    <ClInclude Include="BlastHornetWing.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletsManager.h" />
     <ClInclude Include="ByteBoss.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ChasingBee.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DemoScene.h" />
@@ -75,6 +77,7 @@
     <ClInclude Include="MapReader\zconf.h" />
     <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="MegamanBullet.h" />
+    <ClInclude Include="MiniBee.h" />
     <ClInclude Include="MovingObjects.h" />
     <ClInclude Include="NotorBanger.h" />
     <ClInclude Include="NotorBangerBullet.h" />
@@ -90,10 +93,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BlastHornet.cpp" />
+    <ClCompile Include="BlastHornetWing.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletsManager.cpp" />
     <ClCompile Include="ByteBoss.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ChasingBee.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="DemoScene.cpp" />
@@ -142,6 +147,7 @@
     <ClCompile Include="MapReader\TmxTileset.cpp" />
     <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="MegamanBullet.cpp" />
+    <ClCompile Include="MiniBee.cpp" />
     <ClCompile Include="MovingObjects.cpp" />
     <ClCompile Include="NotorBanger.cpp" />
     <ClCompile Include="NotorBangerBullet.cpp" />

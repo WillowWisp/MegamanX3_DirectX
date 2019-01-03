@@ -29,7 +29,9 @@ public:
 	static bool IsIntersectY(RECT rect1, RECT rect2);
 	static bool IsContain(RECT container, RECT rect);
 
-	static int easeInCirc(int currentTime, int startVal, int changeInVal, int duration);
-	static int easeOutCirc(int currentTime, int startVal, int changeInVal, int duration);
+	static float DistanceBetween(D3DXVECTOR2 point1, D3DXVECTOR2 point2);
+
+	static int EaseInCirc(int currentTime, int startVal, int changeInVal, int duration);
+	static int EaseOutCirc(int currentTime, int startVal, int changeInVal, int duration);
 };
 
