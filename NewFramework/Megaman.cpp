@@ -2,8 +2,8 @@
 
 Megaman::Megaman()
 {
-	x = 133;
-	y = 1800;
+	/*x = 133;
+	y = 1800;*/
 	//x = 1609;
 	//y = 1791;
 	//x = 1400;
@@ -12,14 +12,16 @@ Megaman::Megaman()
 	//y = 850;
 	//x = 12811;
 	//y = 3900;
-	//x = 4500;
-	//y = 2300;
+	x = 4500;
+	y = 2300;
 	//x = 5926;
 	//y = 1911;
 	//x = 12616;
 	//y = 3869;
-	//x = 11572;
-	//y = 2318;
+	/*x = 11000;
+	y = 2318;*/
+	//x = 12648;
+	//y = 3864;
 	tag = (char*)"megaman";
 	curGroundY = 1000000;
 	curCeilY = -1000000;
@@ -226,6 +228,35 @@ void Megaman::ForcedAnimation() {
 	forcedAnim_t++;
 }
 
+void Megaman::ForcedMove(int _movex, int _movey) {
+	/*if (!isVulnerable)
+		return;*/
+	if (HitWall() || HitGround() || HitCeil()) {
+		if (HitWall()) {
+			if (x - width / 2 <= curLeftWallX)
+				x = curLeftWallX + width / 2 + 2;
+			else if (x + width / 2 >= curRightWallX)
+				x = curRightWallX - width / 2 - 2;
+		}
+		if (HitCeil()) {
+			y = curCeilY + height / 2 - HIT_CEIL_MARGIN;
+			SetState(STATE_FALLING);
+		}
+		if (HitGround()) {
+			y = curGroundY - height / 2 + HIT_GROUND_MARGIN;
+		}
+		isControllable = true;
+		isForcedMove = false;
+		delta_t = 0;
+		//SetState(STATE_FALLING);
+		return;
+	}
+	movex = _movex;
+	movey = _movey;
+	isControllable = false;
+	isForcedMove = true;
+}
+
 void Megaman::Heal(int healAmount) {
 	if (HP >= MEGAMAN_MAX_HP)
 		return;
@@ -270,7 +301,12 @@ void Megaman::Update()
 	//}
 
 	if (!isControllable) {
-		ForcedAnimation();
+		if (isForcedMove) {
+			ForcedMove(movex, movey);
+		}
+		else {
+			ForcedAnimation();
+		}
 		if (!isControllable) {
 			return;
 		}
@@ -709,7 +745,8 @@ void Megaman::Update()
 	}
 
 	if (HitCeil()) {
-		y = curCeilY + height / 2 + HIT_CEIL_MARGIN;
+		y = curCeilY + height / 2 - HIT_CEIL_MARGIN;
+		//SetState(STATE_FALLING);
 	}
 
 	if (HitGround()) {
@@ -805,6 +842,8 @@ void Megaman::Render() {
 //}
 
 void Megaman::SetSignedMoveX() {
+	//if (isForcedMove && dirRight > 0)
+	//	return;
 	if (dirRight == -1) {
 		movex *= -1;
 	}
@@ -814,8 +853,10 @@ void Megaman::SetSignedMoveX() {
 }
 
 void Megaman::SetUnsignedMoveX() {
+	//if (isForcedMove && dirRight > 0)
+	//	return;
 	movex = abs(movex);
-	if (state == STATE_WALL_KICKING) {
+	if (state == STATE_WALL_KICKING || isForcedMove) {
 		movex *= -1;
 	}
 }

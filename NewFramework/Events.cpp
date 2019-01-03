@@ -73,13 +73,29 @@ void Events::OpenDoor(int doorId) {
 			}
 		}
 	}
-	else if (doorsList[doorId]->anim->curframe == 34) {
+	else if (doorsList[doorId]->anim->curframe == 34) {		//finish opening
 		doorsList[doorId]->anim->ChangeAnimFrames(34, 34);
 		doorsList[doorId]->anim->curframe = 34;
 		isOpeningDoor = false;
 		//openingDoorId = -1;
 		megaman->isControllable = true;
+		//megaman->SetState(STATE_IDLE);
 		//isFightingBoss = true;
+		if (openingDoorId == BOSS_SHURIKEIN_DOOR
+			|| openingDoorId == BOSS_BYTE_DOOR
+			|| openingDoorId == BOSS_BLAST_HORNET_DOOR) 
+		{
+			isFightingBoss = true;
+			if (openingDoorId == BOSS_SHURIKEIN_DOOR) {
+				EnemiesManager::SpawnBoss(megaman, BOSS_SHURIKEIN);
+			}
+			else if (openingDoorId == BOSS_BYTE_DOOR) {
+				EnemiesManager::SpawnBoss(megaman, BOSS_BYTE);
+			}
+			else if (openingDoorId == BOSS_BLAST_HORNET_DOOR) {
+				EnemiesManager::SpawnBoss(megaman, BOSS_BLAST_HORNET);
+			}
+		}
 	}
 	else {
 		megaman->anim->animcount = 0;

@@ -188,7 +188,15 @@
     <ClCompile Include="Elevator.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="MovingObjects.cpp" />
+    <ClCompile Include="MovingObjects.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteBoss.cpp">
+      <Filter>Framework\Characters\Byte</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteMine.cpp">
+      <Filter>Framework\Characters\Byte</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadGunner.h">
@@ -386,7 +394,15 @@
     <ClInclude Include="Elevator.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="MovingObjects.h" />
+    <ClInclude Include="MovingObjects.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteBoss.h">
+      <Filter>Framework\Characters\Byte</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteMine.h">
+      <Filter>Framework\Characters\Byte</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -424,6 +440,9 @@
     </Filter>
     <Filter Include="Framework\MapReader">
       <UniqueIdentifier>{6c6f0562-f3e0-415f-ab70-bf00da04d6c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters\Byte">
+      <UniqueIdentifier>{1b32a31c-0e6b-4efe-be9d-c588063d538b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

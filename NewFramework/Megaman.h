@@ -38,7 +38,7 @@
 #define CHARGED_SHOT_LV2_TIME 40
 #define SHOOTING_ANIMATION_DELAY 10
 #define TAKING_DMG_ANIMATION_TIME 20
-#define INVULNERABLE_TIME 35
+#define INVULNERABLE_TIME 50
 #define HEALING_TIME 20
 #define MEGAMAN_MAX_HP 16
 #define HIT_GROUND_MARGIN 4
@@ -74,6 +74,8 @@ public:
 	bool isControllable;
 	bool isHealing;
 	bool isOnSlope;
+	bool isForcedAnimation;
+	bool isForcedMove;
 
 	int shootingAnimDelay;
 	int energy_t;
@@ -94,6 +96,7 @@ public:
 	void SetSignedMoveX();
 	void SetUnsignedMoveX();
 	void ForcedAnimation();
+	void ForcedMove(int _movex, int _movey);
 	void Heal(int healAmount);
 	void TakeDmg(int damage);
 
