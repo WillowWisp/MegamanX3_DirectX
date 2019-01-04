@@ -208,6 +208,9 @@
     <ClCompile Include="ByteMine.cpp">
       <Filter>Framework\Characters\Byte</Filter>
     </ClCompile>
+    <ClCompile Include="Shurikein.cpp">
+      <Filter>Framework\Characters\Shurikein</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadGunner.h">
@@ -425,6 +428,9 @@
     <ClInclude Include="ByteMine.h">
       <Filter>Framework\Characters\Byte</Filter>
     </ClInclude>
+    <ClInclude Include="Shurikein.h">
+      <Filter>Framework\Characters\Shurikein</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -467,6 +473,9 @@
       <UniqueIdentifier>{b665b05e-d391-4efa-8059-00cb72e8a114}</UniqueIdentifier>
     <Filter Include="Framework\Characters\Byte">
       <UniqueIdentifier>{1b32a31c-0e6b-4efe-be9d-c588063d538b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters\Shurikein">
+      <UniqueIdentifier>{32439c7c-740d-4044-8e34-d1d4e0296763}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

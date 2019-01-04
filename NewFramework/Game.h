@@ -18,6 +18,7 @@
 #include "NotorBanger.h"
 #include "HeadGunner.h"
 #include "Helit.h"
+#include "Shurikein.h"
 #include "Camera.h"
 #include "GameLog.h"
 #include "DebugDraw.h"

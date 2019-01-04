@@ -33,9 +33,6 @@ Sun* sun;
 Sun* sun2;
 Megaman* megaman;
 
-//NotorBanger* enemy;
-//HeadGunner* headGunner;
-
 GameMap *map;
 
 std::vector<MObject*> collisionList;
@@ -664,6 +661,23 @@ void CheckCollisionBullets() {
 		}
 	}
 }
+//Tam thoi
+void CheckCollisionShurikein() {
+	collisionList.clear();
+	map->GetQuadtree()->GetObjectsCollidableWith(shurikein, collisionList);
+
+	for (size_t i = 0; i < collisionList.size(); i++) {
+		shurikein->MoveXYToCorner();
+		collisionList.at(i)->MoveXYToCorner();
+		char* isCollided = Collision::IsCollided(shurikein, collisionList.at(i));
+		shurikein->MoveXYToCenter();
+		collisionList.at(i)->MoveXYToCenter();
+
+		if (isCollided != (char*)"none") {
+			shurikein->OnCollision(collisionList.at(i), isCollided);
+		}
+	}
+}
 
 //Xử lý Init
 void Start() {
@@ -698,7 +712,6 @@ void Start() {
 	MovingObjects::SetElevatorSizeAsMovingSize();
 	map->GetQuadtree()->Insert(MovingObjects::elevator);
 	MovingObjects::SetElevatorNormalSize();
-
 	
 	GameGlobal::camera = new Camera(GameGlobal::wndWidth, GameGlobal::wndHeight);
 	//GameGlobal::camera->position = D3DXVECTOR3(0,0,0);
