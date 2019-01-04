@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "MObject.h"
+#include "Enemy.h"
 #include "GameLog.h"
 
 #define ANIM_DELAY -1
@@ -23,7 +24,7 @@
 #pragma endregion
 
 
-class Shurikein : public MObject
+class Shurikein : public Enemy
 {
 	int phase; //Shurikein có 3 phase 1,2,3. phase = 0 là lúc xuất hiện
 

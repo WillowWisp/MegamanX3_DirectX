@@ -6,6 +6,7 @@
 #include "Helit.h"
 #include "Random.h"
 #include "Effects.h"
+#include "Shurikein.h"
 #include "ByteBoss.h"
 #include "BlastHornet.h"
 #include "Events.h"

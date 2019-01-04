@@ -471,10 +471,12 @@ void CheckCollisionEnemy() {
 
 		for (size_t i = 0; i < collisionList.size(); i++) {
 			enemy->MoveXYToCorner();
-			enemy->SetSignedMoveX();
+			if (enemy->tag == (char*)"bossByte")
+				enemy->SetSignedMoveX();
 			collisionList.at(i)->MoveXYToCorner();
 			char* isCollided = Collision::IsCollided(enemy, collisionList.at(i));
-			enemy->SetUnsignedMoveX();
+			if (enemy->tag == (char*)"bossByte")
+				enemy->SetUnsignedMoveX();
 			enemy->MoveXYToCenter();
 			collisionList.at(i)->MoveXYToCenter();
 
@@ -485,11 +487,13 @@ void CheckCollisionEnemy() {
 
 		//Check collision with Megaman
 		enemy->MoveXYToCorner();
-		enemy->SetSignedMoveX();
+		if (enemy->tag == (char*)"bossByte")
+			enemy->SetSignedMoveX();
 		megaman->MoveXYToCorner();
 		char* isCollided = Collision::IsCollided(enemy, megaman);
 		enemy->MoveXYToCenter();
-		enemy->SetUnsignedMoveX();
+		if (enemy->tag == (char*)"bossByte")
+			enemy->SetUnsignedMoveX();
 		megaman->MoveXYToCenter();
 
 		if (isCollided != (char*)"none") {
@@ -661,23 +665,24 @@ void CheckCollisionBullets() {
 		}
 	}
 }
+
 //Tam thoi
-void CheckCollisionShurikein() {
-	collisionList.clear();
-	map->GetQuadtree()->GetObjectsCollidableWith(shurikein, collisionList);
-
-	for (size_t i = 0; i < collisionList.size(); i++) {
-		shurikein->MoveXYToCorner();
-		collisionList.at(i)->MoveXYToCorner();
-		char* isCollided = Collision::IsCollided(shurikein, collisionList.at(i));
-		shurikein->MoveXYToCenter();
-		collisionList.at(i)->MoveXYToCenter();
-
-		if (isCollided != (char*)"none") {
-			shurikein->OnCollision(collisionList.at(i), isCollided);
-		}
-	}
-}
+//void CheckCollisionShurikein() {
+//	collisionList.clear();
+//	map->GetQuadtree()->GetObjectsCollidableWith(shurikein, collisionList);
+//
+//	for (size_t i = 0; i < collisionList.size(); i++) {
+//		shurikein->MoveXYToCorner();
+//		collisionList.at(i)->MoveXYToCorner();
+//		char* isCollided = Collision::IsCollided(shurikein, collisionList.at(i));
+//		shurikein->MoveXYToCenter();
+//		collisionList.at(i)->MoveXYToCenter();
+//
+//		if (isCollided != (char*)"none") {
+//			shurikein->OnCollision(collisionList.at(i), isCollided);
+//		}
+//	}
+//}
 
 //Xử lý Init
 void Start() {

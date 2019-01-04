@@ -14,7 +14,7 @@ ByteBoss::~ByteBoss()
 ByteBoss::ByteBoss(Megaman* _player, int _x, int _y) {
 	player = _player;
 
-	tag = (char*)"boss";
+	tag = (char*)"bossByte";
 	HP = 5;
 	x = _x;
 	y = _y;

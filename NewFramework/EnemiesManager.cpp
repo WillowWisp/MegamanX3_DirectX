@@ -28,7 +28,7 @@ void EnemiesManager::SpawnBoss(Megaman* player, int bossID) {
 	switch (bossID)
 	{
 	case BOSS_SHURIKEIN:
-		boss = new ByteBoss(player, 5000, 2000);
+		boss = new Shurikein(player, 5020, 2320, -1);
 		break;
 	case BOSS_BYTE:
 		boss = new ByteBoss(player, 11580, 1900);

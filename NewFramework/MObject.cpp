@@ -93,12 +93,12 @@ void MObject::MoveXYToCenter() {
 
 void MObject::SetSignedMoveX() {
 	if (dirRight == -1) {
-		//movex *= -1;
+		movex *= -1;
 	}
 }
 
 void MObject::SetUnsignedMoveX() {
-	//movex = abs(movex);
+	movex = abs(movex);
 }
 
 void MObject::Goto(D3DXVECTOR2 des, int speed) {
