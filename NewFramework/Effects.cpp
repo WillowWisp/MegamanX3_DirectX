@@ -4,6 +4,8 @@
 MObject* Effects::megamanEnergy = NULL;
 std::vector<MObject*> Effects::explosionList;
 std::vector<MObject*> Effects::smokeList;
+std::vector<MObject*> Effects::megamanDeathEnergyList;
+Sprite* Effects::screenFilter;
 
 Effects::Effects()
 {
@@ -19,6 +21,10 @@ Effects::~Effects()
 	for (int i = 0; i < smokeList.size(); i++) {
 		delete smokeList[i];
 	}
+	for (int i = 0; i < megamanDeathEnergyList.size(); i++) {
+		delete megamanDeathEnergyList[i];
+	}
+	delete screenFilter;
 }
 
 void Effects::CreateMegamanEnergy() {
@@ -50,9 +56,115 @@ void Effects::DrawMegamanEnergy(D3DXMATRIX matrix, int x, int y, int level) {
 	Effects::megamanEnergy->Render();
 }
 
+void Effects::CreateMegamanDeathEnergy(int x, int y, int movex, int movey) {
+	MObject* deathEnergy = new MObject();
+	deathEnergy->anim = new Animation(6, 0, 5, 1);
+	char s[50];
+	for (int i = 0; i < 6; i++) {
+		sprintf_s(s, "sprites/megaman_effects/death/%d.png", i);
+		deathEnergy->anim->sprite[i] = new Sprite(s);
+	}
+	deathEnergy->x = x;
+	deathEnergy->y = y;
+	deathEnergy->movex = movex;
+	deathEnergy->movey = movey;
+	deathEnergy->delta_t = 0;
+	megamanDeathEnergyList.push_back(deathEnergy);
+}
+
+void Effects::CreateMegamanDeathEffect(int x, int y) {
+	CreateMegamanDeathEnergy(x, y, 0, -DEATH_ENERGY_SPEED);
+	CreateMegamanDeathEnergy(x, y, 0, DEATH_ENERGY_SPEED);
+	CreateMegamanDeathEnergy(x, y, DEATH_ENERGY_SPEED, 0);
+	CreateMegamanDeathEnergy(x, y, -DEATH_ENERGY_SPEED, 0);
+	CreateMegamanDeathEnergy(x, y, -DEATH_ENERGY_SPEED / SQUAREROOT_2, -DEATH_ENERGY_SPEED / SQUAREROOT_2);
+	CreateMegamanDeathEnergy(x, y, -DEATH_ENERGY_SPEED / SQUAREROOT_2, DEATH_ENERGY_SPEED / SQUAREROOT_2);
+	CreateMegamanDeathEnergy(x, y, DEATH_ENERGY_SPEED / SQUAREROOT_2, -DEATH_ENERGY_SPEED / SQUAREROOT_2);
+	CreateMegamanDeathEnergy(x, y, DEATH_ENERGY_SPEED / SQUAREROOT_2, DEATH_ENERGY_SPEED / SQUAREROOT_2);
+}
+
+void Effects::DrawMegamanDeathEffect() {
+	for (int i = 0; i < megamanDeathEnergyList.size(); i++) {
+		if (megamanDeathEnergyList[i]->delta_t > DEATH_ENERGY_EXIST_TIME) {
+			delete megamanDeathEnergyList[i];
+			megamanDeathEnergyList.erase(megamanDeathEnergyList.begin() + i);
+			i--;
+		}
+		else {
+			//Update
+			//if (megamanDeathEnergyList[i]->movex > 0) {
+			//	megamanDeathEnergyList[i]->movex--;
+			//}
+			//else {
+			//	megamanDeathEnergyList[i]->movex++;
+			//}
+			//if (megamanDeathEnergyList[i]->movey > 0) {
+			//	megamanDeathEnergyList[i]->movey--;
+			//}
+			//else {
+			//	megamanDeathEnergyList[i]->movey++;
+			//}
+			/*megamanDeathEnergyList[i]->movex--;
+			megamanDeathEnergyList[i]->movey++;*/
+
+			float sqrt2 = 1.4;
+
+			megamanDeathEnergyList[i]->x += megamanDeathEnergyList[i]->movex;
+			megamanDeathEnergyList[i]->y += megamanDeathEnergyList[i]->movey;
+
+			/*if (megamanDeathEnergyList[i]->movey < 0 && megamanDeathEnergyList[i]->movex != 0) {
+				megamanDeathEnergyList[i]->x += megamanDeathEnergyList[i]->delta_t;
+			}
+			else if (megamanDeathEnergyList[i]->movey == 0) {
+				megamanDeathEnergyList[i]->x += megamanDeathEnergyList[i]->movex > 0 
+												? -megamanDeathEnergyList[i]->delta_t * sqrt2
+												: megamanDeathEnergyList[i]->delta_t * sqrt2;
+			}
+			else if (megamanDeathEnergyList[i]->movex != 0)	{
+				megamanDeathEnergyList[i]->x -= megamanDeathEnergyList[i]->delta_t;
+			}
+			else {
+				megamanDeathEnergyList[i]->x += megamanDeathEnergyList[i]->movey > 0
+												? -megamanDeathEnergyList[i]->delta_t * sqrt2
+												: megamanDeathEnergyList[i]->delta_t * sqrt2;
+			}
+
+			if (megamanDeathEnergyList[i]->movex < 0 && megamanDeathEnergyList[i]->movey != 0) {
+				megamanDeathEnergyList[i]->y -= megamanDeathEnergyList[i]->delta_t;
+			}
+			else if (megamanDeathEnergyList[i]->movex == 0) {
+				megamanDeathEnergyList[i]->y += megamanDeathEnergyList[i]->movey > 0
+												? -megamanDeathEnergyList[i]->delta_t * sqrt2
+												: +megamanDeathEnergyList[i]->delta_t * sqrt2;
+			}
+			else if (megamanDeathEnergyList[i]->movey != 0) {
+				megamanDeathEnergyList[i]->y += megamanDeathEnergyList[i]->delta_t;
+			}
+			else {
+				megamanDeathEnergyList[i]->y += megamanDeathEnergyList[i]->movex > 0
+												? megamanDeathEnergyList[i]->delta_t * sqrt2
+												: -megamanDeathEnergyList[i]->delta_t * sqrt2;
+			}*/
+			
+			megamanDeathEnergyList[i]->delta_t++;
+
+			//Render
+			D3DXVECTOR2 translation = D3DXVECTOR2(megamanDeathEnergyList[i]->x, megamanDeathEnergyList[i]->y);
+			D3DXVECTOR2 translate = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
+			D3DXVECTOR2 combined = translation + translate;
+
+			D3DXVECTOR2 scale = D3DXVECTOR2(1, 1);
+			//center = D3DXVECTOR3(width / 2, height / 2, 0);
+			D3DXMatrixTransformation2D(&(megamanDeathEnergyList[i]->matrix), NULL, 0, &scale, NULL,
+				NULL, &combined);
+			megamanDeathEnergyList[i]->Render();
+		}
+	}
+}
+
 void Effects::CreateExplosion(int x, int y) {
 	MObject* explosion = new MObject();
-	explosion->anim = new Animation(8, 0, 7, 0);
+	explosion->anim = new Animation(8, 0, 7, 1);
 	char s[50];
 	for (int i = 0; i < 8; i++) {
 		sprintf_s(s, "sprites/effects/explosion/%d.png", i);
@@ -130,4 +242,25 @@ void Effects::RenderEffects() {
 	if (smokeList.size() > 0) {
 		Effects::DrawSmokes();
 	}
+	if (megamanDeathEnergyList.size() > 0) {
+		Effects::DrawMegamanDeathEffect();
+	}
+}
+
+void Effects::CreateScreenFilter() {
+	char s[50];
+	sprintf_s(s, "sprites/effects/screen_filter/white.png");
+	screenFilter = new Sprite(s);
+}
+
+void Effects::DrawScreenFilter(D3DCOLOR color) {
+	D3DXMATRIX matrix;
+
+	D3DXVECTOR2 translation = D3DXVECTOR2(GameGlobal::camera->width / 2, GameGlobal::camera->height / 2);
+
+	D3DXVECTOR2 scale = D3DXVECTOR2(2, 2);
+	//center = D3DXVECTOR3(width / 2, height / 2, 0);
+	D3DXMatrixTransformation2D(&matrix, NULL, 0, &scale, NULL,
+		NULL, &translation);
+	screenFilter->Draw(matrix, color);
 }

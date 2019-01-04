@@ -60,6 +60,7 @@ void Shurikein::SetState(int newState) {
 	case STATE_SHURIKEIN_DYING:
 		phase = -1;
 		SetAnimState(84, 84, ANIM_DELAY);
+		player->isControllable = false;
 		break;
 	}
 }

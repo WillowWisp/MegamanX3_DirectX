@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlastHornet.h" />
+    <ClInclude Include="BlastHornetScene.h" />
     <ClInclude Include="BlastHornetWing.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletsManager.h" />
@@ -95,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BlastHornet.cpp" />
+    <ClCompile Include="BlastHornetScene.cpp" />
     <ClCompile Include="BlastHornetWing.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletsManager.cpp" />
@@ -173,7 +175,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B427AB71-CBFF-4856-AA4D-2BC72FB2DE47}</ProjectGuid>
     <RootNamespace>NewFramework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

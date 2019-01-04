@@ -94,6 +94,7 @@ void BlastHornet::SetState(int newState) {
 		break;
 	case STATE_BH_DYING:
 		SetAnimState(19, 19, ANIM_DELAY);
+		UI::DeleteBossHPBar();
 		delta_t2 = 0;
 		phase = -1;
 		player->color = D3DCOLOR_ARGB(255, 255, 255, 255);

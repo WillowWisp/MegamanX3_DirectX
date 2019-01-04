@@ -29,6 +29,7 @@ class GameMap
 	void LoadMap(char* filePath);
 public:
 	std::vector<RECT> cameraBorders;
+	std::vector<RECT> respawnSpots;
 	std::vector<RECT> events;
 	std::vector<RECT> slopes;
 

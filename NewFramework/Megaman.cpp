@@ -1,25 +1,10 @@
 #include "Megaman.h"
 
-Megaman::Megaman()
+Megaman::Megaman(int _x, int _y)
 {
-	//Start
-	x = 133;
-	y = 1800;
 
-	//Boss shurikein
-	//x = 4500;
-	//y = 2300;
-
-	//Boss byte
-	//x = 11000;
-	//y = 2318;
-
-	//Boss blast hornet
-	//x = 15040;
-	//y = 3885;
-
-	/*x = 11000;
-	y = 2318;*/
+	x = _x;
+	y = _y;
 
 	tag = (char*)"megaman";
 	curGroundY = 1000000;
@@ -51,6 +36,7 @@ Megaman::Megaman()
 	isControllable = true;
 	isHealing = false;
 	isOnSlope = false;
+	isDead = false;
 
 	HP = MEGAMAN_MAX_HP;
 
@@ -159,6 +145,15 @@ void Megaman::SetState(int newState)
 		movey = -7;
 		//HP -= 2;
 		break;
+	case STATE_DYING:
+		SetAnimState(64, 64, ANIM_DELAY);
+		isControllable = false;
+		isVulnerable = false;
+		forcedAnim_t = 0;
+		isForcedAnimation = true;
+		movex = 0;
+		movey = 0;
+		break;
 	default:
 		SetAnimState(7, 10, ANIM_DELAY);
 		//SetWidthHeight();
@@ -185,7 +180,22 @@ bool Megaman::CloseToWall() {
 }
 
 void Megaman::ForcedAnimation() {
-	if (state == STATE_TAKING_DAMAGE) {
+	if (state == STATE_DYING) {
+		if (!isDead && forcedAnim_t > DYING_TIME) {
+			isDead = true;
+			forcedAnim_t = 0;
+		}
+		else if (forcedAnim_t == DYING_TIME - 10) {
+			color = D3DCOLOR_ARGB(255, 0, 255, 255);
+		}
+
+		if (isDead 
+			&& forcedAnim_t % (DEATH_ENERGY_EXIST_TIME - 10) == 0
+			&& forcedAnim_t < DYING_TIME * 5) {
+			Effects::CreateMegamanDeathEffect(x, y);
+		}
+	}
+	else if (state == STATE_TAKING_DAMAGE) {
 		if (forcedAnim_t > TAKING_DMG_ANIMATION_TIME) {
 			isControllable = true;
 			//SetState(STATE_IDLE);
@@ -280,8 +290,58 @@ void Megaman::TakeDmg(int damage) {
 	if (HP <= 0) {
 		//RIP
 		HP = 0;
+		Die();
+		return;
 	}
 	SetState(STATE_TAKING_DAMAGE);
+}
+
+void Megaman::Die() {
+	SetState(STATE_DYING);
+}
+
+void Megaman::Respawn(int _x, int _y) {
+	x = _x;
+	y = _y;
+
+	curGroundY = 1000000;
+	curCeilY = -1000000;
+	curLeftWallX = -1000000;
+	curRightWallX = 1000000;
+
+	delta_t = -1;
+	energy_t = -1;
+	invulnerable_t = -1;
+	forcedAnim_t = -1;
+	shootingAnimDelay = -1;
+	movex = 0;
+	movey = 0;
+	dirUp = 1;
+	dirRight = 1;
+	jumpHold = false;
+	dashHold = false;
+	shootHold = false;
+	inMidAir = false;
+	leftHold = false;
+	rightHold = false;
+	wallJump = false;
+	dashKick = false;
+	moving = false;
+	shooting = false;
+	jumpAfterDash = false;
+	isVulnerable = true;
+	isControllable = true;
+	isHealing = false;
+	isOnSlope = false;
+	isDead = false;
+
+	HP = MEGAMAN_MAX_HP;
+	/*UI::HPBar->anim->ChangeAnimFrames(HP, HP);*/
+
+	color = D3DCOLOR_ARGB(255, 255, 255, 255);
+
+	SetState(STATE_FALLING);
+	//anim->ChangeAnimFrames(0, 4);
 }
 
 void Megaman::Update()
@@ -304,6 +364,7 @@ void Megaman::Update()
 			ForcedMove(movex, movey);
 		}
 		else {
+			color = D3DCOLOR_ARGB(255, 255, 255, 255);
 			ForcedAnimation();
 		}
 		if (!isControllable) {
@@ -323,6 +384,7 @@ void Megaman::Update()
 		BulletsManager::CreateBullet(new MegamanBullet(x + (dirRight * temp_dirRight * width / 2), 
 														y - (height / 9), dirRight * temp_dirRight, 
 														0));
+
 	}
 	else if (shootHold && !Input::KeyDown(DIK_X)) {		//Shooting with energy
 		shooting = true;
@@ -778,7 +840,8 @@ void Megaman::Update()
 	}
 
 	if (Input::KeyDown(DIK_T)) {
-		GAMELOG("x: %d, y: %d", x, y);
+		Die();
+		return;
 	}
 
 	if (energy_t > -1 && energy_t <= SHOOTING_ANIMATION_DELAY) {

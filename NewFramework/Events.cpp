@@ -5,6 +5,7 @@ bool Events::isOpeningDoor = false;
 bool Events::isFightingBoss = false;
 int Events::openingDoorId = -1;
 Megaman* Events::megaman;
+int Events::event_t = -1;
 
 Events::Events()
 {
@@ -101,6 +102,10 @@ void Events::OpenDoor(int doorId) {
 		megaman->anim->animcount = 0;
 	}
 
+}
+
+void Events::PlayerDeath() {
+	
 }
 
 void Events::RenderDoors() {
