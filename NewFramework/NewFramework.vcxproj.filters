@@ -2,6 +2,60 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="winmain.cpp" />
+    <ClCompile Include="HeadGunner.cpp">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadGunnerCannonball.cpp">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadGunnerMissile.cpp">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClCompile>
+    <ClCompile Include="Megaman.cpp">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="MegamanBullet.cpp">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="Helit.cpp">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClCompile>
+    <ClCompile Include="HelitBullet.cpp">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClCompile>
+    <ClCompile Include="HelitWing.cpp">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBanger.cpp">
+      <Filter>Framework\Characters\NotorBanger</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBangerBullet.cpp">
+      <Filter>Framework\Characters\NotorBanger</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletsManager.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemiesManager.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemsManager.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoScene.cpp">
+      <Filter>Framework\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="dsutil.cpp">
+      <Filter>Framework\SoundLibs</Filter>
+    </ClCompile>
+    <ClCompile Include="dxaudio.cpp">
+      <Filter>Framework\SoundLibs</Filter>
+    </ClCompile>
+    <ClCompile Include="dxutil.cpp">
+      <Filter>Framework\SoundLibs</Filter>
+    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
@@ -14,10 +68,7 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="DebugDraw.cpp">
-      <Filter>Framework\GameComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="Effects.cpp">
+    <ClCompile Include="Enemy.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -26,22 +77,28 @@
     <ClCompile Include="GameGlobal.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="GameLog.cpp">
-      <Filter>Framework\GameComponents</Filter>
-    </ClCompile>
     <ClCompile Include="GameMap.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Graphics.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="HP.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
     <ClCompile Include="Input.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="MObject.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Quadtree.cpp">
+      <Filter>Framework\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -53,26 +110,11 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="Megaman.cpp">
-      <Filter>Framework\Characters\Megaman</Filter>
+    <ClCompile Include="DebugDraw.cpp">
+      <Filter>Framework\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="MegamanBullet.cpp">
-      <Filter>Framework\Characters\Megaman</Filter>
-    </ClCompile>
-    <ClCompile Include="NotorBanger.cpp">
-      <Filter>Framework\Characters\NotorBanger</Filter>
-    </ClCompile>
-    <ClCompile Include="NotorBangerBullet.cpp">
-      <Filter>Framework\Characters\NotorBanger</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletsManager.cpp">
-      <Filter>Framework\GameControllers</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Framework\GameControllers</Filter>
-    </ClCompile>
-    <ClCompile Include="DemoScene.cpp">
-      <Filter>Framework\Scenes</Filter>
+    <ClCompile Include="GameLog.cpp">
+      <Filter>Framework\Debug</Filter>
     </ClCompile>
     <ClCompile Include="MapReader\base64.cpp">
       <Filter>Framework\MapReader</Filter>
@@ -134,38 +176,97 @@
     <ClCompile Include="MapReader\TmxUtil.cpp">
       <Filter>Framework\MapReader</Filter>
     </ClCompile>
-    <ClCompile Include="dsutil.cpp">
-      <Filter>Framework\SoundLibs</Filter>
+    <ClCompile Include="Effects.cpp">
+      <Filter>Framework\GameControllers</Filter>
     </ClCompile>
-    <ClCompile Include="dxaudio.cpp">
-      <Filter>Framework\SoundLibs</Filter>
+    <ClCompile Include="UI.cpp">
+      <Filter>Framework\GameControllers</Filter>
     </ClCompile>
-    <ClCompile Include="dxutil.cpp">
-      <Filter>Framework\SoundLibs</Filter>
+    <ClCompile Include="Events.cpp">
+      <Filter>Framework\GameControllers</Filter>
     </ClCompile>
-    <ClCompile Include="HeadGunner.cpp">
-      <Filter>Framework\Characters\HeadGunner</Filter>
+    <ClCompile Include="Elevator.cpp">
+      <Filter>Framework\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="HeadGunnerMissile.cpp">
-      <Filter>Framework\Characters\HeadGunner</Filter>
+    <ClCompile Include="MovingObjects.cpp">
+      <Filter>Framework\GameControllers</Filter>
     </ClCompile>
-    <ClCompile Include="HeadGunnerCannonball.cpp">
-      <Filter>Framework\Characters\HeadGunner</Filter>
+    <ClCompile Include="BlastHornet.cpp">
+      <Filter>Framework\Characters\BlastHornet</Filter>
     </ClCompile>
-    <ClCompile Include="Helit.cpp">
-      <Filter>Framework\Characters\Helit</Filter>
+    <ClCompile Include="BlastHornetWing.cpp">
+      <Filter>Framework\Characters\BlastHornet</Filter>
     </ClCompile>
-    <ClCompile Include="HelitWing.cpp">
-      <Filter>Framework\Characters\Helit</Filter>
+    <ClCompile Include="MiniBee.cpp">
+      <Filter>Framework\Characters\BlastHornet</Filter>
     </ClCompile>
-    <ClCompile Include="HelitBullet.cpp">
-      <Filter>Framework\Characters\Helit</Filter>
+    <ClCompile Include="ChasingBee.cpp">
+      <Filter>Framework\Characters\BlastHornet</Filter>
+    <ClCompile Include="ByteBoss.cpp">
+      <Filter>Framework\Characters\Byte</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteMine.cpp">
+      <Filter>Framework\Characters\Byte</Filter>
     </ClCompile>
     <ClCompile Include="Shurikein.cpp">
       <Filter>Framework\Characters\Shurikein</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HeadGunner.h">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunnerCannonball.h">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunnerMissile.h">
+      <Filter>Framework\Characters\HeadGunner</Filter>
+    </ClInclude>
+    <ClInclude Include="Megaman.h">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="MegamanBullet.h">
+      <Filter>Framework\Characters\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="Helit.h">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClInclude>
+    <ClInclude Include="HelitBullet.h">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClInclude>
+    <ClInclude Include="HelitWing.h">
+      <Filter>Framework\Characters\Helit</Filter>
+    </ClInclude>
+    <ClInclude Include="NotorBanger.h">
+      <Filter>Framework\Characters\NotorBanger</Filter>
+    </ClInclude>
+    <ClInclude Include="NotorBangerBullet.h">
+      <Filter>Framework\Characters\NotorBanger</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletsManager.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemiesManager.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemsManager.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoScene.h">
+      <Filter>Framework\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="dsutil.h">
+      <Filter>Framework\SoundLibs</Filter>
+    </ClInclude>
+    <ClInclude Include="dxaudio.h">
+      <Filter>Framework\SoundLibs</Filter>
+    </ClInclude>
+    <ClInclude Include="dxutil.h">
+      <Filter>Framework\SoundLibs</Filter>
+    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
@@ -178,10 +279,7 @@
     <ClInclude Include="Collision.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="DebugDraw.h">
-      <Filter>Framework\GameComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects.h">
+    <ClInclude Include="Enemy.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -190,22 +288,28 @@
     <ClInclude Include="GameGlobal.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="GameLog.h">
-      <Filter>Framework\GameComponents</Filter>
-    </ClInclude>
     <ClInclude Include="GameMap.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Graphics.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
+    <ClInclude Include="HP.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
     <ClInclude Include="Input.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="MObject.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Quadtree.h">
+      <Filter>Framework\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
@@ -217,26 +321,11 @@
     <ClInclude Include="Sprite.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="Megaman.h">
-      <Filter>Framework\Characters\Megaman</Filter>
+    <ClInclude Include="DebugDraw.h">
+      <Filter>Framework\Debug</Filter>
     </ClInclude>
-    <ClInclude Include="MegamanBullet.h">
-      <Filter>Framework\Characters\Megaman</Filter>
-    </ClInclude>
-    <ClInclude Include="NotorBanger.h">
-      <Filter>Framework\Characters\NotorBanger</Filter>
-    </ClInclude>
-    <ClInclude Include="NotorBangerBullet.h">
-      <Filter>Framework\Characters\NotorBanger</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletsManager.h">
-      <Filter>Framework\GameControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Framework\GameControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="DemoScene.h">
-      <Filter>Framework\Scenes</Filter>
+    <ClInclude Include="GameLog.h">
+      <Filter>Framework\Debug</Filter>
     </ClInclude>
     <ClInclude Include="MapReader\base64.h">
       <Filter>Framework\MapReader</Filter>
@@ -307,32 +396,37 @@
     <ClInclude Include="MapReader\zlib.h">
       <Filter>Framework\MapReader</Filter>
     </ClInclude>
-    <ClInclude Include="dsutil.h">
-      <Filter>Framework\SoundLibs</Filter>
+    <ClInclude Include="Effects.h">
+      <Filter>Framework\GameControllers</Filter>
     </ClInclude>
-    <ClInclude Include="dxaudio.h">
-      <Filter>Framework\SoundLibs</Filter>
+    <ClInclude Include="UI.h">
+      <Filter>Framework\GameControllers</Filter>
     </ClInclude>
-    <ClInclude Include="dxutil.h">
-      <Filter>Framework\SoundLibs</Filter>
+    <ClInclude Include="Events.h">
+      <Filter>Framework\GameControllers</Filter>
     </ClInclude>
-    <ClInclude Include="HeadGunner.h">
-      <Filter>Framework\Characters\HeadGunner</Filter>
+    <ClInclude Include="Elevator.h">
+      <Filter>Framework\GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="HeadGunnerMissile.h">
-      <Filter>Framework\Characters\HeadGunner</Filter>
+    <ClInclude Include="MovingObjects.h">
+      <Filter>Framework\GameControllers</Filter>
     </ClInclude>
-    <ClInclude Include="HeadGunnerCannonball.h">
-      <Filter>Framework\Characters\HeadGunner</Filter>
+    <ClInclude Include="BlastHornet.h">
+      <Filter>Framework\Characters\BlastHornet</Filter>
     </ClInclude>
-    <ClInclude Include="Helit.h">
-      <Filter>Framework\Characters\Helit</Filter>
+    <ClInclude Include="BlastHornetWing.h">
+      <Filter>Framework\Characters\BlastHornet</Filter>
     </ClInclude>
-    <ClInclude Include="HelitWing.h">
-      <Filter>Framework\Characters\Helit</Filter>
+    <ClInclude Include="MiniBee.h">
+      <Filter>Framework\Characters\BlastHornet</Filter>
     </ClInclude>
-    <ClInclude Include="HelitBullet.h">
-      <Filter>Framework\Characters\Helit</Filter>
+    <ClInclude Include="ChasingBee.h">
+      <Filter>Framework\Characters\BlastHornet</Filter>
+    <ClInclude Include="ByteBoss.h">
+      <Filter>Framework\Characters\Byte</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteMine.h">
+      <Filter>Framework\Characters\Byte</Filter>
     </ClInclude>
     <ClInclude Include="Shurikein.h">
       <Filter>Framework\Characters\Shurikein</Filter>
@@ -340,37 +434,45 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
-      <UniqueIdentifier>{4cb46ad7-fa39-448b-8300-0d34bf7abc42}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\GameComponents">
-      <UniqueIdentifier>{8e6bb530-ea00-4971-9fd9-ca30a0799e04}</UniqueIdentifier>
+      <UniqueIdentifier>{275b56b7-e15d-485f-bba6-3157653836fc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Characters">
-      <UniqueIdentifier>{232cfe8c-67a9-47e5-87e5-df186629170c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Characters\Megaman">
-      <UniqueIdentifier>{9eb310c4-9826-4372-9ff8-d41251f1afb2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Characters\NotorBanger">
-      <UniqueIdentifier>{346c7fb6-ae13-470a-9d74-fe2e24c5bddf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\GameControllers">
-      <UniqueIdentifier>{ea487356-d027-45b3-94ed-2ddd956b6bd6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Scenes">
-      <UniqueIdentifier>{223d88fb-97f5-4c03-a6eb-2ee8f135bb49}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\MapReader">
-      <UniqueIdentifier>{a1aceaed-d8f5-4628-9f50-1df2979bf105}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\SoundLibs">
-      <UniqueIdentifier>{1c342ebe-5edc-4dc5-b8db-a133d487cc7e}</UniqueIdentifier>
+      <UniqueIdentifier>{fc2b663f-1a5f-47b6-b269-8b7f6102718b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Characters\HeadGunner">
-      <UniqueIdentifier>{6e65e538-4696-44e8-ae3b-e82b95cec4ee}</UniqueIdentifier>
+      <UniqueIdentifier>{fbce1d2c-b90c-4c89-a4b0-3e76141ae9e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters\Megaman">
+      <UniqueIdentifier>{22e777fc-a81e-43fe-8b44-d589da26e4a3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Characters\Helit">
-      <UniqueIdentifier>{016d01c4-9d6d-4aa5-8329-ca276caee2cb}</UniqueIdentifier>
+      <UniqueIdentifier>{0d2e078c-7a44-42db-b837-9ca1a174aff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters\NotorBanger">
+      <UniqueIdentifier>{58e84a11-d441-483e-8536-58b36601aaf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameControllers">
+      <UniqueIdentifier>{43c73667-f643-431d-807d-357b6e3e3231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameComponents">
+      <UniqueIdentifier>{d0d1fbc0-c5af-4df8-8b07-859e0a5b38ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\SoundLibs">
+      <UniqueIdentifier>{ad3d0c3b-7b31-4d9d-884a-7c12431c2877}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scenes">
+      <UniqueIdentifier>{a9522bc8-6904-4044-96e3-2700461d127d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Debug">
+      <UniqueIdentifier>{23175af9-eef8-40ec-80e5-832b37d75fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\MapReader">
+      <UniqueIdentifier>{6c6f0562-f3e0-415f-ab70-bf00da04d6c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Characters\BlastHornet">
+      <UniqueIdentifier>{b665b05e-d391-4efa-8059-00cb72e8a114}</UniqueIdentifier>
+    <Filter Include="Framework\Characters\Byte">
+      <UniqueIdentifier>{1b32a31c-0e6b-4efe-be9d-c588063d538b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Characters\Shurikein">
       <UniqueIdentifier>{32439c7c-740d-4044-8e34-d1d4e0296763}</UniqueIdentifier>

@@ -3,6 +3,9 @@
 
 HeadGunnerCannonball::HeadGunnerCannonball(MObject* _target, D3DXVECTOR2 _firePoint, int _dirRight)
 {
+	tag = (char*)"enemyBullet";
+	dmg = 2;
+
 	target = _target;
 	x = _firePoint.x;
 	y = _firePoint.y;
@@ -17,6 +20,8 @@ HeadGunnerCannonball::HeadGunnerCannonball(MObject* _target, D3DXVECTOR2 _firePo
 
 	anim = new Animation(); 
 	anim->sprite[0] = new Sprite((char*)"sprites/head_gunner/bullet/0.png");
+
+	Effects::CreateSmoke(x, y);
 }
 
 
@@ -25,11 +30,19 @@ HeadGunnerCannonball::~HeadGunnerCannonball()
 }
 
 void HeadGunnerCannonball::OnCollision(MObject *otherObj, char* sideCollided) {
-
+	if (otherObj->tag == (char*)"static" || otherObj->tag == (char*)"megaman") {
+		//Tự hủy
+		isDestroyed = true;
+	}
 }
 
 void HeadGunnerCannonball::Update() {
 	movey += 1;
+	if (state_t > BULLET_EXIST_TIME) {
+		//Thoi gian gioi han ton tai cua dan
+		isDestroyed = true;
+	}
+	state_t++;
 }
 
 void HeadGunnerCannonball::Render() {

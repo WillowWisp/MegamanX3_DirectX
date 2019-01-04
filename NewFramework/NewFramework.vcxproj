@@ -19,9 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlastHornet.h" />
+    <ClInclude Include="BlastHornetWing.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletsManager.h" />
+    <ClInclude Include="ByteBoss.h" />
+    <ClInclude Include="ByteMine.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ChasingBee.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DemoScene.h" />
@@ -30,11 +35,16 @@
     <ClInclude Include="dxaudio.h" />
     <ClInclude Include="dxutil.h" />
     <ClInclude Include="Effects.h" />
+    <ClInclude Include="Elevator.h" />
+    <ClInclude Include="EnemiesManager.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Events.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="GameLog.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="HP.h" />
     <ClInclude Include="HeadGunner.h" />
     <ClInclude Include="HeadGunnerCannonball.h" />
     <ClInclude Include="HeadGunnerMissile.h" />
@@ -42,6 +52,8 @@
     <ClInclude Include="HelitBullet.h" />
     <ClInclude Include="HelitWing.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemsManager.h" />
     <ClInclude Include="MapReader\base64.h" />
     <ClInclude Include="MapReader\tinyxml2.h" />
     <ClInclude Include="MapReader\TmxEllipse.h" />
@@ -66,9 +78,12 @@
     <ClInclude Include="MapReader\zconf.h" />
     <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="MegamanBullet.h" />
+    <ClInclude Include="MiniBee.h" />
+    <ClInclude Include="MovingObjects.h" />
     <ClInclude Include="NotorBanger.h" />
     <ClInclude Include="NotorBangerBullet.h" />
     <ClInclude Include="Quadtree.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Megaman.h" />
@@ -76,11 +91,17 @@
     <ClInclude Include="Shurikein.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlastHornet.cpp" />
+    <ClCompile Include="BlastHornetWing.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletsManager.cpp" />
+    <ClCompile Include="ByteBoss.cpp" />
+    <ClCompile Include="ByteMine.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ChasingBee.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="DemoScene.cpp" />
@@ -89,11 +110,16 @@
     <ClCompile Include="dxaudio.cpp" />
     <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="Effects.cpp" />
+    <ClCompile Include="Elevator.cpp" />
+    <ClCompile Include="EnemiesManager.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Events.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameGlobal.cpp" />
     <ClCompile Include="GameLog.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="HP.cpp" />
     <ClCompile Include="HeadGunner.cpp" />
     <ClCompile Include="HeadGunnerCannonball.cpp" />
     <ClCompile Include="HeadGunnerMissile.cpp" />
@@ -101,6 +127,8 @@
     <ClCompile Include="HelitBullet.cpp" />
     <ClCompile Include="HelitWing.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemsManager.cpp" />
     <ClCompile Include="MapReader\base64.cpp" />
     <ClCompile Include="MapReader\miniz.c" />
     <ClCompile Include="MapReader\tinyxml2.cpp" />
@@ -122,9 +150,12 @@
     <ClCompile Include="MapReader\TmxTileset.cpp" />
     <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="MegamanBullet.cpp" />
+    <ClCompile Include="MiniBee.cpp" />
+    <ClCompile Include="MovingObjects.cpp" />
     <ClCompile Include="NotorBanger.cpp" />
     <ClCompile Include="NotorBangerBullet.cpp" />
     <ClCompile Include="Quadtree.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Megaman.cpp" />
@@ -132,6 +163,7 @@
     <ClCompile Include="Shurikein.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -141,7 +173,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B427AB71-CBFF-4856-AA4D-2BC72FB2DE47}</ProjectGuid>
     <RootNamespace>NewFramework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -193,8 +225,8 @@
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;D:\Projects\GitHub\MegamanX3_DirectX\NewFramework\Sound library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;D:\TaiLieu\Projects\Github\NhapMonGame\MegamanX3_DirectX\NewFramework\Sound library;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;D:\TaiLieu\Projects\Github\NhapMonGame\MegamanX3_DirectX\NewFramework\Sound library;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;D:\Projects\GitHub\MegamanX3_DirectX\NewFramework\Sound library;D:\TaiLieu\GithubProjects\MegamanX3_DirectX\NewFramework\Sound library;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;D:\Projects\GitHub\MegamanX3_DirectX\NewFramework\Sound library;D:\TaiLieu\GithubProjects\MegamanX3_DirectX\NewFramework\Sound library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

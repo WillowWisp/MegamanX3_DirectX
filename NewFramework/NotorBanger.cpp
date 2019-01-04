@@ -7,6 +7,7 @@ NotorBanger::NotorBanger(MObject* _player, int _x, int _y)
 	player = _player;
 
 	tag = (char*)"enemy";
+	HP = 3;
 	x = _x;
 	y = _y;
 	movex = 0;
@@ -27,17 +28,22 @@ NotorBanger::NotorBanger(MObject* _player, int _x, int _y)
 
 NotorBanger::~NotorBanger()
 {
+	//abc
 }
 
 void NotorBanger::Shoot45() {
+
 	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint, dirRight);
-	bulletList.push_back(bullet);
+	//bulletList.push_back(bullet);
+	BulletsManager::CreateBullet(bullet);
 	bullet->Fly45();
 }
 
 void NotorBanger::Shoot90() {
+
 	NotorBangerBullet* bullet = new NotorBangerBullet(firePoint, dirRight);
-	bulletList.push_back(bullet);
+	//bulletList.push_back(bullet);
+	BulletsManager::CreateBullet(bullet);
 	bullet->Fly90();
 }
 
@@ -50,6 +56,11 @@ void NotorBanger::OnCollision(MObject *otherObj, char* sideCollided) {
 			movex = 0;
 			movey = 0;
 			y = otherObj->y - otherObj->height / 2 - height / 2;
+		}
+		if (sideCollided == "bottom") {
+			movex = 0;
+			movey = 0;
+			y = otherObj->y + otherObj->height / 2 + height / 2;
 		}
 	}
 }
@@ -97,12 +108,12 @@ void NotorBanger::Update() {
 		//Nếu player đứng xa thì bắn góc 45 độ
 		if (abs(x - player->x) >= 150) {
 			angle = (char*)"45";
-			firePoint = D3DXVECTOR2(x + dirRight * 15, y - 20);
+			firePoint = D3DXVECTOR2(x + dirRight * 25, y - 35);
 		}
 		//Nếu player đứng gẫn thì bắn góc 90 độ
 		else {
 			angle = (char*)"90";
-			firePoint = D3DXVECTOR2(x - dirRight * 8, y - 20);
+			firePoint = D3DXVECTOR2(x - dirRight * 6, y - 45);
 		}
 	}
 
@@ -162,13 +173,13 @@ void NotorBanger::Update() {
 		movey = movey + 1;
 	}
 
-	for (int i = 0; i < bulletList.size(); i++) {
-		bulletList.at(i)->Update();
-	}
+	//for (int i = 0; i < bulletList.size(); i++) {
+	//	bulletList.at(i)->Update();
+	//}
 }
 
 void NotorBanger::Render() {
-	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex, y + movey);
+	D3DXVECTOR2 translation = D3DXVECTOR2(x + movex * dirRight, y + movey);
 	D3DXVECTOR2 shift = D3DXVECTOR2(GameGlobal::wndWidth / 2 - GameGlobal::camera->position.x, GameGlobal::wndHeight / 2 - GameGlobal::camera->position.y);
 	D3DXVECTOR2 combined = translation + shift;
 
@@ -178,8 +189,6 @@ void NotorBanger::Render() {
 	x += movex;
 	y += movey;
 	anim->AnimateWithoutLoop(matrix);
-
-	for (int i = 0; i < bulletList.size(); i++) {
-		bulletList.at(i)->Render();
-	}
+	SetWidthHeight();
 }
+

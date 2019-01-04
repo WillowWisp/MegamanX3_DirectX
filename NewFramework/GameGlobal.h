@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include "Sound.h"
 #include "Camera.h"
+#include <math.h>
 
 class GameGlobal
 {
@@ -27,5 +28,10 @@ public:
 	static bool IsIntersectX(RECT rect1, RECT rect2);
 	static bool IsIntersectY(RECT rect1, RECT rect2);
 	static bool IsContain(RECT container, RECT rect);
+
+	static float DistanceBetween(D3DXVECTOR2 point1, D3DXVECTOR2 point2);
+
+	static int EaseInCirc(int currentTime, int startVal, int changeInVal, int duration);
+	static int EaseOutCirc(int currentTime, int startVal, int changeInVal, int duration);
 };
 

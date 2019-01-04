@@ -12,8 +12,10 @@ public:
 
 	//function prototypes
 	void NextFrame(int); // set curfrfame bằng frame kế tiếp trong animation
-	void Animate(D3DXMATRIX _matrix, D3DCOLOR _color = D3DCOLOR_ARGB(255, 255, 255, 255)); // chọn frame và draw
-	void AnimateWithoutLoop(D3DXMATRIX _matrix);
+	void Animate(D3DXMATRIX _matrix, 
+					D3DCOLOR _color = D3DCOLOR_ARGB(255, 255, 255, 255), 
+					D3DXVECTOR3 _center = D3DXVECTOR3()); // chọn frame và draw
+	void AnimateWithoutLoop(D3DXMATRIX _matrix, D3DCOLOR _color = D3DCOLOR_ARGB(255, 255, 255, 255));
 	void ChangeAnimFrames(int begin, int end);
 
 	//

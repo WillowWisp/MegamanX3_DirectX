@@ -46,22 +46,167 @@ void GameMap::LoadMap(char* filePath)
 	for (int i = 0; i < map->GetNumObjectGroups(); i++)
 	{
 		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "cameraBorder") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//Lấy ObjectGroup # lấy layer
+				//ObjectGroup chứa những object (object của phần mềm Tiled)
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
 
-		for (int j = 0; j < objectGroup->GetNumObjects(); j++)
-		{
-			//Lấy ObjectGroup # lấy layer
-			//ObjectGroup chứa những object (object của phần mềm Tiled)
-			Tmx::Object *object = objectGroup->GetObjects().at(j);
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
 
-			MObject *mObject = new MObject();
-			mObject->tag = (char*)"static";
-			mObject->x = object->GetX() + object->GetWidth() / 2;
-			mObject->y = object->GetY() + object->GetHeight() / 2;
-			mObject->width = object->GetWidth();
-			mObject->height = object->GetHeight();
-			//mObject->Tag = Entity::EntityTypes::Static;
+				//MObject *mObject = new MObject();
+				//mObject->tag = (char*)"static";
+				//mObject->x = object->GetX() + object->GetWidth() / 2;
+				//mObject->y = object->GetY() + object->GetHeight() / 2;
+				//mObject->width = object->GetWidth();
+				//mObject->height = object->GetHeight();
+				////mObject->Tag = Entity::EntityTypes::Static;
 
-			quadtree->Insert(mObject);
+				/*quadtree->Insert(mObject);*/
+				cameraBorders.push_back(rect);
+			}
+		} 
+		else if (objectGroup->GetName() == "notorBanger") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++) {
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				EnemiesManager::enemySpawnSpots.push_back(rect);
+				EnemiesManager::enemyTypeAtSpot.push_back(0); // 0 == Notor Banger Type Id 
+				EnemiesManager::enemyIsSpawnedAtSpot.push_back(false);
+				EnemiesManager::enemyDirAtSpot.push_back(-1);
+			}
+		}
+		else if (objectGroup->GetName() == "headGunnerRight") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++) {
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				EnemiesManager::enemySpawnSpots.push_back(rect);
+				EnemiesManager::enemyTypeAtSpot.push_back(1); // 1 == Head Gunner Type Id 
+				EnemiesManager::enemyIsSpawnedAtSpot.push_back(false);
+				EnemiesManager::enemyDirAtSpot.push_back(1);
+			}
+		}
+		else if (objectGroup->GetName() == "headGunnerLeft") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++) {
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				EnemiesManager::enemySpawnSpots.push_back(rect);
+				EnemiesManager::enemyTypeAtSpot.push_back(1); // 1 == Head Gunner Type Id 
+				EnemiesManager::enemyIsSpawnedAtSpot.push_back(false);
+				EnemiesManager::enemyDirAtSpot.push_back(-1);
+			}
+		}
+		else if (objectGroup->GetName() == "helitRight") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++) {
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				EnemiesManager::enemySpawnSpots.push_back(rect);
+				EnemiesManager::enemyTypeAtSpot.push_back(2); // 2 == Helit Type Id 
+				EnemiesManager::enemyIsSpawnedAtSpot.push_back(false);
+				EnemiesManager::enemyDirAtSpot.push_back(1);
+			}
+		}
+		else if (objectGroup->GetName() == "helitLeft") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++) {
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				EnemiesManager::enemySpawnSpots.push_back(rect);
+				EnemiesManager::enemyTypeAtSpot.push_back(2); // 2 == Helit Type Id 
+				EnemiesManager::enemyIsSpawnedAtSpot.push_back(false);
+				EnemiesManager::enemyDirAtSpot.push_back(-1);
+			}
+		}
+		else if (objectGroup->GetName() == "door") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//Lấy ObjectGroup # lấy layer
+				//ObjectGroup chứa những object (object của phần mềm Tiled)
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				Events::CreateDoor(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+			}
+		}
+		else if (objectGroup->GetName() == "slope") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//Lấy ObjectGroup # lấy layer
+				//ObjectGroup chứa những object (object của phần mềm Tiled)
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				slopes.push_back(rect);
+			}
+		}
+		else if (objectGroup->GetName() == "static") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//Lấy ObjectGroup # lấy layer
+				//ObjectGroup chứa những object (object của phần mềm Tiled)
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				MObject *mObject = new MObject();
+				mObject->tag = (char*)"static";
+				mObject->x = object->GetX() + object->GetWidth() / 2;
+				mObject->y = object->GetY() + object->GetHeight() / 2;
+				mObject->width = object->GetWidth();
+				mObject->height = object->GetHeight();
+				//mObject->Tag = Entity::EntityTypes::Static;
+
+				quadtree->Insert(mObject);
+			}
+		}
+
+		//thêm else vô thì VS nhận sai định dạng??
+		if (objectGroup->GetName() == "blastHornetRegion") {
+			Tmx::Object *object = objectGroup->GetObjects().at(0);
+
+			RECT rect;
+			rect.left = object->GetX();
+			rect.right = rect.left + object->GetWidth();
+			rect.top = object->GetY();
+			rect.bottom = rect.top + object->GetHeight();
+
+			EnemiesManager::blastHornetRegion = rect;
 		}
 	}
 }

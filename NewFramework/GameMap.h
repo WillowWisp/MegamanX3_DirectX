@@ -10,6 +10,8 @@
 #include "Camera.h"
 #include "Quadtree.h"
 #include "DebugDraw.h"
+#include "EnemiesManager.h"
+#include "Events.h"
 
 class GameMap
 {
@@ -26,6 +28,10 @@ class GameMap
 
 	void LoadMap(char* filePath);
 public:
+	std::vector<RECT> cameraBorders;
+	std::vector<RECT> events;
+	std::vector<RECT> slopes;
+
 	GameMap();
 	~GameMap();
 

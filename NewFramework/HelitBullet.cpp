@@ -1,4 +1,4 @@
-#include "HelitBullet.h"
+﻿#include "HelitBullet.h"
 
 
 
@@ -20,12 +20,19 @@ HelitBullet::HelitBullet(D3DXVECTOR2 _firePoint, int _dirRight)
 	movex = 0;
 	movey = 0;
 
+	dmg = 2;
+
 	anim = new Animation();
 	anim->sprite[0] = new Sprite((char*)"sprites/helit/bullet/0.png");
+
+	Effects::CreateSmoke(x, y);
 }
 
 void HelitBullet::OnCollision(MObject *otherObj, char* sideCollided) {
-
+	if (otherObj->tag == (char*)"static" || otherObj->tag == (char*)"megaman") {
+		//Tự hủy
+		isDestroyed = true;
+	}
 }
 
 void HelitBullet::Update() {
@@ -33,6 +40,14 @@ void HelitBullet::Update() {
 	if (delta_t % 3 == 0) {
 		movex += 1 * dirRight;
 	}
+
+	if (state_t % 8 == 0) {
+		Effects::CreateSmoke(x, y, 0);
+	}
+
+	state_t++;
+
+	state_t++; //to limit exist time of bullet
 }
 
 void HelitBullet::Render() {

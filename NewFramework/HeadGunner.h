@@ -4,6 +4,8 @@
 #include "HeadGunnerMissile.h"
 #include "HeadGunnerCannonball.h"
 #include <vector>
+#include "Enemy.h"
+#include "BulletsManager.h"
 
 #define ANIM_DELAY 2
 
@@ -14,19 +16,19 @@
 #define STATE_SHOOT_2 4
 #define STATE_SHOOT_CANON 5
 
-class HeadGunner : public MObject
+class HeadGunner : public Enemy
 {
 	MObject* player;
 	D3DXVECTOR2 firePoint;
 
-	std::vector<Bullet*> bulletList;
+	//std::vector<Bullet*> bulletList;
 
 	void SetState(int newState);
 
 	void ShootMissile();
 	void ShootCannonball();
 public:
-	HeadGunner(MObject* _player, int _x, int _y, int _dirRight);
+	HeadGunner(MObject* _player, int _x, int _y, int _dirRight = 1);
 	~HeadGunner();
 
 	void Update();

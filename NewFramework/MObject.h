@@ -16,6 +16,7 @@ public:
 	//function prototypes
 	void SetAnimState(int begin, int end, int delay); //set chỉ số frame đầu và frame cuối của animation
 	void Update();
+	void Render();
 	bool StateChanged(int);
 	bool HorizontalDirChanged(int);
 	bool VerticalDirChanged(int);
@@ -28,6 +29,8 @@ public:
 	void MoveXYToCenter();
 	void SetSignedMoveX();
 	void SetUnsignedMoveX();
+
+	void Goto(D3DXVECTOR2 des, int speed);
 	//
 
 	char* tag;
@@ -39,6 +42,7 @@ public:
 
 	D3DXMATRIX matrix; //ma trận để lưu vị trí, scale, ... của object
 	D3DCOLOR color; //Một số state của object có dùng tới đổi màu
+	D3DXVECTOR3 center; //Một số object có thể có tâm vẽ khác
 
 	int state;
 	int prevState; 

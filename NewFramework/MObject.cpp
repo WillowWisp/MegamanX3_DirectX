@@ -7,6 +7,7 @@ MObject::MObject()
 	state = 0;
 	dirRight = 1;
 	color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	center = D3DXVECTOR3();
 	//imageCount = 1;
 
 	//width = anim->sprite[anim->curframe]->width;
@@ -27,8 +28,11 @@ void MObject::Update()
 {
 	x += movex * dirRight;
 	y += movey;
-	anim->Animate(matrix, color);
-	//SetWidthHeight();
+}
+
+void MObject::Render() {
+	anim->Animate(matrix, color, center);
+	SetWidthHeight();
 }
 
 void MObject::SetWidthHeight() {
@@ -89,18 +93,29 @@ void MObject::MoveXYToCenter() {
 
 void MObject::SetSignedMoveX() {
 	if (dirRight == -1) {
-		movex *= -1;
+		//movex *= -1;
 	}
 }
 
 void MObject::SetUnsignedMoveX() {
-	movex = abs(movex);
+	//movex = abs(movex);
 }
 
+void MObject::Goto(D3DXVECTOR2 des, int speed) {
+	D3DXVECTOR2 force;
+
+	force.x = des.x - x;
+	force.y = des.y - y;
+
+	float distance = GameGlobal::DistanceBetween(D3DXVECTOR2(x, y), des);
+	movex = (force.x / distance) * speed;
+	movey = (force.y / distance) * speed;
+}
 
 
 MObject::~MObject()
 {
+	delete anim;
 }
 
 void MObject::OnCollision(MObject *otherObj, char* sideCollided) {

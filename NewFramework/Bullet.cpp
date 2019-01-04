@@ -4,6 +4,9 @@
 
 Bullet::Bullet()
 {
+	tag = (char*)"bullet";
+	isDestroyed = false;
+	state_t = -1;
 }
 
 
@@ -18,4 +21,8 @@ Bullet::Bullet(int _x, int _y) {
 
 void Bullet::Render() {
 
+}
+
+void Bullet::Destroyed() {
+	isDestroyed = true;
 }

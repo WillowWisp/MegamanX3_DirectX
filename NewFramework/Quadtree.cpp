@@ -122,6 +122,35 @@ void Quadtree::Insert(MObject *object) {
 	}
 }
 
+void Quadtree::Remove(MObject *object) {
+	//Nếu 4 node con tồn tại thì insert (đệ quy) vào node chứa obj
+	if (nodes)
+	{
+		if (nodes[0]->IsContain(object))
+			nodes[0]->Remove(object);
+		if (nodes[1]->IsContain(object))
+			nodes[1]->Remove(object);
+		if (nodes[2]->IsContain(object))
+			nodes[2]->Remove(object);
+		if (nodes[3]->IsContain(object))
+			nodes[3]->Remove(object);
+
+		return; // Return here to ignore rest.
+	}
+
+	//Node lá
+	if (this->IsContain(object)) {
+		//objectList.push_back(object);
+		for (int i = 0; i < objectList.size(); i++) {
+			if (objectList.at(i) == object) {
+				objectList.erase(objectList.begin() + i);
+				//break;
+			}
+		}
+	}
+
+}
+
 
 
 void Quadtree::GetObjectsCollidableWith(MObject* object, std::vector<MObject*> &returnObjects) {
@@ -183,4 +212,27 @@ int Quadtree::GetTotalObjects() {
 	}
 
 	return total;
+}
+
+void Quadtree::Debug(int &count) {
+	if (nodes)
+	{
+		nodes[0]->Debug(count);
+		nodes[1]->Debug(count);
+		nodes[2]->Debug(count);
+		nodes[3]->Debug(count);
+
+		return;
+	}
+	DebugDraw* debugDraw = new DebugDraw();
+	//D3DCOLOR oldColor = debugDraw->getColor();
+	debugDraw->setColor(D3DCOLOR_XRGB(255, 0, 255));
+	for (int i = 0; i < objectList.size(); i++) {
+		if (objectList.at(i)->tag == (char*)"elevator") {
+			count++;
+			debugDraw->DrawRect(region, GameGlobal::camera);
+			//GAMELOG("rect: %d %d", region.left, region.top);
+		}
+	}
+	//debugDraw->setColor(oldColor);
 }
