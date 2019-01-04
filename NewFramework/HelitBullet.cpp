@@ -29,7 +29,7 @@ HelitBullet::HelitBullet(D3DXVECTOR2 _firePoint, int _dirRight)
 }
 
 void HelitBullet::OnCollision(MObject *otherObj, char* sideCollided) {
-	if (otherObj->tag == (char*)"static" || otherObj->tag == (char*)"megaman") {
+	if (otherObj->tag == (char*)"static" || otherObj->tag == (char*)"megaman" || otherObj->tag == "megamanBulletLvl0" || otherObj->tag == "megamanBulletLvl1" || otherObj->tag == "megamanBulletLvl2") {
 		//Tự hủy
 		isDestroyed = true;
 	}

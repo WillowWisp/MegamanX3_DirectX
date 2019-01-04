@@ -28,7 +28,7 @@ HeadGunnerMissile::~HeadGunnerMissile()
 }
 
 void HeadGunnerMissile::OnCollision(MObject *otherObj, char* sideCollided) {
-	if (otherObj->tag == (char*)"static" || otherObj->tag == (char*)"megaman") {
+	if (otherObj->tag == (char*)"static" || otherObj->tag == (char*)"megaman" || otherObj->tag == "megamanBulletLvl0" || otherObj->tag == "megamanBulletLvl1" || otherObj->tag == "megamanBulletLvl2") {
 		//Tự hủy
 		isDestroyed = true;
 	}
