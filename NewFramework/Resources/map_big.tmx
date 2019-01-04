@@ -294,9 +294,9 @@
   <object id="525" x="13894.3" y="3916.17" width="131.334" height="61.6667"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="11" name="cameraBorder">
-  <object id="299" x="1.66667" y="1538.67" width="1981.33" height="442.333"/>
-  <object id="300" x="1534.67" y="510.667" width="510" height="1473.33"/>
-  <object id="301" x="1540" y="514.333" width="1083.33" height="442.667"/>
+  <object id="299" x="1.66667" y="1538.67" width="2031.33" height="442.333"/>
+  <object id="300" x="1534.67" y="515.667" width="512" height="1468.33"/>
+  <object id="301" x="1535" y="514.333" width="1088.33" height="442.667"/>
   <object id="302" x="2176" y="513.333" width="1665.33" height="442"/>
   <object id="303" x="3421.33" y="508" width="637.333" height="928"/>
   <object id="304" x="3073.33" y="1022.67" width="1024" height="1473.33"/>

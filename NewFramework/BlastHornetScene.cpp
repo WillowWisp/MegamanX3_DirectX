@@ -13,8 +13,8 @@ void BlastHornetScene::Start()
 	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
 	//Sound::PlaySoundA(backgroundSound);
 
-	/*megaman = new Megaman(133, 1800);*/ //Start
-	megaman = new Megaman(4500, 2300); //Shurikein
+	megaman = new Megaman(133, 1800); //Start
+	//megaman = new Megaman(4500, 2300); //Shurikein
 	//megaman = new Megaman(11000, 2318);	//Byte
 	//megaman = new Megaman(15040, 3885);	//Blast Hornet
 
