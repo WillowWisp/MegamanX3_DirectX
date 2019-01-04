@@ -8,6 +8,7 @@
 #include "Effects.h"
 #include "ByteBoss.h"
 #include "BlastHornet.h"
+#include "Events.h"
 
 #define TYPE_RANDOM -1
 #define TYPE_NOTOR_BANGER 0

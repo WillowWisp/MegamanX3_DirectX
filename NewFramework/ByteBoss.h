@@ -3,6 +3,9 @@
 #include "Megaman.h"
 #include "UI.h"
 #include "GameLog.h"
+#include "Random.h"
+#include "Effects.h"
+#include "ByteMine.h"
 //Them chu boss vi Byte bi trung ten voi class co san
 
 #define BYTE_ANIM_DELAY 1
@@ -13,10 +16,12 @@
 #define BYTE_STATE_CHARGING_AT_PLAYER 4
 #define BYTE_STATE_PUNCHING_TO_CEIL 5
 #define BYTE_STATE_PUNCHING_TO_WALL 6
+#define BYTE_STATE_DYING 7
 #define BYTE_DESCENDING_SPEED 5
 #define BYTE_CHARGING_SPEED 5
 #define BYTE_STATE_TIME_IDLE 30
 #define BYTE_STATE_TIME_PREPARING 30
+#define BYTE_STATE_TIME_DYING 255
 #define BYTE_INVULNERABLE_TIME 20
 #define BYTE_PUNCH_FORCE 13
 #define BYTE_PUNCH_DAMAGE 3
@@ -27,8 +32,11 @@ class ByteBoss :
 {
 
 	Megaman* player;
+	ByteMine* mine;
+	bool mineThrown;
 	int invulnerable_t;
 	bool isVulnerable;
+	int dying_t;	//For dying animation
 	int groundY;
 	int renderX;
 	int renderY;

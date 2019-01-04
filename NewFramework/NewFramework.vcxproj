@@ -24,6 +24,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletsManager.h" />
     <ClInclude Include="ByteBoss.h" />
+    <ClInclude Include="ByteMine.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ChasingBee.h" />
     <ClInclude Include="Collision.h" />
@@ -97,6 +98,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletsManager.cpp" />
     <ClCompile Include="ByteBoss.cpp" />
+    <ClCompile Include="ByteMine.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChasingBee.cpp" />
     <ClCompile Include="Collision.cpp" />

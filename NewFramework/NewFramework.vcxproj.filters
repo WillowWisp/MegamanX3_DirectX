@@ -191,7 +191,6 @@
     <ClCompile Include="MovingObjects.cpp">
       <Filter>Framework\GameControllers</Filter>
     </ClCompile>
-    <ClCompile Include="ByteBoss.cpp" />
     <ClCompile Include="BlastHornet.cpp">
       <Filter>Framework\Characters\BlastHornet</Filter>
     </ClCompile>
@@ -203,6 +202,11 @@
     </ClCompile>
     <ClCompile Include="ChasingBee.cpp">
       <Filter>Framework\Characters\BlastHornet</Filter>
+    <ClCompile Include="ByteBoss.cpp">
+      <Filter>Framework\Characters\Byte</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteMine.cpp">
+      <Filter>Framework\Characters\Byte</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -404,7 +408,6 @@
     <ClInclude Include="MovingObjects.h">
       <Filter>Framework\GameControllers</Filter>
     </ClInclude>
-    <ClInclude Include="ByteBoss.h" />
     <ClInclude Include="BlastHornet.h">
       <Filter>Framework\Characters\BlastHornet</Filter>
     </ClInclude>
@@ -416,6 +419,11 @@
     </ClInclude>
     <ClInclude Include="ChasingBee.h">
       <Filter>Framework\Characters\BlastHornet</Filter>
+    <ClInclude Include="ByteBoss.h">
+      <Filter>Framework\Characters\Byte</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteMine.h">
+      <Filter>Framework\Characters\Byte</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -457,6 +465,8 @@
     </Filter>
     <Filter Include="Framework\Characters\BlastHornet">
       <UniqueIdentifier>{b665b05e-d391-4efa-8059-00cb72e8a114}</UniqueIdentifier>
+    <Filter Include="Framework\Characters\Byte">
+      <UniqueIdentifier>{1b32a31c-0e6b-4efe-be9d-c588063d538b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

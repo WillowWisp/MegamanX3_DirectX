@@ -15,7 +15,7 @@ ByteBoss::ByteBoss(Megaman* _player, int _x, int _y) {
 	player = _player;
 
 	tag = (char*)"boss";
-	HP = 32;
+	HP = 5;
 	x = _x;
 	y = _y;
 	//movex = 0;
@@ -25,6 +25,9 @@ ByteBoss::ByteBoss(Megaman* _player, int _x, int _y) {
 
 	invulnerable_t = -1;
 	isVulnerable = true;
+	dying_t = -1;
+
+	mineThrown = false;
 
 	delta_t = 0;
 	anim = new Animation(23, 0, 0, BYTE_ANIM_DELAY);
@@ -59,6 +62,11 @@ void ByteBoss::OnCollision(MObject *otherObj, char* sideCollided) {
 				}
 				ChangeDirHorizontal();
 				SetState(BYTE_STATE_IDLE);
+				if (mineThrown) {
+					mine->Explode();
+					mineThrown = false;
+					//delete mine;
+				}
 			}
 			if (sideCollided == "top") {
 				delta_t = 0;
@@ -149,6 +157,21 @@ void ByteBoss::SetState(int newState) {
 		movex = 0;
 		movey = 0;
 		break;
+	case BYTE_STATE_DYING:
+		player->color = D3DCOLOR_ARGB(255, 255, 255, 255);
+		player->isControllable = false;
+		player->movex = 0;
+		player->movey = 0;
+		movex = 0;
+		movey = 0;
+		dying_t = 0;
+		color = D3DCOLOR_ARGB(255, 0, 255, 255);
+		UI::DeleteBossHPBar();
+		if (mineThrown) {
+			mine->Explode();
+			mineThrown = false;
+		}
+		break;
 	default:
 		break;
 	}
@@ -173,6 +196,7 @@ void ByteBoss::TakeDmg(int damage) {
 	UI::ChangeBossHP(HP);
 	if (HP <= 0) {
 		HP = 0;
+		SetState(BYTE_STATE_DYING);
 	}
 	isVulnerable = false;
 }
@@ -201,6 +225,7 @@ void ByteBoss::Update() {
 				//UI::ChangeBossHP(UI::curBossHP);
 				SetState(BYTE_STATE_IDLE);
 				player->isControllable = true;
+				player->color = D3DCOLOR_ARGB(255, 255, 255, 255);
 			}
 		}
 	}
@@ -218,6 +243,10 @@ void ByteBoss::Update() {
 		{
 			SetState(BYTE_STATE_PREPARING);
 			x += 20 * (-dirRight);
+		}
+		else if (anim->curframe == anim->endframe) {
+			mine = new ByteMine(x + dirRight * 80, y - 15, dirRight);
+			mineThrown = true;
 		}
 		else {
 			AdjustPosition();
@@ -257,19 +286,36 @@ void ByteBoss::Update() {
 		if (anim->curframe == anim->endframe
 			&& anim->animcount >= anim->animdelay)
 		{
-			SetState(BYTE_STATE_IDLE);
+			SetState(BYTE_STATE_CHARGING_AT_PLAYER);
 			player->isVulnerable = true;
 			player->TakeDmg(BYTE_PUNCH_DAMAGE);
 			player->dirRight = -dirRight;
 			if (player->HitGround()) {
 				player->y -= 10;
 			}
-			player->color = D3DCOLOR_ARGB(255, 255, 255, 255);
+			
 			player->ForcedMove(BYTE_PUNCH_FORCE * dirRight, 0);
+			player->isVulnerable = false;
 			//x += 20 * (-dirRight);
 		}
 		else {
 			AdjustPosition();
+		}
+	}
+	else if (state == BYTE_STATE_DYING) {
+		if (dying_t > 255) {
+			isDestroyed = true;
+			player->isControllable = true;
+		}
+		else {
+			color = D3DCOLOR_ARGB(255 - dying_t, 0, 255, 255);
+			if (dying_t % 7 == 0 && dying_t < BYTE_STATE_TIME_DYING - 30) {
+				Effects::CreateExplosion(x + Random::RandInt(-30, 30),
+											y + Random::RandInt(-50, 50));
+			}
+			dying_t++;
+			anim->animcount = 0;
+			player->anim->animcount = 0;
 		}
 	}
 	else {
@@ -278,12 +324,12 @@ void ByteBoss::Update() {
 	//AdjustPosition();
 	delta_t++;
 
-	if (!isVulnerable) {
+	if (!isVulnerable && !(state == BYTE_STATE_DYING)) {
 		if (invulnerable_t > INVULNERABLE_TIME) {
 			isVulnerable = true;
 			invulnerable_t = -1;
-			//color = D3DCOLOR_ARGB(255, 255, 255, 255);
-			color = D3DCOLOR_COLORVALUE(0.0f, 1.0f, 1.0f, 1.0f);
+			color = D3DCOLOR_ARGB(255, 255, 255, 255);
+			//color = D3DCOLOR_COLORVALUE(0.0f, 1.0f, 1.0f, 1.0f);
 		}
 		else if (invulnerable_t % 3 == 0) {
 			color = D3DCOLOR_ARGB(255, 0, 255, 255);
@@ -295,6 +341,9 @@ void ByteBoss::Update() {
 	}
 
 	MObject::Update();
+	if (mineThrown) {
+		mine->Update();
+	}
 }
 
 void ByteBoss::Render() {
@@ -309,4 +358,7 @@ void ByteBoss::Render() {
 		NULL, &combined);
 
 	MObject::Render();
+	if (mineThrown) {
+		mine->Render();
+	}
 }

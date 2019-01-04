@@ -675,7 +675,7 @@ void Start() {
 	megaman = new Megaman();
 	Random::Init();
 	UI::InitHPBar();
-	UI::InitBossHPBar();
+	/*UI::InitBossHPBar();*/
 	Events::megaman = megaman;
 
 	/*enemy = new NotorBanger(megaman, 950, 500);

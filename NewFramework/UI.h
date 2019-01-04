@@ -26,6 +26,7 @@ public:
 	static void ChangeHP(int newHP);
 	static void InitBossHPBar();
 	static void ChangeBossHP(int newBossHP);
+	static void DeleteBossHPBar();
 	static void UpdateUI();
 	static void RenderUI();
 };
