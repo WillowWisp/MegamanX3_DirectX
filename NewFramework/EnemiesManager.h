@@ -7,6 +7,7 @@
 #include "Random.h"
 #include "Effects.h"
 #include "ByteBoss.h"
+#include "BlastHornet.h"
 #include "Events.h"
 
 #define TYPE_RANDOM -1
@@ -31,6 +32,7 @@ public:
 	static std::vector<bool> enemyIsSpawnedAtSpot;
 	static Enemy* boss;
 
+	static RECT blastHornetRegion;
 
 	EnemiesManager();
 	~EnemiesManager();

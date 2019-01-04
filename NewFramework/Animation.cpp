@@ -43,7 +43,7 @@ void Animation::NextFrameWithoutLoop(int newframe) {
 	curframe = newframe;
 }
 
-void Animation::AnimateWithoutLoop(D3DXMATRIX _matrix) {
+void Animation::AnimateWithoutLoop(D3DXMATRIX _matrix, D3DCOLOR _color) {
 	if (animcount > animdelay) {
 		animcount = 0;
 		NextFrameWithoutLoop(curframe + 1);
@@ -52,7 +52,7 @@ void Animation::AnimateWithoutLoop(D3DXMATRIX _matrix) {
 		animcount++;
 	}
 
-	sprite[curframe]->Draw(_matrix);
+	sprite[curframe]->Draw(_matrix, _color);
 }
 
 void Animation::ChangeAnimFrames(int begin, int end) {

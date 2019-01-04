@@ -19,11 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlastHornet.h" />
+    <ClInclude Include="BlastHornetWing.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletsManager.h" />
     <ClInclude Include="ByteBoss.h" />
     <ClInclude Include="ByteMine.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ChasingBee.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DemoScene.h" />
@@ -75,6 +78,7 @@
     <ClInclude Include="MapReader\zconf.h" />
     <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="MegamanBullet.h" />
+    <ClInclude Include="MiniBee.h" />
     <ClInclude Include="MovingObjects.h" />
     <ClInclude Include="NotorBanger.h" />
     <ClInclude Include="NotorBangerBullet.h" />
@@ -89,11 +93,14 @@
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlastHornet.cpp" />
+    <ClCompile Include="BlastHornetWing.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletsManager.cpp" />
     <ClCompile Include="ByteBoss.cpp" />
     <ClCompile Include="ByteMine.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ChasingBee.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="DemoScene.cpp" />
@@ -142,6 +149,7 @@
     <ClCompile Include="MapReader\TmxTileset.cpp" />
     <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="MegamanBullet.cpp" />
+    <ClCompile Include="MiniBee.cpp" />
     <ClCompile Include="MovingObjects.cpp" />
     <ClCompile Include="NotorBanger.cpp" />
     <ClCompile Include="NotorBangerBullet.cpp" />
@@ -163,7 +171,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B427AB71-CBFF-4856-AA4D-2BC72FB2DE47}</ProjectGuid>
     <RootNamespace>NewFramework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -215,8 +223,8 @@
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;D:\Projects\GitHub\MegamanX3_DirectX\NewFramework\Sound library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;D:\Projects\GitHub\MegamanX3_DirectX\NewFramework\Sound library;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;D:\Projects\GitHub\MegamanX3_DirectX\NewFramework\Sound library;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;D:\Projects\GitHub\MegamanX3_DirectX\NewFramework\Sound library;D:\TaiLieu\GithubProjects\MegamanX3_DirectX\NewFramework\Sound library;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;D:\Projects\GitHub\MegamanX3_DirectX\NewFramework\Sound library;D:\TaiLieu\GithubProjects\MegamanX3_DirectX\NewFramework\Sound library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

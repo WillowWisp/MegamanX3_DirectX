@@ -29,6 +29,8 @@ public:
 	void MoveXYToCenter();
 	void SetSignedMoveX();
 	void SetUnsignedMoveX();
+
+	void Goto(D3DXVECTOR2 des, int speed);
 	//
 
 	char* tag;

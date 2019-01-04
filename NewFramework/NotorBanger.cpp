@@ -190,8 +190,5 @@ void NotorBanger::Render() {
 	y += movey;
 	anim->AnimateWithoutLoop(matrix);
 	SetWidthHeight();
-	//for (int i = 0; i < bulletList.size(); i++) {
-	//	bulletList.at(i)->Render();
-	//}
 }
 

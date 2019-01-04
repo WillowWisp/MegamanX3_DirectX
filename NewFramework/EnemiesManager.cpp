@@ -9,6 +9,8 @@ std::vector<bool> EnemiesManager::enemyIsSpawnedAtSpot;
 Enemy* EnemiesManager::boss;
 bool EnemiesManager::isFightingBoss = false;
 
+RECT EnemiesManager::blastHornetRegion = RECT();
+
 EnemiesManager::EnemiesManager()
 {
 }
@@ -32,7 +34,7 @@ void EnemiesManager::SpawnBoss(Megaman* player, int bossID) {
 		boss = new ByteBoss(player, 11580, 1900);
 		break;
 	case BOSS_BLAST_HORNET:
-		boss = new ByteBoss(player, 15750, 3500);
+		boss = new BlastHornet(player, EnemiesManager::blastHornetRegion);
 		break;
 	default:
 		break;

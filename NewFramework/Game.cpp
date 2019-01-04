@@ -564,7 +564,7 @@ void CheckCollisionBullets() {
 
 		bullet->MoveXYToCorner();
 		megaman->MoveXYToCorner();
-		char* isCollided = Collision::IsCollided(bullet, megaman);
+		char* isCollided = Collision::IsIntersect(bullet, megaman);
 		bullet->MoveXYToCenter();
 		megaman->MoveXYToCenter();
 
@@ -647,6 +647,18 @@ void CheckCollisionBullets() {
 					else {
 						//map->GetQuadtree()->Remove(enemy);
 					}
+				}
+			}
+		}
+	}
+
+	for (auto megamanBullet : BulletsManager::MegamanBulletsList) {
+		for (auto enemyBullet : BulletsManager::EnemyBulletsList) {
+			char* isCollided = Collision::IsIntersect(megamanBullet, enemyBullet);
+			if (isCollided != (char*)"none") {
+				enemyBullet->OnCollision(megamanBullet, isCollided);
+				if (megamanBullet->tag != (char*)"megamanBulletLvl2") {
+					megamanBullet->Vanish();
 				}
 			}
 		}
