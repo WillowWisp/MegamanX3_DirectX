@@ -149,6 +149,11 @@ void Scene::CheckCollision() {
 						newLeftWallX = max(newLeftWallX, collisionList.at(i)->x + collisionList.at(i)->width / 2);
 					}
 				}
+				else if (collisionList.at(i)->tag == (char*)"deathTrap") {
+					if (GameGlobal::IsIntersect(megaman->GetRect(), collisionList.at(i)->GetRect())) {
+						megaman->OnCollision(collisionList.at(i), (char*)"X");
+					}
+				}
 			}
 		}
 
@@ -447,7 +452,7 @@ void Scene::CheckCollisionBullets() {
 //Hàm này để xử lý logic mỗi frame
 void Scene::UpdateCameraWorldMap()
 {
-	if (megaman->isDead)
+	if (megaman->isDead || (megaman->state == STATE_INTRO && megaman->isRespawned))
 		return;
 	if (!Events::isOpeningDoor) {
 		GameGlobal::camera->Reposition(megaman->GetRect());
@@ -472,7 +477,9 @@ void Scene::RepositionCameraToSpawnSpot() {
 }
 
 void Scene::RespawnPlayer() {
-	megaman->Respawn(respawnSpots[curPlayerRespawnSpot].left, respawnSpots[curPlayerRespawnSpot].top);
+	RECT respawnRect = respawnSpots[curPlayerRespawnSpot];
+	megaman->Respawn(respawnRect.left + (respawnRect.right - respawnRect.left) / 2,
+					respawnRect.top + (respawnRect.bottom - respawnRect.top) / 2 - GameGlobal::camera->height / 2);
 	for (int i = 0; i < Events::doorsList.size(); i++) {
 		if (Events::doorsList[i]->x > megaman->x) {
 			Events::doorsList[i]->anim->ChangeAnimFrames(0, 0);

@@ -209,6 +209,24 @@ void GameMap::LoadMap(char* filePath)
 				quadtree->Insert(mObject);
 			}
 		}
+		else if (objectGroup->GetName() == "deathTraps") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//Lấy ObjectGroup # lấy layer
+				//ObjectGroup chứa những object (object của phần mềm Tiled)
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				MObject *mObject = new MObject();
+				mObject->tag = (char*)"deathTrap";
+				mObject->x = object->GetX() + object->GetWidth() / 2;
+				mObject->y = object->GetY() + object->GetHeight() / 2;
+				mObject->width = object->GetWidth();
+				mObject->height = object->GetHeight();
+				//mObject->Tag = Entity::EntityTypes::Static;
+
+				quadtree->Insert(mObject);
+			}
+		}
 
 		//thêm else vô thì VS nhận sai định dạng??
 		if (objectGroup->GetName() == "blastHornetRegion") {

@@ -9,12 +9,14 @@ BlastHornetScene::BlastHornetScene()
 void BlastHornetScene::Start()
 {
 	//background = Graphics::LoadSurface((char*)"myBackground.bmp");
-	background = Graphics::LoadSurface((char*)"BG2.bmp");
+	background = Graphics::LoadSurface((char*)"BG1.bmp");
 	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
 	//Sound::PlaySoundA(backgroundSound);
+	isBackgroundChanged = false;
+	backgroundChangeX = 5300;
 
-	megaman = new Megaman(133, 1800); //Start
-	//megaman = new Megaman(4500, 2300); //Shurikein
+	megaman = new Megaman(133, 1600); //Start
+	//megaman = new Megaman(4500, 2200); //Shurikein
 	//megaman = new Megaman(11000, 2318);	//Byte
 	//megaman = new Megaman(15040, 3885);	//Blast Hornet
 
@@ -94,6 +96,12 @@ void BlastHornetScene::Update()
 		if (megaman->x > respawnSpots[curPlayerRespawnSpot + 1].left) {
 			curPlayerRespawnSpot += 1;
 		}
+	}
+
+	//Change Background;
+	if (megaman->x > backgroundChangeX && !isBackgroundChanged) {
+		background = Graphics::LoadSurface((char*)"BG2.bmp");
+		isBackgroundChanged = true;
 	}
 
 }

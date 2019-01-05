@@ -37,13 +37,14 @@ Megaman::Megaman(int _x, int _y)
 	isHealing = false;
 	isOnSlope = false;
 	isDead = false;
+	isRespawned = false;
 
 	HP = MEGAMAN_MAX_HP;
 
 
 	//color = D3DCOLOR_ARGB(255, 150, 150, 255);
 
-	anim = new Animation(75, 7, 9, ANIM_DELAY + 10);
+	anim = new Animation(75, 0, 6, ANIM_DELAY + 10);
 
 	char s[50];
 	for (int i = 0; i < 75; i++) {
@@ -51,7 +52,8 @@ Megaman::Megaman(int _x, int _y)
 		anim->sprite[i] = new Sprite(s);
 	}
 	//SetState(STATE_IDLE);
-	SetState(STATE_FALLING);
+	//SetState(STATE_FALLING);
+	SetState(STATE_INTRO);
 	SetWidthHeight();
 
 	Effects::CreateMegamanEnergy();
@@ -69,6 +71,10 @@ void Megaman::OnCollision(MObject *otherObj, char* sideCollided) {
 			SetState(STATE_TAKING_DAMAGE);
 			//GAMELOG("HP: %d", HP);
 		}
+	}
+	if (collideObject->tag == (char*)"deathTrap" && isVulnerable) {
+		UI::ChangeHP(0);
+		Die();
 	}
 	//if (collideObject->tag == (char*)"item") {
 	//	y -= 100;
@@ -154,8 +160,17 @@ void Megaman::SetState(int newState)
 		movex = 0;
 		movey = 0;
 		break;
+	case STATE_INTRO:
+		SetAnimState(0, 6, ANIM_DELAY - 2);
+		isControllable = false;
+		isVulnerable = false;
+		forcedAnim_t = 0;
+		isForcedAnimation = true;
+		movex = 0;
+		movey = INTRO_DESCEND_SPEED;
+		break;
 	default:
-		SetAnimState(7, 10, ANIM_DELAY);
+		SetAnimState(7, 9, ANIM_DELAY);
 		//SetWidthHeight();
 		movex = 0;
 		movey = 0;
@@ -180,7 +195,28 @@ bool Megaman::CloseToWall() {
 }
 
 void Megaman::ForcedAnimation() {
-	if (state == STATE_DYING) {
+	if (state == STATE_INTRO) {
+		if (HitGround() && anim->curframe == anim->beginframe) {
+			movey = 0;
+			anim->curframe = anim->beginframe + 1;
+		}
+		else if (HitGround() && anim->curframe > anim->beginframe) {
+			if (anim->curframe == anim->endframe
+				&& anim->animcount > anim->animdelay) 
+			{
+				isControllable = true;
+				isVulnerable = true;
+				forcedAnim_t = -1;
+				isForcedAnimation = false;
+				SetState(STATE_IDLE);
+			}
+		}
+		else {
+			anim->animcount = anim->animdelay - 1;
+			movey = INTRO_DESCEND_SPEED;
+		}
+	}
+	else if (state == STATE_DYING) {
 		if (!isDead && forcedAnim_t > DYING_TIME) {
 			isDead = true;
 			forcedAnim_t = 0;
@@ -334,13 +370,15 @@ void Megaman::Respawn(int _x, int _y) {
 	isHealing = false;
 	isOnSlope = false;
 	isDead = false;
+	isRespawned = true;
 
 	HP = MEGAMAN_MAX_HP;
 	/*UI::HPBar->anim->ChangeAnimFrames(HP, HP);*/
 
 	color = D3DCOLOR_ARGB(255, 255, 255, 255);
 
-	SetState(STATE_FALLING);
+	//SetState(STATE_FALLING);
+	SetState(STATE_INTRO);
 	//anim->ChangeAnimFrames(0, 4);
 }
 

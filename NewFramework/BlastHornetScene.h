@@ -4,6 +4,9 @@
 class BlastHornetScene :
 	public Scene
 {
+private:
+	bool isBackgroundChanged;
+	int backgroundChangeX;
 public:
 	BlastHornetScene();
 

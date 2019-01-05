@@ -61,6 +61,10 @@ void Shurikein::SetState(int newState) {
 		phase = -1;
 		SetAnimState(84, 84, ANIM_DELAY);
 		player->isControllable = false;
+		player->movex = 0;
+		player->movey = 0;
+		movex = 0;
+		movey = 0;
 		break;
 	}
 }
