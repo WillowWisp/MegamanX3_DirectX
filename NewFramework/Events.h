@@ -23,12 +23,14 @@ public:
 	static bool isFightingBoss;
 	static int openingDoorId;
 	static Megaman* megaman;
+	static int event_t;
 
 	Events();
 	~Events();
 
 	static void CreateDoor(int x, int y);
 	static void OpenDoor(int doorId);
+	static void PlayerDeath();
 	static void RenderDoors();
 	static void RenderEvents();
 };

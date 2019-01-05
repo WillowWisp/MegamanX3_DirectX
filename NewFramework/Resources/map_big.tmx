@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-down" width="124" height="32" tilewidth="128" tileheight="128" infinite="0" nextlayerid="23" nextobjectid="526">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-down" width="124" height="32" tilewidth="128" tileheight="128" infinite="0" nextlayerid="24" nextobjectid="533">
  <tileset firstgid="1" name="mapbig_1" tilewidth="128" tileheight="128" tilecount="820" columns="41">
   <image source="Resources/mapbig_1.png" trans="ffffff" width="5290" height="2560"/>
  </tileset>
@@ -287,33 +287,41 @@
   <object id="460" x="7057.5" y="1861.75" width="540.5" height="100.5"/>
   <object id="461" x="7953" y="1861.75" width="541.5" height="109.5"/>
   <object id="472" x="12811.3" y="3927.33" width="135" height="57.6667"/>
-  <object id="505" x="13065.7" y="3918.83" width="126.667" height="59.1667"/>
+  <object id="505" x="13055.7" y="3918.83" width="143.667" height="59.1667"/>
   <object id="506" x="13239" y="3917.17" width="129" height="61.1667"/>
   <object id="507" x="13478.7" y="3916" width="131.334" height="61.6667"/>
   <object id="524" x="13654.3" y="3914.17" width="131.334" height="61.6667"/>
   <object id="525" x="13894.3" y="3916.17" width="131.334" height="61.6667"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="11" name="cameraBorder">
-  <object id="299" x="1.66667" y="1536.67" width="1981.33" height="447.333"/>
-  <object id="300" x="1538.67" y="510.667" width="508" height="1473.33"/>
-  <object id="301" x="1540" y="509.333" width="829.333" height="450.667"/>
-  <object id="302" x="2176" y="509.333" width="1665.33" height="448"/>
+  <object id="299" x="1.66667" y="1538.67" width="2031.33" height="442.333"/>
+  <object id="300" x="1534.67" y="515.667" width="512" height="1468.33"/>
+  <object id="301" x="1535" y="514.333" width="1088.33" height="442.667"/>
+  <object id="302" x="2176" y="513.333" width="1665.33" height="442"/>
   <object id="303" x="3421.33" y="508" width="637.333" height="928"/>
   <object id="304" x="3073.33" y="1022.67" width="1024" height="1473.33"/>
-  <object id="305" x="3072" y="2046.67" width="1535.55" height="449.333"/>
-  <object id="306" x="4609.33" y="2046.67" width="510.667" height="449.333"/>
-  <object id="342" x="5124.24" y="2045.45" width="1019.58" height="448.485"/>
+  <object id="305" x="3072" y="2050.67" width="1535.55" height="442.333"/>
+  <object id="306" x="4609.33" y="2049.67" width="508.667" height="442.333"/>
+  <object id="342" x="5120.24" y="2048.45" width="1023.58" height="442.485"/>
   <object id="343" x="5748.48" y="1536.36" width="5448.42" height="957.576"/>
-  <object id="473" x="11196.7" y="2044.67" width="516.667" height="449.333"/>
-  <object id="517" x="11716" y="2046" width="508" height="450"/>
-  <object id="518" x="11710" y="2409" width="514" height="1621"/>
-  <object id="519" x="11704" y="3588" width="3078" height="444"/>
-  <object id="520" x="14782" y="3588" width="514.667" height="444"/>
-  <object id="521" x="15300" y="3590.67" width="514" height="441.333"/>
+  <object id="473" x="11200.7" y="2048.67" width="508.667" height="442.333"/>
+  <object id="517" x="11716" y="2049" width="508" height="442"/>
+  <object id="518" x="11714" y="2409" width="508" height="1621"/>
+  <object id="519" x="11713" y="3588" width="3069" height="442"/>
+  <object id="520" x="14786" y="3588" width="508.667" height="442"/>
+  <object id="521" x="15300" y="3587.67" width="508" height="442.333"/>
+ </objectgroup>
+ <objectgroup color="#aa00ff" id="23" name="respawnSpots">
+  <object id="526" x="129" y="1785" width="37" height="39"/>
+  <object id="527" x="2689" y="738" width="30" height="28"/>
+  <object id="529" x="5194" y="2329" width="28" height="28"/>
+  <object id="530" x="9730" y="2228" width="31" height="31"/>
+  <object id="531" x="11779" y="2329" width="25" height="26"/>
+  <object id="532" x="12289" y="3816" width="32" height="30"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="13" name="notorBanger">
   <object id="307" x="890" y="1689" width="116.333" height="94.6667"/>
-  <object id="310" x="1358" y="1784.67" width="152.667" height="102"/>
+  <object id="310" x="1298" y="1784.67" width="94.667" height="102"/>
   <object id="311" x="3805.33" y="1285.67" width="102.333" height="86"/>
   <object id="312" x="3158" y="1290" width="88" height="84.3333"/>
   <object id="314" x="3258" y="1536" width="104" height="91.6667"/>

@@ -71,6 +71,20 @@ void GameMap::LoadMap(char* filePath)
 				cameraBorders.push_back(rect);
 			}
 		} 
+		else if (objectGroup->GetName() == "respawnSpots") {
+			for (int j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+
+				RECT rect;
+				rect.left = object->GetX();
+				rect.right = rect.left + object->GetWidth();
+				rect.top = object->GetY();
+				rect.bottom = rect.top + object->GetHeight();
+
+				respawnSpots.push_back(rect);
+			}
+		}
 		else if (objectGroup->GetName() == "notorBanger") {
 			for (int j = 0; j < objectGroup->GetNumObjects(); j++) {
 				Tmx::Object *object = objectGroup->GetObjects().at(j);

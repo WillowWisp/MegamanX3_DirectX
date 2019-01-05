@@ -20,6 +20,7 @@
 #define STATE_WALL_SLIDING 9
 #define STATE_WALL_KICKING 10
 #define STATE_TAKING_DAMAGE 11
+#define STATE_DYING 12
 #define ANIM_DELAY 1
 #define MEGAMAN_SPEED 5
 #define DASH_SPEED 13
@@ -40,6 +41,7 @@
 #define TAKING_DMG_ANIMATION_TIME 20
 #define INVULNERABLE_TIME 50
 #define HEALING_TIME 20
+#define DYING_TIME 20
 #define MEGAMAN_MAX_HP 16
 #define HIT_GROUND_MARGIN 4
 #define HIT_CEIL_MARGIN 4
@@ -50,6 +52,7 @@ class Megaman :
 	MObject *collideObject;
 public:
 	Megaman();
+	Megaman(int _x, int _y);
 	~Megaman();
 
 	//variables to manage megaman's shitton amount of states
@@ -76,6 +79,7 @@ public:
 	bool isOnSlope;
 	bool isForcedAnimation;
 	bool isForcedMove;
+	bool isDead;
 
 	int shootingAnimDelay;
 	int energy_t;
@@ -99,6 +103,8 @@ public:
 	void ForcedMove(int _movex, int _movey);
 	void Heal(int healAmount);
 	void TakeDmg(int damage);
+	void Die();
+	void Respawn(int _x, int _y);
 
 	void OnCollision(MObject *otherObj, char* sideCollided);
 

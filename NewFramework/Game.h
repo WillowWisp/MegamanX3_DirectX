@@ -10,9 +10,9 @@
 #include "Input.h"
 #include "Collision.h"
 #include "GameMap.h"
-#include"SceneManager.h"
-#include"Scene.h"
-#include"DemoScene.h"
+#include "SceneManager.h"
+#include "Scene.h"
+#include "DemoScene.h"
 #include "Sun.h"
 #include "Megaman.h"
 #include "NotorBanger.h"
@@ -31,6 +31,7 @@
 #include "UI.h"
 #include "Events.h"
 #include "MovingObjects.h"
+#include "BlastHornetScene.h"
 
 #define UPDATE_RATE 10
 

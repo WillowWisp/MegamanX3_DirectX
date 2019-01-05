@@ -95,9 +95,6 @@
     <ClCompile Include="DebugDraw.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="Effects.cpp">
-      <Filter>Framework\GameComponents</Filter>
-    </ClCompile>
     <ClCompile Include="Elevator.cpp">
       <Filter>Framework\GameComponents</Filter>
     </ClCompile>
@@ -212,6 +209,12 @@
     <ClCompile Include="MapReader\TmxUtil.cpp">
       <Filter>Framework\MapReader</Filter>
     </ClCompile>
+    <ClCompile Include="BlastHornetScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -305,9 +308,6 @@
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="DebugDraw.h">
-      <Filter>Framework\GameComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects.h">
       <Filter>Framework\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Elevator.h">
@@ -432,6 +432,12 @@
     </ClInclude>
     <ClInclude Include="MapReader\zlib.h">
       <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="BlastHornetScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects.h">
+      <Filter>Framework\GameControllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
