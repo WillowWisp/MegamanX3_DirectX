@@ -21,6 +21,7 @@
 #define STATE_WALL_KICKING 10
 #define STATE_TAKING_DAMAGE 11
 #define STATE_DYING 12
+#define STATE_INTRO 13
 #define ANIM_DELAY 1
 #define MEGAMAN_SPEED 5
 #define DASH_SPEED 13
@@ -45,6 +46,7 @@
 #define MEGAMAN_MAX_HP 16
 #define HIT_GROUND_MARGIN 4
 #define HIT_CEIL_MARGIN 4
+#define INTRO_DESCEND_SPEED 15
 
 class Megaman :
 	public MObject
@@ -80,6 +82,7 @@ public:
 	bool isForcedAnimation;
 	bool isForcedMove;
 	bool isDead;
+	bool isRespawned; //for camera
 
 	int shootingAnimDelay;
 	int energy_t;
