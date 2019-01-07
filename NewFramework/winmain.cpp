@@ -40,7 +40,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wc.lpszMenuName = NULL;
-	wc.lpszClassName = "Create_Surface";
+	wc.lpszClassName = "Megaman_X3";
 	wc.hIconSm = NULL;
 	//Dang ky lop cua so
 	return RegisterClassEx(&wc);
@@ -58,8 +58,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	HWND hWnd;
 	//Tao 1 cua so
 	hWnd = CreateWindow(
-		"Create_Surface",	//window class
-		"Create Surface",	//title bar
+		"Megaman_X3",	//window class
+		"Megaman_X3",	//title bar
 		WS_OVERLAPPEDWINDOW,	//window style
 		CW_USEDEFAULT,	//x position of window
 		CW_USEDEFAULT,	//y position of window

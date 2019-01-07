@@ -2,6 +2,7 @@
 
 //flag to recognize boss scene
 bool flag = false;
+bool isDie = false;
 
 BlastHornetScene::BlastHornetScene()
 {
@@ -23,8 +24,8 @@ void BlastHornetScene::Start()
 	//megaman = new Megaman(133, 1600); //Start
 	//megaman = new Megaman(12200, 3800); //Bug
 	//megaman = new Megaman(4500, 2200); //Shurikein
-	megaman = new Megaman(11000, 2318);	//Byte
-	//megaman = new Megaman(15040, 3885);	//Blast Hornet
+	//megaman = new Megaman(11000, 2318);	//Byte
+	megaman = new Megaman(15040, 3800);	//Blast Hornet
 
 
 	UI::InitHPBar();
@@ -79,12 +80,21 @@ void BlastHornetScene::Update()
 		if (Events::openingDoorId == BOSS_BLAST_HORNET_DOOR && Events::isOpeningDoor==false) // when megaman win (openingdoor = blast hornet && no event opening door (while fighting) )
 		{
 			Sound::StopSound(backgroundSound);
-			
 			flag = true;
-			Sound::PlaySoundA(stageclear);
+			//regconize that blast hornet is died
+			if (isDie == false)
+			{
+				isDie = true;
+				if (isDie == true)
+				{
+					Sound::PlaySoundA(stageclear); //play once time
+
+				}
+			}
+			
 		}
 	}
-
+	
 	if (Events::isFightingBoss == true)
 	{
 		flag = true;
