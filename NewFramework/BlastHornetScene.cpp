@@ -1,6 +1,7 @@
 #include "BlastHornetScene.h"
 
-
+//flag to recognize boss scene
+bool flag = false;
 
 BlastHornetScene::BlastHornetScene()
 {
@@ -8,16 +9,21 @@ BlastHornetScene::BlastHornetScene()
 
 void BlastHornetScene::Start()
 {
+
 	//background = Graphics::LoadSurface((char*)"myBackground.bmp");
 	background = Graphics::LoadSurface((char*)"BG1.bmp");
-	backgroundSound = Sound::LoadSound((char*)"bgmusic.wav");
+	backgroundSound = Sound::LoadSound((char*)"Resources/Sounds/Musics/stage.wav");
+	stageclear = Sound::LoadSound((char*)"Resources/Sounds/Musics/stage_clear.wav");
+	explosion = Sound::LoadSound((char*)"Resources/Sounds/Effects/explosion.wav");
+	boss = Sound::LoadSound((char*)"Resources/Sounds/Musics/blast_hornet.wav");
 	//Sound::PlaySoundA(backgroundSound);
 	isBackgroundChanged = false;
 	backgroundChangeX = 5300;
 
-	megaman = new Megaman(133, 1600); //Start
+	//megaman = new Megaman(133, 1600); //Start
+	//megaman = new Megaman(12200, 3800); //Bug
 	//megaman = new Megaman(4500, 2200); //Shurikein
-	//megaman = new Megaman(11000, 2318);	//Byte
+	megaman = new Megaman(11000, 2318);	//Byte
 	//megaman = new Megaman(15040, 3885);	//Blast Hornet
 
 
@@ -49,6 +55,7 @@ void BlastHornetScene::Start()
 
 void BlastHornetScene::Update()
 {
+	if (flag == false) Sound::LoopSound(backgroundSound);
 	/*if (megaman->isDead && megaman->forcedAnim_t > DYING_TIME * 2) {
 		RespawnPlayer();
 		return;
@@ -65,6 +72,31 @@ void BlastHornetScene::Update()
 		Events::OpenDoor(Events::openingDoorId);
 	}
 
+	if (Events::isFightingBoss == false)
+	{
+		flag = false;
+		Sound::StopSound(boss);
+		if (Events::openingDoorId == BOSS_BLAST_HORNET_DOOR && Events::isOpeningDoor==false) // when megaman win (openingdoor = blast hornet && no event opening door (while fighting) )
+		{
+			Sound::StopSound(backgroundSound);
+			
+			flag = true;
+			Sound::PlaySoundA(stageclear);
+		}
+	}
+
+	if (Events::isFightingBoss == true)
+	{
+		flag = true;
+		if (Events::openingDoorId == BOSS_BLAST_HORNET_DOOR) // when megaman fighting with blast hornet, play other sound
+		{
+			Sound::StopSound(backgroundSound);
+			Sound::StopSound(stageclear);
+			Sound::LoopSound(boss);
+		}
+
+
+	}
 	MovingObjects::UpdateMovingObjects();
 
 

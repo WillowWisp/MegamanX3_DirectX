@@ -1,8 +1,16 @@
 #include "Megaman.h"
-
+CSound *shoot;
+CSound *energyshoot;
+CSound *vulnerable;
+CSound *dash;
+CSound *jump;
 Megaman::Megaman(int _x, int _y)
 {
-
+	shoot = Sound::LoadSound((char*)"Resources/Sounds/Effects/megaman_shoot.wav");
+	energyshoot = Sound::LoadSound((char*)"Resources/Sounds/Effects/megaman_shootenergy.wav");
+	vulnerable = Sound::LoadSound((char*)"Resources/Sounds/Effects/megaman_vulnerable.wav");
+	dash = Sound::LoadSound((char*)"Resources/Sounds/Effects/megaman_dash.wav");
+	jump = Sound::LoadSound((char*)"Resources/Sounds/Effects/megaman_jump2.wav");
 	x = _x;
 	y = _y;
 
@@ -116,10 +124,12 @@ void Megaman::SetState(int newState)
 		break;
 	case STATE_DASHING:
 		SetAnimState(60, 61, ANIM_DELAY + 4);
+		Sound::PlaySoundA(dash);
 		//SetWidthHeight();
 		break;
 	case STATE_JUMPING:
 		SetAnimState(34, 36, ANIM_DELAY);
+		Sound::PlaySoundA(jump);
 		//SetWidthHeight();
 		//GAMELOG("jumping");
 		//movex = jumpAfterDash ? DASH_SPEED : MEGAMAN_SPEED;
@@ -232,6 +242,7 @@ void Megaman::ForcedAnimation() {
 		}
 	}
 	else if (state == STATE_TAKING_DAMAGE) {
+		Sound::PlaySoundA(vulnerable);
 		if (forcedAnim_t > TAKING_DMG_ANIMATION_TIME) {
 			isControllable = true;
 			//SetState(STATE_IDLE);
@@ -418,6 +429,7 @@ void Megaman::Update()
 		int temp_dirRight = 1;
 		if (state == STATE_WALL_SLIDING)
 			temp_dirRight = -1;
+		Sound::PlaySoundA(shoot);
 		//Create Bullet here
 		BulletsManager::CreateBullet(new MegamanBullet(x + (dirRight * temp_dirRight * width / 2), 
 														y - (height / 9), dirRight * temp_dirRight, 
@@ -435,11 +447,13 @@ void Megaman::Update()
 			BulletsManager::CreateBullet(new MegamanBullet(x + (dirRight * temp_dirRight * width / 2), 
 															y - (height / 9), dirRight * temp_dirRight, 
 															1));
+			Sound::PlaySoundA(energyshoot);
 		}
 		else if (energy_t >= CHARGED_SHOT_LV2_TIME) {
 			BulletsManager::CreateBullet(new MegamanBullet(x + (dirRight * temp_dirRight * width / 2), 
 															y - (height / 9), dirRight * temp_dirRight, 
 															2));
+			Sound::PlaySoundA(energyshoot);
 		}
 
 		energy_t = -1;

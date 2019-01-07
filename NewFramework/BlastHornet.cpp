@@ -1,8 +1,9 @@
 ﻿#include "BlastHornet.h"
-
+CSound *bossexplosion;
 
 BlastHornet::BlastHornet(Megaman* _player, RECT _flyingRegion)
 {
+	bossexplosion = Sound::LoadSound((char*)"Resources/Sounds/Effects/explosion.wav");
 	flyingRegion = _flyingRegion;
 	CalculatePoints();
 	cycleDuration = BASE_CYCLE_DURATION;
@@ -20,7 +21,7 @@ BlastHornet::BlastHornet(Megaman* _player, RECT _flyingRegion)
 
 	phase = 0;
 	HP = BH_TOTAL_HP;
-	HP = 32;
+	HP = 1;
 
 	invulnerable_t = -1;
 	isVulnerable = true;
@@ -330,6 +331,7 @@ void BlastHornet::Update() {
 			if (delta_t2 % 7 == 0 && delta_t2 < 255 - 30) {
 				Effects::CreateExplosion(x + Random::RandInt(-30, 30),
 					y + Random::RandInt(-50, 50));
+				Sound::PlaySoundA(bossexplosion);
 			}
 			delta_t2++;
 			anim->animcount = 0;

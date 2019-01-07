@@ -1,6 +1,6 @@
 ﻿#include "ByteBoss.h"
 
-
+CSound *byteexplosion;
 
 ByteBoss::ByteBoss()
 {
@@ -12,6 +12,7 @@ ByteBoss::~ByteBoss()
 }
 
 ByteBoss::ByteBoss(Megaman* _player, int _x, int _y) {
+	byteexplosion= Sound::LoadSound((char*)"Resources/Sounds/Effects/explosion.wav");
 	player = _player;
 
 	tag = (char*)"bossByte";
@@ -312,6 +313,7 @@ void ByteBoss::Update() {
 			if (dying_t % 7 == 0 && dying_t < BYTE_STATE_TIME_DYING - 30) {
 				Effects::CreateExplosion(x + Random::RandInt(-30, 30),
 											y + Random::RandInt(-50, 50));
+				Sound::PlaySoundA(byteexplosion);
 			}
 			dying_t++;
 			anim->animcount = 0;

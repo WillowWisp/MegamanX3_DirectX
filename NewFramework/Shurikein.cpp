@@ -1,9 +1,10 @@
 ﻿#include "Shurikein.h"
 
-
+CSound *shurikenexplosion;
 
 Shurikein::Shurikein(Megaman* _player, int _x, int _y, int _dirRight)
 {
+	shurikenexplosion= Sound::LoadSound((char*)"Resources/Sounds/Effects/explosion.wav");
 	player = _player;
 	x = _x;
 	y = _y;
@@ -253,6 +254,7 @@ void Shurikein::Update() {
 			if (delta_t % 7 == 0 && delta_t < 255 - 30) {
 				Effects::CreateExplosion(x + Random::RandInt(-30, 30),
 					y + Random::RandInt(-50, 50));
+				Sound::PlaySoundA(shurikenexplosion);
 			}
 			//delta_t++;
 			anim->animcount = 0;

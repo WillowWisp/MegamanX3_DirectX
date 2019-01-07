@@ -1,13 +1,14 @@
 ﻿#include "Scene.h"
-
-
+//CSound *explosion = Sound::LoadSound((char*)"Resources/Sounds/Effects/explosion.wav");
 
 Scene::Scene()
 {
+	
 }
 
 void Scene::Start()
 {
+	
 }
 
 void Scene::Render()
@@ -217,6 +218,7 @@ void Scene::CheckCollision() {
 }
 
 void Scene::CheckCollisionEnemy() {
+	
 	if (!Events::isFightingBoss) {
 		for (auto enemy : EnemiesManager::enemiesList) {
 			collisionList.clear();
@@ -380,6 +382,7 @@ void Scene::CheckCollisionBullets() {
 					}
 					else {
 						//map->GetQuadtree()->Remove(enemy);
+						Sound::PlaySoundA(explosion);
 					}
 				}
 				else {
@@ -393,6 +396,7 @@ void Scene::CheckCollisionBullets() {
 						}
 						else {
 							//map->GetQuadtree()->Remove(enemy);
+							Sound::PlaySoundA(explosion);
 						}
 					}
 				}

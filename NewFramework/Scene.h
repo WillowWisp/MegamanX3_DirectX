@@ -16,7 +16,7 @@ protected:
 	std::vector<MObject*> collisionList;
 	std::vector<RECT> respawnSpots;
 	LPDIRECT3DSURFACE9 background;
-	CSound *backgroundSound;
+	
 	Sprite *sprite;
 	int curPlayerRespawnSpot;
 	int scene_t;
@@ -25,6 +25,11 @@ protected:
 	void CheckCollisionEnemy();
 	void CheckCollisionItems();
 	void CheckCollisionBullets();
+
+	CSound *explosion;
+	CSound *backgroundSound;
+	CSound *boss;
+	CSound *stageclear;
 
 public:
 	Scene();

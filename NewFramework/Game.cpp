@@ -189,6 +189,11 @@ int Game::Game_Init(HWND hWnd) {
 		return 0;
 	}
 
+	//init_sound
+	if (!Sound::Init_DirectSound(hWnd)) {
+		MessageBox(hWnd, "Error initializing DirectSound", "Error", MB_OK);
+		return 0;
+	}
 	//init mouse
 	/*if (!Input::InitMouse(hWnd)) {
 		MessageBox(hWnd, "Error initializing the mouse", "Error", MB_OK);
