@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-down" width="124" height="33" tilewidth="128" tileheight="128" infinite="0" nextlayerid="28" nextobjectid="546">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="left-down" width="124" height="33" tilewidth="128" tileheight="128" infinite="0" nextlayerid="28" nextobjectid="546">
  <tileset firstgid="1" name="mapbig_1" tilewidth="128" tileheight="128" tilecount="820" columns="41">
   <image source="Resources/mapbig_1.png" trans="ffffff" width="5290" height="2560"/>
  </tileset>
@@ -315,7 +315,7 @@
   <object id="533" x="1474" y="2162" width="628" height="127"/>
   <object id="534" x="4018" y="863" width="208" height="158"/>
   <object id="535" x="4021" y="1757" width="102" height="126"/>
-  <object id="536" x="3118" y="2644" width="478" height="171"/>
+  <object id="536" x="3118" y="2588" width="478" height="171"/>
   <object id="537" x="12211" y="3356" width="155" height="162"/>
   <object id="538" x="11662" y="4159" width="361" height="166"/>
   <object id="539" x="12890" y="4172" width="240" height="169"/>
@@ -326,7 +326,7 @@
   <object id="529" x="5248" y="2271" width="28" height="28"/>
   <object id="530" x="9727" y="2275" width="31" height="31"/>
   <object id="531" x="11827" y="2266" width="25" height="26"/>
-  <object id="532" x="12347" y="3800" width="32" height="30"/>
+  <object id="532" x="12496" y="3800" width="32" height="30"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="13" name="notorBanger">
   <object id="307" x="899" y="1691" width="116.333" height="94.6667"/>

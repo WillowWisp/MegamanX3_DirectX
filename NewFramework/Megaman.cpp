@@ -80,7 +80,7 @@ void Megaman::OnCollision(MObject *otherObj, char* sideCollided) {
 			//GAMELOG("HP: %d", HP);
 		}
 	}
-	if (collideObject->tag == (char*)"deathTrap" && isVulnerable) {
+	if (collideObject->tag == (char*)"deathTrap" && (isVulnerable || y>GameGlobal::camera->GetBound().bottom)) {
 		UI::ChangeHP(0);
 		Die();
 	}

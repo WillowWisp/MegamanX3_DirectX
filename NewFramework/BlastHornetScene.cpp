@@ -21,11 +21,11 @@ void BlastHornetScene::Start()
 	isBackgroundChanged = false;
 	backgroundChangeX = 5300;
 
-	//megaman = new Megaman(133, 1600); //Start
-	//megaman = new Megaman(12200, 3800); //Bug
+	megaman = new Megaman(133, 1600); //Start
+	//megaman = new Megaman(3250, 1530); //Bug
 	//megaman = new Megaman(4500, 2200); //Shurikein
 	//megaman = new Megaman(11000, 2318);	//Byte
-	megaman = new Megaman(15040, 3800);	//Blast Hornet
+	//megaman = new Megaman(15040, 3800);	//Blast Hornet
 
 
 	UI::InitHPBar();
