@@ -25,6 +25,7 @@
 #define BYTE_INVULNERABLE_TIME 20
 #define BYTE_PUNCH_FORCE 13
 #define BYTE_PUNCH_DAMAGE 3
+#define BYTE_HP_MAX 32
 
 
 class ByteBoss :

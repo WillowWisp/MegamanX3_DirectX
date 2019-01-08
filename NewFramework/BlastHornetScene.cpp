@@ -77,7 +77,9 @@ void BlastHornetScene::Update()
 	{
 		flag = false;
 		Sound::StopSound(boss);
-		if (Events::openingDoorId == BOSS_BLAST_HORNET_DOOR && Events::isOpeningDoor==false) // when megaman win (openingdoor = blast hornet && no event opening door (while fighting) )
+		if (Events::openingDoorId == BOSS_BLAST_HORNET_DOOR 
+			&& Events::isOpeningDoor==false
+			) // when megaman win (openingdoor = blast hornet && no event opening door (while fighting) )
 		{
 			Sound::StopSound(backgroundSound);
 			flag = true;
@@ -200,8 +202,9 @@ void BlastHornetScene::Render()
 			else {
 				Effects::DrawScreenFilter(D3DCOLOR_ARGB(255 + colorValue + 5, 0, 0, 0));
 			}
-			//GAMELOG("%d", colorValue);
+			/*GAMELOG("%d", colorValue);*/
 		}
+		GAMELOG("%d %d", colorValue, megaman->forcedAnim_t);
 	}
 
 	//stop drawing

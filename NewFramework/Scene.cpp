@@ -470,6 +470,7 @@ void Scene::UpdateCameraWorldMap()
 void Scene::RepositionCameraToSpawnSpot() {
 	UI::DeleteBossHPBar();
 	UI::HPBar->anim->ChangeAnimFrames(MEGAMAN_MAX_HP, MEGAMAN_MAX_HP);
+	UI::curHP = MEGAMAN_MAX_HP;
 	GameGlobal::camera->cameraBorders.clear();
 	GameGlobal::camera->cameraBorders = map->cameraBorders;
 	while (GameGlobal::camera->cameraBorders.size() > 0
@@ -491,6 +492,9 @@ void Scene::RespawnPlayer() {
 	}
 	if (Events::isFightingBoss) {
 		EnemiesManager::boss->isDestroyed = true;
+		if (Events::openingDoorId == BOSS_BLAST_HORNET_DOOR) {
+			Events::openingDoorId--;
+		}
 	}
 }
 

@@ -81,7 +81,6 @@ void Megaman::OnCollision(MObject *otherObj, char* sideCollided) {
 		}
 	}
 	if (collideObject->tag == (char*)"deathTrap" && (isVulnerable || y>GameGlobal::camera->GetBound().bottom)) {
-		UI::ChangeHP(0);
 		Die();
 	}
 	//if (collideObject->tag == (char*)"item") {
@@ -169,6 +168,8 @@ void Megaman::SetState(int newState)
 		isForcedAnimation = true;
 		movex = 0;
 		movey = 0;
+		HP = 0;
+		UI::ChangeHP(0);
 		break;
 	case STATE_INTRO:
 		SetAnimState(0, 6, ANIM_DELAY - 2);
@@ -314,7 +315,7 @@ void Megaman::ForcedMove(int _movex, int _movey) {
 }
 
 void Megaman::Heal(int healAmount) {
-	if (HP >= MEGAMAN_MAX_HP)
+	if (HP == MEGAMAN_MAX_HP)
 		return;
 	HP += healAmount;
 	if (HP > MEGAMAN_MAX_HP)
@@ -344,7 +345,8 @@ void Megaman::TakeDmg(int damage) {
 }
 
 void Megaman::Die() {
-	SetState(STATE_DYING);
+	if (StateChanged(STATE_DYING))
+		SetState(STATE_DYING);
 }
 
 void Megaman::Respawn(int _x, int _y) {

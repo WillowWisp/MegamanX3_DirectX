@@ -21,7 +21,7 @@ BlastHornet::BlastHornet(Megaman* _player, RECT _flyingRegion)
 
 	phase = 0;
 	HP = BH_TOTAL_HP;
-	HP = 1;
+	//HP = 1;
 
 	invulnerable_t = -1;
 	isVulnerable = true;

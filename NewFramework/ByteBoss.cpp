@@ -16,7 +16,7 @@ ByteBoss::ByteBoss(Megaman* _player, int _x, int _y) {
 	player = _player;
 
 	tag = (char*)"bossByte";
-	HP = 5;
+	HP = BYTE_HP_MAX;
 	x = _x;
 	y = _y;
 	//movex = 0;
